@@ -616,6 +616,40 @@
             font-weight: 900;
             margin-left: 0.2rem;
         }
+        .banner-stats-wrap {
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .banner-stat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 0;
+        }
+        .banner-stat .banner-score {
+            font-size: 3rem;
+        }
+        .banner-stat .banner-unit {
+            font-size: 1.25rem;
+            margin-left: 0.15rem;
+        }
+        .banner-stat-label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            color: rgba(255, 255, 255, 0.85);
+            margin-top: 0.35rem;
+        }
+        .banner-divider {
+            width: 1px;
+            background: linear-gradient(to bottom, transparent 0%, rgba(212, 175, 55, 0.6) 50%, transparent 100%);
+            flex-shrink: 0;
+        }
 
         /* 利用者の声：手紙風 */
         .letter-card {
@@ -1953,12 +1987,25 @@
             <div class="satisfaction-banner-v3">
                 <svg class="w-10 h-10 text-[#D4AF37] mx-auto mb-2" fill="currentColor" viewBox="0 0 24 24"><path d="M5 16L3 5l5.5 5L12 4l3.5 6 5.5-5-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg>
                 <p class="text-xs font-black tracking-[0.4em] gold-shining mb-1 uppercase">業界No.1</p>
-                <h3 class="text-2xl font-black text-white mb-4 font-hannari text-center">お客様満足度</h3>
-                <div class="flex items-baseline justify-center gold-shining mb-4 text-center">
-                    <span class="banner-score">98.8</span>
-                    <span class="banner-unit">%</span>
+                <h3 class="text-2xl font-black text-white mb-4 font-hannari text-center">圧倒的な実績と成功率</h3>
+                <div class="banner-stats-wrap">
+                    <div class="banner-stat">
+                        <div class="flex items-baseline justify-center gold-shining text-center">
+                            <span class="banner-score">6,000</span>
+                            <span class="banner-unit">件</span>
+                        </div>
+                        <p class="banner-stat-label">復縁支援実績</p>
+                    </div>
+                    <div class="banner-divider"></div>
+                    <div class="banner-stat">
+                        <div class="flex items-baseline justify-center gold-shining text-center">
+                            <span class="banner-score">89</span>
+                            <span class="banner-unit">%以上</span>
+                        </div>
+                        <p class="banner-stat-label">復縁成功率</p>
+                    </div>
                 </div>
-                <p class="text-[8px] text-white/40 font-medium tracking-wider text-center">※2026年1月時点 利用者アンケート結果</p>
+                <p class="text-[8px] text-white/40 font-medium tracking-wider text-center mt-3">※2026年1月時点 自社調べ</p>
             </div>
         </div>
 
