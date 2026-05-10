@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>復縁屋さん | 月々6,300~ の復縁工作</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Shippori+Mincho:wght@400;700;800;900&family=Yuji+Syuku&family=Zen+Kurenaido&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-rose: #8E3E49;
+            --dark-rose: #632B32;
+            --accent-rose: #C04851;
+            --light-rose: #E8D5D2;
+            --bg-beige: #F5F1EE;
+            --cta-bg: #FDF1F2;
+            --text-dark: #2D2D2D;
+            --cta-yellow: #E6B422;
+            --line-green: #06C755;
+            --shadow-yellow: #B38808;
+            --shadow-green: #048F3E;
+            --highlight-red: #D94A5A;
+            --shining-gold: linear-gradient(45deg, #D4AF37 0%, #FFF3B0 50%, #B38808 100%);
+            --burgundy-pink: #A64D5D;
+            --light-burgundy: #F9F1F2;
+        }
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-beige);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        .font-hannari { font-family: 'Shippori Mincho', serif; }
+
+        /* ヒーローエリア */
+        .hero-gradient {
+            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.75)),
+                        url('https://lh3.googleusercontent.com/d/1DlxFwDYK6MX1IIyU8d2A1Yy1vI0FXKGi');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .custom-underline {
+            background: linear-gradient(transparent 70%, rgba(217, 74, 90, 0.4) 70%);
+            display: inline;
+            padding-bottom: 2px;
+        }
+
+        /* お悩みエリア */
+        /* ===== 悩みへの共感 ===== */
+        .pain-section {
+            position: relative;
+            padding: 4rem 1.5rem 3rem;
+            background-color: #fff;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .pain-bg-wrapper {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .pain-bg-img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: left center;
+            filter: grayscale(100%) opacity(0.5);
+        }
+        .pain-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 40%, rgba(255,255,255,1) 100%),
+                        linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 15%, rgba(255,255,255,0) 80%, rgba(255,255,255,1) 100%);
+        }
+        .pain-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .pain-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            line-height: 1.5;
+            text-align: center;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+        }
+        .pain-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 100%);
+            border-radius: 16px;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            border-left: 1px solid rgba(255,255,255,0.3);
+            padding: 1.5rem 0.5rem 1.5rem 1.25rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            margin-left: auto;
+            margin-right: -1rem;
+            width: fit-content;
+            max-width: 95%;
+        }
+        .pain-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .pain-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .pain-icon {
+            color: var(--primary-rose);
+            flex-shrink: 0;
+            margin-top: 2px;
+            font-weight: bold;
+        }
+        .pain-item p {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #333;
+            line-height: 1.5;
+            text-align: left;
+        }
+        .marker-line {
+            background: linear-gradient(transparent 65%, rgba(142,62,73,0.25) 65%);
+            font-weight: 900;
+            color: var(--primary-rose);
+        }
+        .warning-text {
+            text-align: center;
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary-rose);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* セクション間トランジション（逆三角形） */
+        .transition-wrapper {
+            position: relative;
+            width: 100%;
+            height: 4.5rem;
+            background-color: var(--primary-rose);
+            z-index: 20;
+            margin-top: -1px;
+        }
+        .transition-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: #fff;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+
+        /* ===== 解決の根拠（ノート風） ===== */
+        .logic-section {
+            padding: 2.5rem 1.5rem 4rem;
+            background-color: var(--primary-rose);
+            position: relative;
+        }
+        .logic-title {
+            font-family: 'Shippori Mincho', serif;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #fff;
+            font-size: 1.6rem;
+            font-weight: 800;
+            line-height: 1.5;
+            letter-spacing: 0.05em;
+        }
+        .notebook-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 2.5rem 1.5rem 1.5rem;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .quote-mark {
+            position: absolute;
+            top: 15px; left: 15px;
+            width: 30px; height: 30px;
+            opacity: 0.3;
+            color: var(--primary-rose);
+        }
+        .notebook-message {
+            font-family: 'Zen Kurenaido', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #333;
+            line-height: 36px;
+            position: relative;
+            z-index: 10;
+            letter-spacing: 0.05em;
+            background-image: repeating-linear-gradient(transparent, transparent 35px, #d1d5db 35px, #d1d5db 36px);
+            background-position: 0 11px;
+        }
+        .notebook-message strong {
+            color: var(--primary-rose);
+            font-weight: 700;
+            background: linear-gradient(transparent 65%, rgba(142,62,73,0.15) 65%);
+        }
+        .expert-profile {
+            margin-top: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #fff;
+            position: relative;
+            z-index: 20;
+        }
+        .expert-img-wrap {
+            width: 70px; height: 70px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .expert-info span {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 900;
+            color: var(--primary-rose);
+            letter-spacing: 0.05em;
+            margin-bottom: 2px;
+        }
+        .expert-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #D4AF37, #B38808);
+            color: #fff !important;
+            font-size: 0.6rem !important;
+            font-weight: bold;
+            padding: 2px 10px;
+            border-radius: 12px;
+            margin-bottom: 6px !important;
+            letter-spacing: 0.05em;
+            box-shadow: 0 2px 5px rgba(212,175,55,0.4);
+        }
+        .expert-dept {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #555;
+            margin-bottom: 2px;
+        }
+        .expert-sign-wrap {
+            text-align: right;
+            margin-top: -1.5rem;
+            position: relative;
+            z-index: 20;
+        }
+        .expert-sign {
+            font-family: 'Yuji Syuku', serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: #222;
+            display: inline-block;
+            transform: rotate(-3deg);
+            padding-right: 0.5rem;
+        }
+
+        /* ===== 最安値保証バナー ===== */
+        .price-guarantee-section {
+            background: #1A1A1A;
+            padding: 2rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .price-guarantee-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--dark-rose) 0%, var(--highlight-red) 35%, var(--burgundy-pink) 65%, #E8A0B4 100%);
+        }
+        .guarantee-inner {
+            border: 2px solid rgba(255,255,255,0.15);
+            border-radius: 4px;
+            padding: 1.75rem 1.25rem;
+            text-align: center;
+        }
+        .guarantee-label {
+            display: inline-block;
+            background: var(--highlight-red);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 900;
+            letter-spacing: 0.2em;
+            padding: 3px 12px;
+            margin-bottom: 1rem;
+            border-radius: 2px;
+        }
+        .guarantee-main {
+            color: #fff;
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.7;
+            margin-bottom: 0.75rem;
+            font-family: 'Shippori Mincho', serif;
+        }
+        .guarantee-main strong {
+            display: block;
+            font-size: 2rem;
+            line-height: 1.2;
+            color: #FFD700;
+            font-weight: 900;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 12px rgba(255,215,0,0.3);
+        }
+        .guarantee-sub {
+            color: rgba(255,255,255,0.55);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            margin-top: 0.75rem;
+        }
+        .guarantee-arrow {
+            display: inline-block;
+            background: var(--cta-yellow);
+            color: #5C4300;
+            font-size: 0.75rem;
+            font-weight: 900;
+            padding: 0.5rem 1.5rem;
+            border-radius: 2px;
+            margin-top: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* ノーマルパネル（backdrop-filter なし） */
+        .plain-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+        .plain-header {
+            background: #fff;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
+        }
+
+        /* プロの言葉デザイン */
+        .professional-quote-container {
+            position: relative;
+            padding: 2.5rem 1.5rem;
+            border-radius: 0.25rem;
+            border: 2px solid var(--burgundy-pink);
+            box-shadow: 0 10px 30px rgba(166, 77, 93, 0.1);
+            background-color: var(--light-burgundy);
+        }
+        .notebook-speech-bubble {
+            background-color: #fff;
+            background-image: repeating-linear-gradient(transparent, transparent 31px, #E5E7EB 31px, #E5E7EB 32px);
+            padding: 1.5rem;
+            border-radius: 0.25rem;
+            line-height: 32px;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(166, 77, 93, 0.1);
+        }
+        .quote-mark-v2 {
+            font-family: serif;
+            font-size: 80px;
+            line-height: 1;
+            position: absolute;
+            color: var(--burgundy-pink);
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        /* ===== 選ばれる理由：人間味のあるカード ===== */
+        .reason-card-1 {
+            background: #fff;
+            border: 2px solid #1A1A1A;
+            border-radius: 2px;
+            padding: 1.75rem 1.5rem;
+            position: relative;
+        }
+        .reason-stamp {
+            position: absolute;
+            top: -18px;
+            right: 16px;
+            width: 52px;
+            height: 52px;
+            background: var(--highlight-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 12px rgba(217,74,90,0.3);
+        }
+        .reason-stamp span {
+            color: #fff;
+            font-size: 0.55rem;
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            text-align: center;
+            line-height: 1.2;
+        }
+        .reason-card-2 {
+            background: var(--primary-rose);
+            border-radius: 2px;
+            padding: 1.75rem 1.5rem;
+            color: #fff;
+        }
+        .reason-card-3 {
+            background: #fff;
+            border-left: 5px solid var(--primary-rose);
+            border-radius: 0 2px 2px 0;
+            padding: 1.75rem 1.5rem;
+            box-shadow: 0 4px 20px rgba(142, 62, 73, 0.08);
+        }
+
+        /* 料金用バルーン */
+        .price-balloon {
+            position: relative;
+            background: var(--accent-rose);
+            color: white;
+            padding: 3px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            display: inline-block;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 10px rgba(192, 72, 81, 0.3);
+        }
+        .price-balloon::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: var(--accent-rose);
+        }
+
+        /* CTA誘導文 */
+        .cta-callout {
+            display: block;
+            font-weight: bold;
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 14px;
+            letter-spacing: 0.05em;
+        }
+
+        /* プレミアム3Dボタン */
+        .btn-premium-3d {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border-radius: 1rem;
+            font-weight: 900;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            text-decoration: none;
+            border: none;
+            padding: 1.25rem 1rem;
+            overflow: hidden;
+        }
+        .btn-premium-3d:active {
+            transform: translateY(5px) !important;
+            box-shadow: none !important;
+        }
+
+        /* 光沢スイープアニメーション */
+        .btn-premium-3d::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(
+                105deg,
+                transparent 20%,
+                rgba(255,255,255,0.55) 50%,
+                transparent 80%
+            );
+            animation: shine-sweep 2.8s ease-in-out infinite;
+        }
+        @keyframes shine-sweep {
+            0%   { left: -100%; }
+            40%  { left: 130%; }
+            100% { left: 130%; }
+        }
+
+        .floating-action {
+            animation: floating 3.2s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50%       { transform: translateY(-7px); }
+        }
+
+        .btn-yellow {
+            background: linear-gradient(165deg, #FFE566 0%, #F5C400 40%, #D4A000 100%);
+            color: #4A3200;
+            box-shadow:
+                0 8px 0 #9A7200,
+                0 10px 20px rgba(180,130,0,0.35),
+                inset 0 1px 0 rgba(255,255,255,0.6);
+            text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+        }
+        .btn-yellow:hover {
+            box-shadow:
+                0 10px 0 #9A7200,
+                0 14px 24px rgba(180,130,0,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.6);
+        }
+        .btn-green {
+            background: linear-gradient(165deg, #3AE87A 0%, #06C755 40%, #049040 100%);
+            color: #FFFFFF;
+            box-shadow:
+                0 8px 0 #026B2E,
+                0 10px 20px rgba(6,199,85,0.35),
+                inset 0 1px 0 rgba(255,255,255,0.35);
+            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+        }
+        .btn-green:hover {
+            box-shadow:
+                0 10px 0 #026B2E,
+                0 14px 24px rgba(6,199,85,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.35);
+        }
+
+        /* リボン見出し */
+        .ribbon-title-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));
+        }
+        .ribbon-title {
+            position: relative;
+            background: var(--primary-rose);
+            color: #FFFFFF;
+            padding: 12px 40px;
+            font-size: 1.25rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            z-index: 2;
+        }
+        .ribbon-title::before, .ribbon-title::after {
+            content: "";
+            position: absolute;
+            top: 10px;
+            width: 40px;
+            height: 100%;
+            background: var(--dark-rose);
+            z-index: -1;
+        }
+        .ribbon-title::before {
+            left: -20px;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 25% 50%);
+        }
+        .ribbon-title::after {
+            right: -20px;
+            clip-path: polygon(0 0, 100% 0, 75% 50%, 100% 100%, 0 100%);
+        }
+
+        /* ハッシュタグ */
+        .hash-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1.5px solid rgba(255, 255, 255, 0.5);
+            color: #FFFFFF;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+        }
+
+        /* 満足度セクション */
+        .satisfaction-integrated-bg {
+            background: linear-gradient(to bottom, #4B1A21 0%, #7A2E38 40%, #7A2E38 85%, #FFFFFF 100%);
+        }
+        .satisfaction-banner-v3 {
+            position: relative;
+            width: 100%;
+            max-width: 460px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 1.5rem;
+            border-radius: 4px;
+            color: #FFFFFF;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+        .gold-shining {
+            background: linear-gradient(45deg, #D4AF37 0%, #FFF3B0 50%, #B38808 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+        .banner-score {
+            font-size: 5rem;
+            font-family: serif;
+            font-weight: 900;
+            line-height: 1;
+        }
+        .banner-unit {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-left: 0.2rem;
+        }
+
+        /* 利用者の声：手紙風 */
+        .letter-card {
+            min-width: 340px;
+            background-color: #FFFFFF;
+            background-image: radial-gradient(#d1d1d1 1.2px, transparent 1.2px);
+            background-size: 20px 20px;
+            padding: 3.5rem 1.8rem 1.8rem 1.8rem;
+            border-radius: 2px;
+            box-shadow: 3px 6px 25px rgba(0,0,0,0.25);
+            position: relative;
+            border: 1px solid #f0f0f0;
+            overflow: visible !important;
+            display: flex;
+            flex-direction: column;
+        }
+        .polaroid-frame {
+            background: white;
+            padding: 6px 6px 22px 6px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transform: rotate(-4deg);
+            width: 105px;
+            height: 125px;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 100;
+            border: 1px solid #eee;
+            overflow: visible;
+        }
+        .polaroid-img-box {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            background: #fff;
+        }
+        .polaroid-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+            border: 1px solid #eee;
+        }
+        .red-clip-svg {
+            position: absolute;
+            top: -15px;
+            left: 60px;
+            z-index: 110;
+            width: 30px;
+            filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.4));
+        }
+        .pink-marker {
+            background: linear-gradient(transparent 60%, rgba(217, 74, 90, 0.15) 60%);
+            font-weight: bold;
+            display: inline;
+        }
+
+        /* スクロールアニメーション */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .scrolling-wrapper {
+            padding-top: 60px;
+            margin-top: -20px;
+            overflow-x: auto;
+            overflow-y: visible;
+        }
+
+        .check-item {
+            border-bottom: 1px solid rgba(142, 62, 73, 0.08);
+            padding: 16px 0;
+        }
+        .check-icon {
+            color: var(--primary-rose);
+            font-size: 1.1rem;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        /* ===== 費用に不安がある方へ（新デザイン） ===== */
+        .price-container {
+            position: relative;
+            background: #FAF6F6;
+            border: 2px solid #D6B5B8;
+            border-radius: 16px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            overflow: visible;
+        }
+        .price-top-badge {
+            position: absolute;
+            top: -20px; left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-rose);
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 800;
+            padding: 8px 32px;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(192, 72, 81, 0.3);
+            white-space: nowrap;
+            letter-spacing: 0.05em;
+            z-index: 10;
+        }
+        .price-light-content {
+            padding: 3rem 1.5rem 2.5rem;
+            text-align: center;
+        }
+        .price-light-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #2A1B1D;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+        }
+        .price-num-box {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(200, 93, 107, 0.08);
+        }
+        .price-num-sub {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #555;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+        .price-num-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            color: var(--accent-rose);
+            gap: 4px;
+        }
+        .price-num-pre { font-size: 1.1rem; font-weight: 800; }
+        .price-num-main {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+        .price-num-post { font-size: 1.5rem; font-weight: 800; }
+        .price-desc-text {
+            font-size: 0.85rem;
+            color: #444;
+            line-height: 1.8;
+            text-align: left;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+        .marker-pink {
+            background: linear-gradient(transparent 60%, rgba(229, 69, 93, 0.2) 60%);
+            font-weight: 800;
+        }
+        .price-check-box {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: left;
+        }
+        .price-check-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            gap: 10px;
+        }
+        .price-check-item:last-child { margin-bottom: 0; }
+        .price-check-icon {
+            width: 20px; height: 20px;
+            background: #10B981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .price-check-text { font-size: 0.9rem; font-weight: 800; color: #2A1B1D; }
+        .price-dark-content {
+            background: linear-gradient(to bottom, #3A2327, #160D0E);
+            border-radius: 0 0 14px 14px;
+            padding: 3rem 1.25rem 2.5rem;
+            text-align: center;
+            color: #fff;
+            border-top: 4px solid #D4A32A;
+        }
+        .price-dark-inner {
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 2rem 1rem;
+        }
+        .price-guarantee-badge {
+            display: inline-block;
+            background: var(--accent-rose);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            padding: 4px 16px;
+            margin-bottom: 1.5rem;
+        }
+        .price-dark-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+        .price-gold-text {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #F2D06B;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+            letter-spacing: 0.05em;
+        }
+        .price-dark-desc {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        .price-dark-marker {
+            color: #F2D06B;
+            font-weight: 900;
+            background: linear-gradient(transparent 60%, rgba(255,215,0,0.2) 60%);
+        }
+        .price-line-ok {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.55);
+        }
+        /* ===== 旧クラス（他で使用） ===== */
+        .highlight-marker {
+            background: linear-gradient(transparent 60%, rgba(224, 72, 90, 0.2) 60%);
+            font-weight: bold;
+        }
+
+        /* ===== 安さの理由カード ===== */
+        .reason-quality-section-title .en {
+            display: block;
+            color: var(--accent-rose);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+        .reason-quality-section-title .ja {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark-rose);
+            line-height: 1.4;
+        }
+        .reason-quality-card {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        .rq-number {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--light-rose);
+            line-height: 1;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            z-index: 0;
+        }
+        .rq-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--light-rose);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-rose);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+        .rq-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== 選ばれる理由（大胆リッチ版） ===== */
+        .reason-section-bg {
+            background: radial-gradient(circle at top right, #FFF 0%, #FFF0F5 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .reason-section-title .en {
+            display: inline-block;
+            background: linear-gradient(135deg, #F6D365 0%, #FFEDB3 50%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 0.9rem;
+            font-weight: 900;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .reason-section-title .ja {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.75rem;
+            font-weight: 900;
+            color: var(--dark-rose);
+            line-height: 1.35;
+        }
+
+        /* ===== 円形ダイアグラム（修正版） ===== */
+        .diagram-wrapper {
+            position: relative;
+            width: 100%;
+            height: 310px;
+            margin: 0 auto 1rem;
+        }
+        .diagram-bg-ring {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 68%; aspect-ratio: 1;
+            border: 1px dashed rgba(216, 27, 96, 0.2);
+            border-radius: 50%;
+            animation: diagram-rotate 30s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes diagram-rotate {
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        .diagram-crown {
+            position: absolute;
+            top: -14px; left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            color: #D4AF37;
+            filter: drop-shadow(0 2px 4px rgba(212,175,55,0.5));
+            z-index: 20;
+        }
+        .point-circle {
+            position: absolute;
+            width: 148px; height: 148px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 8px 22px rgba(216, 27, 96, 0.12), inset 0 0 0 3px #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            overflow: hidden;
+            text-align: center;
+            z-index: 5;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .circle-top {
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            border: 3px solid #D4AF37;
+        }
+        .circle-top:hover { transform: translateX(-50%) scale(1.05); }
+        .circle-bottom-left {
+            bottom: 0; left: 0;
+            border: 3px solid var(--highlight-red);
+        }
+        .circle-bottom-left:hover { transform: scale(1.05); }
+        .circle-bottom-right {
+            bottom: 0; right: 0;
+            border: 3px solid var(--highlight-red);
+        }
+        .circle-bottom-right:hover { transform: scale(1.05); }
+        .circle-header {
+            padding: 8px 6px 6px;
+            background: linear-gradient(135deg, #E91E63, #C2185B);
+            color: #fff;
+            font-size: 0.6rem;
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+        .circle-gold-header {
+            background: linear-gradient(135deg, #F6D365, #D4AF37);
+            color: #5C4300;
+        }
+        .circle-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4px 6px 8px;
+            gap: 2px;
+        }
+        .c-num-gold {
+            font-family: 'Shippori Mincho', serif;
+            font-weight: 900;
+            font-size: 1.75rem;
+            line-height: 1;
+            background: linear-gradient(135deg, #C9A227, #F6D365, #B8860B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .c-num-pink {
+            font-family: 'Shippori Mincho', serif;
+            font-weight: 900;
+            font-size: 1.6rem;
+            line-height: 1;
+            color: var(--highlight-red);
+        }
+        .c-sub {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: #444;
+            line-height: 1.3;
+        }
+        .c-pre {
+            font-size: 0.6rem;
+            font-weight: 800;
+            color: var(--highlight-red);
+            line-height: 1;
+        }
+
+        /* 詳細カード */
+        .bold-card {
+            background: #fff;
+            border-radius: 24px;
+            margin-bottom: 3.5rem;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(216, 27, 96, 0.08);
+            border: 2px solid #fff;
+            overflow: visible;
+        }
+        .point-badge {
+            position: absolute;
+            top: -20px; left: -10px;
+            width: 68px; height: 68px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(216, 27, 96, 0.3);
+            z-index: 20;
+            transform: rotate(-10deg);
+        }
+        .point-badge.gold {
+            background: linear-gradient(135deg, #F6D365 0%, #D4AF37 100%);
+            color: #5C4300;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.35);
+        }
+        .point-badge span:first-child { font-size: 0.65rem; font-weight: 900; letter-spacing: 0.05em; }
+        .point-badge span:last-child { font-family: 'Shippori Mincho', serif; font-size: 1.75rem; font-weight: 900; line-height: 1; }
+        .img-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #FCE4EC 0%, #fff 100%);
+            border-radius: 22px 22px 0 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(216, 27, 96, 0.08);
+        }
+        .img-placeholder::before {
+            content: '';
+            position: absolute;
+            width: 150%; height: 150%;
+            background: radial-gradient(circle, rgba(216, 27, 96, 0.05) 10%, transparent 60%);
+            animation: placeholder-pulse 4s ease-in-out infinite alternate;
+        }
+        @keyframes placeholder-pulse { 0% { transform: scale(1); } 100% { transform: scale(1.2); } }
+        .card-body { padding: 2.25rem 1.5rem 2rem; position: relative; }
+        .bold-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--dark-rose);
+            line-height: 1.45;
+            margin-bottom: 1rem;
+            border-bottom: 2px dashed #FCE4EC;
+            padding-bottom: 0.75rem;
+        }
+        .bold-title.gold-title { color: #7A5A00; border-bottom-color: #FFF3CC; }
+        .card-desc { font-size: 0.9rem; color: #444; line-height: 1.85; font-weight: 500; }
+        .price-ribbon-box {
+            background: #fff;
+            border: 2px solid var(--highlight-red);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            position: relative;
+            box-shadow: 4px 4px 0 rgba(217, 74, 90, 0.15);
+        }
+        .price-ribbon-box::before {
+            content: '必ず値引き';
+            position: absolute;
+            top: -12px; left: 20px;
+            background: var(--highlight-red);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 900;
+            padding: 2px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.05em;
+        }
+        .expert-stamp {
+            position: absolute;
+            bottom: -20px; right: 10px;
+            width: 110px; height: 110px;
+            background: rgba(255,255,255,0.92);
+            border: 3px dashed var(--highlight-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(15deg);
+            box-shadow: 0 10px 20px rgba(216, 27, 96, 0.15);
+            z-index: 30;
+        }
+        .stamp-inner {
+            background: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);
+            color: white;
+            border-radius: 50%;
+            width: 88px; height: 88px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1.25;
+        }
+
+        /* ===== 復縁ステップ ===== */
+        .flow-step {
+            background: #ffffff;
+            border: 1px solid rgba(154, 74, 87, 0.15);
+            border-bottom: 4px solid var(--primary-rose);
+            border-radius: 16px;
+            padding: 1.5rem 1.25rem;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(154, 74, 87, 0.15);
+            display: flex;
+            gap: 1rem;
+            overflow: hidden;
+        }
+        .flow-step::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 6px;
+            background: linear-gradient(to bottom, var(--accent-rose), var(--primary-rose));
+        }
+        .flow-number {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--light-rose);
+            line-height: 1;
+            position: absolute;
+            bottom: -10px; right: 0;
+            z-index: 0;
+            opacity: 0.6;
+            letter-spacing: -0.05em;
+        }
+        .flow-icon-wrap {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--light-rose) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-rose);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 12px rgba(154, 74, 87, 0.2), inset 0 2px 0 rgba(255,255,255,1);
+            border: 1px solid rgba(154, 74, 87, 0.1);
+        }
+        .flow-text { position: relative; z-index: 1; flex-grow: 1; }
+        .flow-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--dark-rose);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .flow-step-label {
+            background: var(--primary-rose);
+            color: white;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+            letter-spacing: 0.05em;
+        }
+        .flow-desc { font-size: 0.8rem; color: #555555; line-height: 1.6; }
+        .flow-badge {
+            display: inline-block;
+            background: linear-gradient(to right, #FFF5F5, #ffffff);
+            color: var(--primary-rose);
+            border: 1px solid rgba(154, 74, 87, 0.25);
+            border-left: 3px solid var(--accent-rose);
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-top: 0.75rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .flow-arrow {
+            text-align: center;
+            color: var(--accent-rose);
+            padding: 0.75rem 0;
+            display: flex;
+            justify-content: center;
+        }
+        .flow-arrow svg {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(to bottom, #ffffff, var(--light-rose));
+            border-radius: 50%;
+            padding: 6px;
+            box-shadow: 0 4px 12px rgba(154, 74, 87, 0.2);
+            border: 1px solid rgba(154, 74, 87, 0.1);
+        }
+        .flow-section-title .en {
+            display: block;
+            color: var(--accent-rose);
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+        .flow-section-title .ja {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark-rose);
+            line-height: 1.4;
+        }
+
+        /* ===== 復縁アプローチ診断 誘導セクション ===== */
+        .diagnosis-section {
+            background: linear-gradient(135deg, #1C1018 0%, #2E1020 60%, #1A0E1A 100%);
+            padding: 2.5rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .diagnosis-section::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(192,72,81,0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .diagnosis-section::after {
+            content: '';
+            position: absolute;
+            bottom: -40px; left: -40px;
+            width: 160px; height: 160px;
+            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .diagnosis-en {
+            font-size: 0.65rem;
+            font-weight: 900;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .diagnosis-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.3;
+            margin-bottom: 1.25rem;
+        }
+        .diagnosis-title span {
+            background: linear-gradient(135deg, #F6D365 0%, #F2D06B 50%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .diagnosis-body {
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.04);
+        }
+        .diagnosis-desc {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.85;
+            margin-bottom: 1.25rem;
+        }
+        .diagnosis-count {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .diagnosis-count-num {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1;
+            background: linear-gradient(135deg, #F6D365, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .diagnosis-count-label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.4;
+        }
+        .diagnosis-dots {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 1.5rem;
+        }
+        .diagnosis-dot {
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255,255,255,0.15);
+            flex: 1;
+        }
+        .diagnosis-dot.active {
+            background: linear-gradient(90deg, #D4AF37, #F6D365);
+        }
+        .btn-diagnosis {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #C04851 0%, #8E3E49 100%);
+            color: #fff;
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-align: center;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            box-shadow: 0 6px 0 #5C2A32, 0 8px 20px rgba(192,72,81,0.3);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .btn-diagnosis::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 60%; height: 100%;
+            background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.2) 50%, transparent 80%);
+            animation: shine-sweep 3s ease-in-out infinite;
+        }
+        .btn-diagnosis:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #5C2A32;
+        }
+        .diagnosis-note {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.35);
+            text-align: center;
+            margin-top: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body class="max-w-[480px] mx-auto shadow-2xl bg-white min-h-screen pb-40 text-center">
+
+    <!-- 1. ファーストビュー -->
+    <section class="relative h-[90vh] flex flex-col justify-end p-8 hero-gradient text-white">
+        <div class="absolute top-10 left-8">
+            <div class="flex flex-wrap items-center gap-2 mb-4">
+                <span class="hash-tag">#実績6,000件突破</span>
+                <span class="hash-tag">#他社より必ず安く</span>
+            </div>
+            <p class="text-sm font-bold tracking-[0.15em] mb-1 text-white opacity-100 uppercase">実効性のある復縁技術「復縁屋さん」</p>
+        </div>
+
+        <div class="mb-10 text-white text-left">
+            <h1 class="font-bold leading-tight mb-5 drop-shadow-xl font-hannari text-white">
+                <span class="text-xl block mb-2 opacity-95 font-medium tracking-wider text-left">偶然を待つか、</span>
+                <span class="text-5xl block mb-2 leading-tight text-left">
+                    "<span style="color: var(--highlight-red); text-shadow: 0 0 20px rgba(217, 74, 90, 0.6);">必然</span>"を創るか。
+                </span>
+                <span class="text-xl font-medium block mt-6 italic text-left"><span class="custom-underline">本気で復縁したいあなたへ</span></span>
+            </h1>
+            <p class="text-sm leading-relaxed mb-8 font-light opacity-90 tracking-wide text-left">
+                月々6,300円から。<br>
+                10年以上磨き続けたプロの工作で、<br>
+                もう一度、あの人の隣へ。
+            </p>
+        </div>
+    </section>
+
+    <!-- 2. 悩みへの共感 -->
+    <section class="pain-section">
+        <div class="pain-bg-wrapper">
+            <img src="images/fukuenyasan-nayami.jpg" alt="悩む人" class="pain-bg-img" loading="lazy">
+            <div class="pain-overlay"></div>
+        </div>
+        <div class="pain-content">
+            <h2 class="pain-title">
+                あなたは今、<br>
+                出口のない迷路にいませんか？
+            </h2>
+            <div class="pain-card">
+                <div class="pain-item">
+                    <div class="pain-icon">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <p>LINEやSNSをブロックされ、<br><span class="marker-line">連絡手段が一切ない</span></p>
+                </div>
+                <div class="pain-item">
+                    <div class="pain-icon">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <p>相手に新しい恋人の影があり、<br><span class="marker-line">諦めかけている</span></p>
+                </div>
+                <div class="pain-item">
+                    <div class="pain-icon">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <p>別れの本当の理由が分からず、<br><span class="marker-line">どうしても納得できない</span></p>
+                </div>
+                <div class="pain-item">
+                    <div class="pain-icon">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <p>自力で動くほど状況が悪化し、<br><span class="marker-line">焦りと不安が止まらない</span></p>
+                </div>
+            </div>
+            <div class="warning-text">
+                感情に任せた行動は、むしろ<br>
+                復縁の可能性を下げるリスク。
+            </div>
+        </div>
+    </section>
+
+    <!-- セクション間トランジション -->
+    <div class="transition-wrapper"></div>
+
+    <!-- 3. 解決の根拠 (プロの声) -->
+    <section class="logic-section">
+        <div class="logic-title">
+            必要なのは、プロの技術
+        </div>
+        <div class="notebook-card">
+            <svg class="quote-mark" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L16.41 14H10v-8h10v8.11L17.5 21h-3.483zM3.5 21L5.893 14H-1v-8h10v8.11L6.983 21H3.5z"/></svg>
+            <div class="notebook-message">
+                私たちは占いや気休めのアドバイスではなく、<strong>行動心理学・脳科学の知見</strong>を用いた「物理的な行動」による現実の変革を追求しています。<br><br>
+                お相手の<strong>深層心理を分析し、警戒心を解きほぐす</strong>専門的アプローチで、不可能な状況を"必然"へと変えていきます。
+            </div>
+            <div class="expert-profile">
+                <div class="expert-img-wrap">
+                    <img src="https://lh3.googleusercontent.com/d/1yVkCgFQ8zp2FRvclO7a4BPEm12G_7CUR" alt="三上裕司" class="w-full h-full object-cover" loading="lazy">
+                </div>
+                <div class="expert-info">
+                    <span class="expert-badge">行動心理学のスペシャリスト</span>
+                    <span>EXPERT DIRECTOR</span>
+                    <p class="expert-dept">復縁心理学Lab 所長</p>
+                </div>
+            </div>
+            <div class="expert-sign-wrap">
+                <div class="expert-sign">三上 裕司</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. 選ばれる理由 -->
+    <section class="px-5 py-16 reason-section-bg fade-in">
+        <div class="reason-section-title text-center mb-10">
+            <span class="en">3 Reasons to Choose us</span>
+            <h2 class="ja">復縁屋さんが選ばれる<br>３つのポイント</h2>
+            <p class="text-[12px] text-gray-600 mt-4 font-bold leading-relaxed">
+                安さ・実績・技術。<br>
+                どれか一つが欠けても復縁は成功しません。<br>
+                私たちはこの3つを高い次元で掛け合わせています。
+            </p>
+        </div>
+
+        <!-- 円形ダイアグラム -->
+        <div class="diagram-wrapper">
+            <div class="diagram-bg-ring"></div>
+
+            <!-- 王冠：上の円の外側に配置 -->
+            <svg class="diagram-crown" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M5 16L3 5l5.5 5L12 4l3.5 6 5.5-5-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
+            </svg>
+
+            <!-- 円1：実績（上・ゴールド） -->
+            <div class="point-circle circle-top">
+                <div class="circle-header circle-gold-header">確かな信頼</div>
+                <div class="circle-body">
+                    <div class="c-num-gold">6,000<span style="font-size:0.9rem;">件</span></div>
+                    <div class="c-sub">以上の成功実績</div>
+                </div>
+            </div>
+
+            <!-- 円2：最安値（左下） -->
+            <div class="point-circle circle-bottom-left">
+                <div class="circle-header">最安水準</div>
+                <div class="circle-body">
+                    <div class="c-pre">月々</div>
+                    <div class="c-num-pink">6,300<span style="font-size:0.85rem;">円〜</span></div>
+                    <div class="c-sub">業界最安水準</div>
+                </div>
+            </div>
+
+            <!-- 円3：心理学（右下） -->
+            <div class="point-circle circle-bottom-right">
+                <div class="circle-header">科学的アプローチ</div>
+                <div class="circle-body">
+                    <div class="c-num-pink" style="font-size:1.3rem; line-height:1.25;">心理学<br>脳科学</div>
+                    <div class="c-sub">に基づく工作</div>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-[10px] text-gray-400 text-center mb-12 font-bold">※グループ会社連結での累計ご相談件数</p>
+
+        <!-- 詳細カード -->
+        <div class="space-y-12">
+
+            <!-- POINT 1：実績 -->
+            <div class="bold-card">
+                <div class="point-badge gold">
+                    <span>POINT</span>
+                    <span>1</span>
+                </div>
+                <div class="img-placeholder">
+                    <svg class="w-14 h-14 opacity-20" fill="none" stroke="currentColor" style="color: var(--cta-yellow);" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 16L3 5l5.5 5L12 4l3.5 6 5.5-5-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg>
+                </div>
+                <div class="card-body">
+                    <h3 class="bold-title gold-title">過去の失敗を未然に防ぐ<br>6,000件以上の実例データ</h3>
+                    <p class="card-desc">
+                        10年以上の歴史で蓄積された実例データ。「何をしてはいけないか」を知り尽くしているからこそ、致命的なミスを徹底的に回避し、あなたのケースに合わせた最も確実な復縁ルートを導き出します。
+                    </p>
+                </div>
+            </div>
+
+            <!-- POINT 2：最安値 -->
+            <div class="bold-card">
+                <div class="point-badge">
+                    <span>POINT</span>
+                    <span>2</span>
+                </div>
+                <div class="img-placeholder">
+                    <svg class="w-14 h-14 opacity-20" fill="none" stroke="currentColor" style="color: var(--highlight-red);" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div class="card-body">
+                    <h3 class="bold-title">圧倒的実績のパターン化で<br>「業界最安水準」を実現</h3>
+                    <p class="card-desc">
+                        膨大な成功データから「勝ちパターン」を導き出しているため、無駄な調査や工作を省くことができます。高品質でありながら月々6,300円〜でご提供できる最大の理由です。
+                    </p>
+                    <div class="price-ribbon-box">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-8 h-8 shrink-0" fill="currentColor" style="color: var(--highlight-red);" viewBox="0 0 24 24"><path d="M24 10.304c0-4.577-4.705-8.304-10.5-8.304s-10.5 3.727-10.5 8.304c0 4.1 3.756 7.532 8.816 8.169l-2.251 2.251c-.146.146-.146.382 0 .528.073.073.169.11.264.11.096 0 .191-.037.264-.11l3.541-3.541.666.038c5.795 0 10.5-3.727 10.5-8.304z"/></svg>
+                            <p class="text-[13px] font-bold text-gray-800 leading-snug">他社見積り書のコピー持参で<br><span class="text-[15px]" style="color: var(--highlight-red);">必ずその差額以上に値引き</span>します</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POINT 3：心理学（専門家スタンプ付き） -->
+            <div class="bold-card relative" style="margin-bottom: 5rem;">
+                <div class="point-badge">
+                    <span>POINT</span>
+                    <span>3</span>
+                </div>
+                <div class="img-placeholder">
+                    <svg class="w-14 h-14 opacity-20" fill="none" stroke="currentColor" style="color: var(--highlight-red);" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                </div>
+                <div class="card-body pb-20">
+                    <h3 class="bold-title">相手が自ら求めてくる<br>心理学・脳科学の工作</h3>
+                    <p class="card-desc">
+                        強制的な説得ではなく、お相手の拒絶反応を和らげる高度な「心理誘導」を実施。専門知識に基づく再現性の高い戦略で、自然な形でお相手があなたを求める環境を構築します。
+                    </p>
+                </div>
+                <div class="expert-stamp">
+                    <div class="stamp-inner">
+                        <span class="text-[9px] font-bold tracking-wider opacity-90 mb-0.5">その道のプロ</span>
+                        <span class="text-[13px] font-black leading-tight">脳科学<br>心理学<br>専門家</span>
+                        <span class="text-[10px] font-bold mt-0.5" style="color: #FFEDB3;">在籍</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 6. 復縁成功までの流れ -->
+    <section class="px-5 py-12 bg-[#FAF8F5] fade-in">
+        <div class="flow-section-title text-center mb-10">
+            <span class="en">Flow</span>
+            <h2 class="ja">復縁成功までのステップ</h2>
+        </div>
+
+        <div class="space-y-0">
+            <!-- STEP 1 -->
+            <div class="flow-step">
+                <div class="flow-number">01</div>
+                <div class="flow-icon-wrap">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                </div>
+                <div class="flow-text">
+                    <div class="flow-title">
+                        <span class="flow-step-label">STEP</span>
+                        無料相談・状況分析
+                    </div>
+                    <p class="flow-desc">お二人の状況を詳しくお伺いし、復縁の可能性や最適なプランを診断・お見積りします。</p>
+                    <span class="flow-badge">✓ 相談・お見積り完全無料</span>
+                </div>
+            </div>
+
+            <div class="flow-arrow">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="flow-step">
+                <div class="flow-number">02</div>
+                <div class="flow-icon-wrap">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+                <div class="flow-text">
+                    <div class="flow-title">
+                        <span class="flow-step-label">STEP</span>
+                        ご契約・戦略会議
+                    </div>
+                    <p class="flow-desc">プランと費用に完全にご納得いただいた場合のみご契約となります。無理な勧誘はいたしません。</p>
+                    <span class="flow-badge">✓ 月々6,300円〜の分割対応</span>
+                </div>
+            </div>
+
+            <div class="flow-arrow">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="flow-step">
+                <div class="flow-number">03</div>
+                <div class="flow-icon-wrap">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </div>
+                <div class="flow-text">
+                    <div class="flow-title">
+                        <span class="flow-step-label">STEP</span>
+                        事前調査・工作の実行
+                    </div>
+                    <p class="flow-desc">専門の工作員がお相手に自然に接触。心理誘導を用い、あなたへのマイナスイメージを払拭していきます。</p>
+                    <span class="flow-badge">✓ 自社専属のプロのみが担当</span>
+                </div>
+            </div>
+
+            <div class="flow-arrow">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="flow-step">
+                <div class="flow-number">04</div>
+                <div class="flow-icon-wrap">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                </div>
+                <div class="flow-text">
+                    <div class="flow-title">
+                        <span class="flow-step-label">STEP</span>
+                        再会・復縁の達成
+                    </div>
+                    <p class="flow-desc">機が熟したタイミングで、偶然を装った再会などを演出。アドバイザーがあなたの言動もサポートします。</p>
+                    <span class="flow-badge">✓ 復縁後も無料アフターサポート</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. 費用に不安がある方へ -->
+    <section class="px-5 py-12 bg-white fade-in" style="padding-top: 3rem;">
+        <div class="price-container">
+
+            <!-- バッジ -->
+            <div class="price-top-badge">費用に不安がある方へ</div>
+
+            <!-- 明るいエリア -->
+            <div class="price-light-content">
+                <h2 class="price-light-title">まとまったお金がなくても<br>諦めないでください</h2>
+
+                <div class="price-num-box">
+                    <p class="price-num-sub">自社分割・各種ローン対応で</p>
+                    <div class="price-num-row">
+                        <span class="price-num-pre">月々</span>
+                        <span class="price-num-main">6,300</span>
+                        <span class="price-num-post">円〜</span>
+                    </div>
+                </div>
+
+                <p class="price-desc-text">
+                    「依頼したいけれど、手持ちの資金がない…」そんな方もご安心ください。復縁屋さんは<span class="marker-pink">自社分割・各種ローンに対応</span>しており、月々無理のない金額からスタートできます。
+                </p>
+
+                <div class="price-check-box">
+                    <div class="price-check-item">
+                        <div class="price-check-icon">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <span class="price-check-text">月々6,300円〜の分割払いが可能</span>
+                    </div>
+                    <div class="price-check-item">
+                        <div class="price-check-icon">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <span class="price-check-text">相談・お見積りは完全無料</span>
+                    </div>
+                    <div class="price-check-item">
+                        <div class="price-check-icon">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <span class="price-check-text">後から不当な追加費用は一切なし</span>
+                    </div>
+                </div>
+
+                <div class="mt-4 text-left text-[9px] text-gray-400 leading-loose space-y-1 opacity-70 font-light">
+                    <p>※分割ローンお支払いには別途手数料がかかります。</p>
+                    <p>※頭金として一部料金をお支払いいただいております。</p>
+                    <p>※調査内容・期間・体制により変動します。詳細はお問い合わせください。</p>
+                </div>
+            </div>
+
+            <!-- ダークエリア -->
+            <div class="price-dark-content">
+                <div class="price-dark-inner">
+                    <div class="price-guarantee-badge">価格保証</div>
+                    <h3 class="price-dark-title">他社の見積もりを見せてください。</h3>
+                    <div class="price-gold-text">必ず1円でも<br>安くします。</div>
+                    <p class="price-dark-desc">
+                        他社に相談済みの方・他社から見積もりをもらった方、<br>
+                        そのままご提示いただければ<span class="price-dark-marker">差額以上の割引</span>をお約束します。
+                    </p>
+                    <p class="price-line-ok">お見積り書の写真・コピーをご提示いただくだけでOK</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 9. High Quality & Low Price（安さの理由） -->
+    <section class="px-5 py-12 bg-white fade-in">
+        <div class="reason-quality-section-title text-center mb-8">
+            <span class="en">High Quality & Low Price</span>
+            <h2 class="ja">なぜ「業界最安水準」で<br>高品質な工作ができるのか？</h2>
+        </div>
+
+        <p class="text-[13px] text-gray-600 text-center mb-8">
+            「安い＝手抜き」ではありません。<br>
+            復縁屋さんは、結果に直結しない<strong class="text-gray-800">無駄なコストを徹底的に削減</strong>することで、高品質なサービスを低価格で提供しています。
+        </p>
+
+        <div class="space-y-4">
+            <div class="reason-quality-card">
+                <span class="rq-number">01</span>
+                <div class="rq-icon">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                </div>
+                <div class="rq-content">
+                    <h3 class="font-bold text-[15px] text-gray-800 mb-2">完全自社スタッフによる施工</h3>
+                    <p class="text-[12px] text-gray-600 leading-relaxed">下請け業者を使わず、訓練を受けた専属の工作員と調査員のみでチームを編成。中間マージンが一切発生しません。</p>
+                </div>
+            </div>
+
+            <div class="reason-quality-card">
+                <span class="rq-number">02</span>
+                <div class="rq-icon">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
+                </div>
+                <div class="rq-content">
+                    <h3 class="font-bold text-[15px] text-gray-800 mb-2">莫大な広告費のカット</h3>
+                    <p class="text-[12px] text-gray-600 leading-relaxed">過去の成功者様からのご紹介や口コミでの依頼が多数を占めるため、高額なWeb広告費を抑え、その分をお客様に還元しています。</p>
+                </div>
+            </div>
+
+            <div class="reason-quality-card">
+                <span class="rq-number">03</span>
+                <div class="rq-icon">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <div class="rq-content">
+                    <h3 class="font-bold text-[15px] text-gray-800 mb-2">的を絞った効率的な工作プラン</h3>
+                    <p class="text-[12px] text-gray-600 leading-relaxed">専門家による事前の緻密なプロファイリングで、お相手の行動パターンを特定。空振りの調査をなくし、最短ルートで接触します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 満足度指標 & 利用者の声 -->
+    <section class="pb-24 satisfaction-integrated-bg overflow-hidden">
+        <div class="px-6 pt-12 mb-8 text-center">
+            <div class="satisfaction-banner-v3">
+                <svg class="w-10 h-10 text-[#D4AF37] mx-auto mb-2" fill="currentColor" viewBox="0 0 24 24"><path d="M5 16L3 5l5.5 5L12 4l3.5 6 5.5-5-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg>
+                <p class="text-xs font-black tracking-[0.4em] gold-shining mb-1 uppercase">業界No.1</p>
+                <h3 class="text-2xl font-black text-white mb-4 font-hannari text-center">お客様満足度</h3>
+                <div class="flex items-baseline justify-center gold-shining mb-4 text-center">
+                    <span class="banner-score">98.8</span>
+                    <span class="banner-unit">%</span>
+                </div>
+                <p class="text-[8px] text-white/40 font-medium tracking-wider text-center">※2026年1月時点 利用者アンケート結果</p>
+            </div>
+        </div>
+
+        <div class="text-center mb-6 px-10">
+            <p class="text-xl font-bold text-white italic font-hannari opacity-95 text-center">実際に喜びの声が寄せられています</p>
+        </div>
+
+        <!-- 横スクロール体験談 -->
+        <div class="scrolling-wrapper hide-scrollbar">
+            <div class="flex gap-12 px-10 pb-8 overflow-y-visible">
+
+                <!-- Case 1 -->
+                <div class="letter-card snap-center">
+                    <svg class="red-clip-svg" viewBox="0 0 28 40" fill="none">
+                        <path d="M20 10V25C20 28.3137 17.3137 31 14 31C10.6863 31 8 28.3137 8 25V7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7V25C16 26.1046 15.1046 27 14 27C12.8954 27 12 26.1046 12 25V10" stroke="#C04851" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                    <div class="polaroid-frame">
+                        <div class="polaroid-img-box">
+                            <img src="https://lh3.googleusercontent.com/d/1wgQPSwCgXZrWzISvNYirjhh-tl6YPA2t" alt="利用者" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="pl-28 pt-1 text-left">
+                        <h3 class="font-bold text-base leading-tight mb-2 text-[#C04851] text-left">元彼から「会いたい」の連絡。</h3>
+                        <p class="text-[10px] text-gray-400 font-bold mb-4 text-left">(20代女性：会社員)</p>
+                    </div>
+                    <div class="mt-8 text-[13px] text-[#444] space-y-4 font-medium tracking-wider text-left">
+                        <p>感情的になって彼を追い詰め、LINEもブロック。<span class="pink-marker">絶望していましたが、工作員の方が自然に接触</span>してくれました。</p>
+                        <p><span class="pink-marker">彼の本音を聞き出し、私の変化を伝えてくれた</span></p>
+                        <p>おかげで彼の方からブロックを解除してくれました。</p>
+                    </div>
+                </div>
+
+                <!-- Case 2 -->
+                <div class="letter-card snap-center">
+                    <svg class="red-clip-svg" viewBox="0 0 28 40" fill="none">
+                        <path d="M20 10V25C20 28.3137 17.3137 31 14 31C10.6863 31 8 28.3137 8 25V7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7V25C16 26.1046 15.1046 27 14 27C12.8954 27 12 26.1046 12 25V10" stroke="#C04851" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                    <div class="polaroid-frame">
+                        <div class="polaroid-img-box">
+                            <img src="https://lh3.googleusercontent.com/d/1YHYsHw9Lt12S-jYVfPjqrqNkcG3ndjki" alt="利用者" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="pl-28 pt-1 text-left">
+                        <h3 class="font-bold text-base leading-tight mb-2 text-[#C04851] text-left">信頼関係の再構築が成功。</h3>
+                        <p class="text-[10px] text-gray-400 font-bold mb-4 text-left">(30代女性：公務員)</p>
+                    </div>
+                    <div class="mt-8 text-[13px] text-[#444] space-y-4 font-medium tracking-wider text-left">
+                        <p>遠距離ですれ違い破局。<span class="pink-marker">アドバイスだけでは解決しない物理的な距離</span>を、工作員の方が埋めてくれました。</p>
+                        <p><span class="pink-marker">彼の生活実態を把握した上での戦略的アプローチ</span></p>
+                        <p>不信感が消え、今は<span class="pink-marker">結婚を前提に同居</span>を始めています。</p>
+                    </div>
+                </div>
+
+                <!-- Case 3 -->
+                <div class="letter-card snap-center">
+                    <svg class="red-clip-svg" viewBox="0 0 28 40" fill="none">
+                        <path d="M20 10V25C20 28.3137 17.3137 31 14 31C10.6863 31 8 28.3137 8 25V7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7V25C16 26.1046 15.1046 27 14 27C12.8954 27 12 26.1046 12 25V10" stroke="#C04851" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                    <div class="polaroid-frame">
+                        <div class="polaroid-img-box">
+                            <img src="https://lh3.googleusercontent.com/d/1gnYux6dnpIYhjtTbhjr-kAgJEVv35K6F" alt="利用者" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="pl-28 pt-1 text-left">
+                        <h3 class="font-bold text-base leading-tight mb-2 text-[#C04851] text-left">もう一度、隣を歩ける幸せ。</h3>
+                        <p class="text-[10px] text-gray-400 font-bold mb-4 text-left">(20代男性：自営業)</p>
+                    </div>
+                    <div class="mt-8 text-[13px] text-[#444] space-y-4 font-medium tracking-wider text-left">
+                        <p>自分の幼さが原因でフラれ、連絡も遮断。絶望的な状況でしたが、工作によって<span class="pink-marker">第三者から自分の変化を伝えてもらいました</span>。</p>
+                        <p><span class="pink-marker">彼女が「やっぱりこの人しかいない」と思える演出</span></p>
+                        <p>無事に復縁でき、今は将来に向けた話をしています。</p>
+                    </div>
+                </div>
+
+                <!-- Case 4 -->
+                <div class="letter-card snap-center">
+                    <svg class="red-clip-svg" viewBox="0 0 28 40" fill="none">
+                        <path d="M20 10V25C20 28.3137 17.3137 31 14 31C10.6863 31 8 28.3137 8 25V7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7V25C16 26.1046 15.1046 27 14 27C12.8954 27 12 26.1046 12 25V10" stroke="#C04851" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                    <div class="polaroid-frame">
+                        <div class="polaroid-img-box">
+                            <img src="https://lh3.googleusercontent.com/d/1IpZQ3L0pvE9tshlN9I6dMCs8FR-depuq" alt="利用者" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="pl-28 pt-1 text-left">
+                        <h3 class="font-bold text-base leading-tight mb-2 text-[#C04851] text-left">逆転の復縁が叶いました。</h3>
+                        <p class="text-[10px] text-gray-400 font-bold mb-4 text-left">(40代男性：経営者)</p>
+                    </div>
+                    <div class="mt-8 text-[13px] text-[#444] space-y-4 font-medium tracking-wider text-left">
+                        <p>別れて半年、彼女には新しい彼が。自分ではどうしようもできず、<span class="pink-marker">最後にここへ依頼しました</span>。</p>
+                        <p><span class="pink-marker">彼女に「本当に大切な人」を再認識させる環境作り</span></p>
+                        <p>工作のおかげで、無事にヨリを戻すことができました。心から感謝しています。</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="text-center -mt-6 pb-12">
+            <p class="text-[10px] text-white/60 font-bold text-center">← 横にスライドして詳細を確認できます →</p>
+        </div>
+    </section>
+
+    <!-- 最終CTAセクション -->
+    <section class="p-12 text-center fade-in" style="background: linear-gradient(to bottom, #FFF 0%, var(--cta-bg) 50%, #FFF 100%);">
+        <h2 class="font-hannari text-3xl mb-8 leading-tight font-bold text-center" style="color: var(--highlight-red);">
+            今、動き出さなければ<br>
+            時間は止まったまま。
+        </h2>
+        <p class="text-sm text-gray-600 mb-12 leading-loose text-center">
+            迷っている間にも、お相手との距離は<br>
+            刻一刻と離れていくかもしれません。<br>
+            <span class="font-bold text-lg" style="color: var(--highlight-red);">勇気ある一歩が、二人の未来を変える。</span><br>
+            私たちはあなたの味方です。
+        </p>
+
+        <div class="space-y-16 px-2 text-center">
+            <div class="flex flex-col items-center">
+                <span class="cta-callout text-center">＼ まずはお気軽にご相談ください ／</span>
+                <a href="./contact.html" class="btn-premium-3d btn-yellow py-5 text-2xl shadow-xl w-full floating-action">
+                    <span class="font-hannari text-center text-[#4A3200]">無料相談のお申込み</span>
+                </a>
+            </div>
+            <div class="flex flex-col items-center">
+                <span class="cta-callout text-center">＼ 他社見積もり持参・今すぐ最安値を確認 ／</span>
+                <a href="https://line.me/R/ti/p/@fukuenyasan" class="btn-premium-3d btn-green text-2xl flex-row gap-3 shadow-xl py-5 w-full floating-action">
+                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M24 10.304c0-4.577-4.705-8.304-10.5-8.304s-10.5 3.727-10.5 8.304c0 4.1 3.756 7.532 8.816 8.169l-2.251 2.251c-.146.146-.146.382 0 .528.073.073.169.11.264.11.096 0 .191-.037.264-.11l3.541-3.541.666.038c5.795 0 10.5-3.727 10.5-8.304z"/></svg>
+                    <span class="font-hannari text-center text-white">LINEで無料相談する</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 復縁アプローチ診断 誘導 -->
+    <div class="diagnosis-section">
+        <div style="position: relative; z-index: 1;">
+            <span class="diagnosis-en">Find Your Way Back</span>
+            <h2 class="diagnosis-title"><span>復縁アプローチ診断</span>を<br>受けてみませんか？</h2>
+            <div class="diagnosis-body">
+                <p class="diagnosis-desc">あなたの状況・相手との関係性・別れた原因をもとに、<strong style="color:#F6D365;">今すべき最適なアプローチ</strong>を診断します。感情的な行動で可能性を潰す前に、まず診断を。</p>
+                <div class="diagnosis-count">
+                    <div>
+                        <span class="diagnosis-count-num">6,000</span>
+                    </div>
+                    <div class="diagnosis-count-label">件以上の<br>復縁支援実績に基づく診断</div>
+                </div>
+                <div class="diagnosis-dots">
+                    <div class="diagnosis-dot active"></div>
+                    <div class="diagnosis-dot active"></div>
+                    <div class="diagnosis-dot active"></div>
+                    <div class="diagnosis-dot active"></div>
+                    <div class="diagnosis-dot active"></div>
+                    <div class="diagnosis-dot"></div>
+                    <div class="diagnosis-dot"></div>
+                    <div class="diagnosis-dot"></div>
+                    <div class="diagnosis-dot"></div>
+                    <div class="diagnosis-dot"></div>
+                    <div class="diagnosis-dot"></div>
+                    <div class="diagnosis-dot"></div>
+                </div>
+                <a href="./diagnosis.html" class="btn-diagnosis">無料で診断をはじめる →</a>
+                <p class="diagnosis-note">登録不要・無料・結果は即時表示</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ -->
+    <section class="p-10 bg-white border-t border-gray-100 fade-in">
+        <h2 class="text-center font-bold text-xl mb-10 tracking-wider text-center" style="color: var(--primary-rose);">よくあるご質問</h2>
+        <div class="space-y-4">
+            <details class="bg-white p-5 rounded-2xl shadow-sm group border border-gray-100">
+                <summary class="list-none font-bold text-sm cursor-pointer flex justify-between items-center text-gray-700">全国どこでも対応してもらえますか？<span class="group-open:rotate-180 transition-transform font-bold" style="color: var(--primary-rose);">▼</span></summary>
+                <p class="text-xs text-gray-500 mt-5 leading-relaxed bg-gray-50 p-4 rounded-xl text-left">はい、全国どこでも対応可能です。各地域に精通したスタッフがおりますので、地方にお住まいの方や、お相手が遠方へ引っ越してしまった場合でも安心してご相談ください。</p>
+            </details>
+            <details class="bg-white p-5 rounded-2xl shadow-sm group border border-gray-100">
+                <summary class="list-none font-bold text-sm cursor-pointer flex justify-between items-center text-gray-700">オンラインでの相談も可能ですか？<span class="group-open:rotate-180 transition-transform font-bold" style="color: var(--primary-rose);">▼</span></summary>
+                <p class="text-xs text-gray-500 mt-5 leading-relaxed bg-gray-50 p-4 rounded-xl text-left">はい、ZoomやLINE通話等を利用したオンライン相談も無料で承っております。「家を空けられない」「まずは気軽に話を聞きたい」という方にも最適です。</p>
+            </details>
+            <details class="bg-white p-5 rounded-2xl shadow-sm group border border-gray-100">
+                <summary class="list-none font-bold text-sm cursor-pointer flex justify-between items-center text-gray-700">本当に相手にバレませんか？<span class="group-open:rotate-180 transition-transform font-bold" style="color: var(--primary-rose);">▼</span></summary>
+                <p class="text-xs text-gray-500 mt-5 leading-relaxed bg-gray-50 p-4 rounded-xl text-left">10年以上の実績の中で発覚事例はありません。プロの工作員が心理学に基づいた極めて自然な接触を演出するため、ご安心ください。</p>
+            </details>
+            <details class="bg-white p-5 rounded-2xl shadow-sm group border border-gray-100">
+                <summary class="list-none font-bold text-sm cursor-pointer flex justify-between items-center text-gray-700">復縁工作に違法性はありませんか？<span class="group-open:rotate-180 transition-transform font-bold" style="color: var(--primary-rose);">▼</span></summary>
+                <p class="text-xs text-gray-500 mt-5 leading-relaxed bg-gray-50 p-4 rounded-xl text-left">当社は探偵業法に基づき適正に運営しております。公序良俗に反する行為などは一切お受けしておりませんので、安心してご利用いただけます。</p>
+            </details>
+            <details class="bg-white p-5 rounded-2xl shadow-sm group border border-gray-100">
+                <summary class="list-none font-bold text-sm cursor-pointer flex justify-between items-center text-gray-700">成功率はどのくらいですか？<span class="group-open:rotate-180 transition-transform font-bold" style="color: var(--primary-rose);">▼</span></summary>
+                <p class="text-xs text-gray-500 mt-5 leading-relaxed bg-gray-50 p-4 rounded-xl text-left">成功率はケースにより異なりますが、事前に無料診断を行い、成功の見込みが極めて低い場合は正直にお伝えしております。</p>
+            </details>
+            <details class="bg-white p-5 rounded-2xl shadow-sm group border border-gray-100">
+                <summary class="list-none font-bold text-sm cursor-pointer flex justify-between items-center text-gray-700">工作の期間はどのくらいかかりますか？<span class="group-open:rotate-180 transition-transform font-bold" style="color: var(--primary-rose);">▼</span></summary>
+                <p class="text-xs text-gray-500 mt-5 leading-relaxed bg-gray-50 p-4 rounded-xl text-left">平均的には2ヶ月〜4ヶ月程度の期間をいただくケースが多いです。お相手の警戒心や状況に合わせて、最も成功率の高いペースで進めます。</p>
+            </details>
+            <details class="bg-white p-5 rounded-2xl shadow-sm group border border-gray-100">
+                <summary class="list-none font-bold text-sm cursor-pointer flex justify-between items-center text-gray-700">匿名で相談することは可能ですか？<span class="group-open:rotate-180 transition-transform font-bold" style="color: var(--primary-rose);">▼</span></summary>
+                <p class="text-xs text-gray-500 mt-5 leading-relaxed bg-gray-50 p-4 rounded-xl text-left">はい、初回の無料診断・相談段階ではニックネーム等でも構いません。ご契約時には身分証が必要となりますが、秘密保持義務は徹底しております。</p>
+            </details>
+            <details class="bg-white p-5 rounded-2xl shadow-sm group border border-gray-100">
+                <summary class="list-none font-bold text-sm cursor-pointer flex justify-between items-center text-gray-700">相談だけでも大丈夫でしょうか？<span class="group-open:rotate-180 transition-transform font-bold" style="color: var(--primary-rose);">▼</span></summary>
+                <p class="text-xs text-gray-500 mt-5 leading-relaxed bg-gray-50 p-4 rounded-xl text-left">もちろんです。相談だけでお悩みが解決するケースもございます。無理な勧誘は一切ございませんので、お気軽にご連絡ください。</p>
+            </details>
+        </div>
+    </section>
+
+    <!-- 運営会社情報 -->
+    <section class="p-10 bg-gray-50 text-[10px] text-gray-500 leading-relaxed border-t border-gray-100 text-center">
+        <div class="max-w-sm mx-auto space-y-4 text-left">
+            <h2 class="text-xs font-bold border-b border-gray-200 pb-2 text-gray-600 uppercase tracking-widest text-center">Company Profile</h2>
+            <dl class="grid grid-cols-3 gap-x-4 gap-y-2">
+                <dt class="font-bold text-gray-600 text-left">サービス名</dt><dd class="col-span-2 text-left">復縁屋さん</dd>
+                <dt class="font-bold text-gray-600 text-left">商号</dt><dd class="col-span-2 text-left">株式会社Azucar</dd>
+                <dt class="font-bold text-gray-600 text-left">法人番号</dt><dd class="col-span-2 text-left">7011601025568</dd>
+                <dt class="font-bold text-gray-600 text-left">所在地</dt><dd class="col-span-2 text-left">〒176-0025 東京都練馬区中村南2丁目21番15号</dd>
+                <dt class="font-bold text-gray-600 text-left">連絡先</dt><dd class="col-span-2 font-bold text-gray-700 text-left">0120-972-119</dd>
+                <dt class="font-bold text-gray-600 text-left">資本金</dt><dd class="col-span-2 text-left">5,000,000円</dd>
+                <dt class="font-bold text-gray-600 text-left">探偵業届出</dt><dd class="col-span-2 text-left">第30210334号</dd>
+            </dl>
+        </div>
+    </section>
+
+    <!-- 固定CTA -->
+    <div class="fixed bottom-0 left-0 right-0 max-w-[480px] mx-auto plain-header px-5 py-5 z-50">
+        <div class="flex gap-4 items-stretch h-16">
+            <a href="./contact.html" class="flex-1 btn-premium-3d btn-yellow floating-action shadow-lg">
+                <span class="text-[9px] mb-0.5 font-normal leading-none opacity-80 text-center">24時間受付中</span>
+                <span class="font-hannari leading-none text-xl tracking-tighter text-center text-[#4A3200]">無料相談のお申込み</span>
+            </a>
+            <a href="https://line.me/R/ti/p/@fukuenyasan" class="flex-1 btn-premium-3d btn-green floating-action shadow-lg">
+                <div class="flex items-center gap-1.5 text-left">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 10.304c0-4.577-4.705-8.304-10.5-8.304s-10.5 3.727-10.5 8.304c0 4.1 3.756 7.532 8.816 8.169l-2.251 2.251c-.146.146-.146.382 0 .528.073.073.169.11.264.11.096 0 .191-.037.264-.11l3.541-3.541.666.038c5.795 0 10.5-3.727 10.5-8.304z"/></svg>
+                    <div class="text-left leading-tight">
+                        <p class="text-[8px] font-normal opacity-90 text-left">24時間受付</p>
+                        <p class="font-hannari text-xl text-left text-white">LINE相談</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <footer class="p-10 text-center text-gray-400 text-[10px] mb-20 bg-white border-t border-gray-50">
+        <p class="mb-2">株式会社Azucar</p>
+        <p>© 2024 Fukuenyasan All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

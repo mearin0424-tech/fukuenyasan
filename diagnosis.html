@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>復縁アプローチ診断</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 基本設定 --- */
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #fce0f3 0%, #e0d6ff 100%);
+            color: #4B415C;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* --- メインコンテナ --- */
+        #shindan-app {
+            position: relative; 
+            max-width: 700px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(75, 65, 92, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* --- スタート画面 --- */
+        #start-screen {
+            text-align: center;
+            padding: 20px 0;
+            display: block; 
+        }
+        #start-screen h1 {
+            font-family: 'Playfair Display', serif;
+            color: #6A4C9C;
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 3em;
+            font-weight: 700;
+        }
+        #start-screen .subtitle {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1.1em;
+            font-weight: 500;
+            color: #9279b8;
+            margin-top: 0;
+            margin-bottom: 35px;
+            letter-spacing: 1px;
+        }
+        #start-screen p.description {
+            font-size: 1.1em;
+            color: #4B415C;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        /* --- タイトルのスライドアニメーション --- */
+        .title { overflow: hidden; transform: translateX(-100%); transition: transform 0.8s ease-out; }
+        .title span { display: block; transform: translateX(100%); transition: transform 0.8s ease-out; }
+        .title.visible { transform: translateX(0); }
+        .title.visible span { transform: translateX(0); }
+
+        /* --- トップ画像スタイル --- */
+        #top-image {
+            max-width: 80%;
+            height: auto;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        #start-btn, .btn-primary {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #f78bb8 0%, #9f85ff 100%);
+            color: #fff;
+            padding: 14px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(106, 76, 156, 0.3);
+            transition: all 0.3s ease-in-out;
+            text-decoration: none;
+            display: inline-block;
+        }
+        #start-btn:hover, .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(106, 76, 156, 0.5);
+        }
+
+        /* --- トップに戻るボタン --- */
+        .btn-back-to-top {
+            position: absolute;
+            top: 25px; 
+            right: 30px;
+            background: #f7f3ff;
+            color: #6A4C9C;
+            border: 1px solid #c5b5e6;
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 0.85em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10;
+            display: none; 
+        }
+        .btn-back-to-top:hover {
+            background: #e0d6ff;
+            color: #4B415C;
+        }
+
+        /* --- 診断フォーム --- */
+        #shindan-form { display: none; }
+
+        .form-title {
+            font-family: 'Playfair Display', serif;
+            color: #6A4C9C;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        /* --- 質問エリア --- */
+        .question {
+            margin-bottom: 35px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0,0, 0.05);
+            transition: all 0.5s ease; 
+        }
+        .question p {
+            font-weight: 700;
+            font-size: 1.15em;
+            color: #3f364f;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .question.answered {
+            background-color: #f4f4f5; 
+            opacity: 0.8; 
+        }
+        .question.answered p {
+            color: #71717a; 
+        }
+
+        /* --- 5段階評価 --- */
+        .likert-scale { display: flex; justify-content: space-around; align-items: center; padding: 10px 0; }
+        .likert-scale label { cursor: pointer; text-align: center; transition: all 0.2s ease-in-out; }
+        .likert-scale label:hover { transform: scale(1.1); }
+        .likert-scale input { display: none; }
+
+        .likert-scale span {
+            display: block;
+            line-height: 35px; 
+            border-radius: 50%;
+            font-weight: 500;
+            font-size: 0.9em;
+            transition: all 0.2s ease-in-out;
+            border-width: 3px;
+            border-style: solid;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .likert-scale span::after { content: attr(data-label); }
+
+        .likert-scale label:nth-child(1) span, .likert-scale label:nth-child(5) span { width: 42px; height: 42px; line-height: 42px; }
+        .likert-scale label:nth-child(2) span, .likert-scale label:nth-child(4) span { width: 35px; height: 35px; line-height: 35px; }
+        .likert-scale label:nth-child(3) span { width: 30px; height: 30px; line-height: 30px; }
+
+        .likert-scale span[data-label="1"] { border-color: #a1a1aa; color: #a1a1aa; }
+        .likert-scale span[data-label="2"] { border-color: #b4b4bd; color: #b4b4bd; }
+        .likert-scale span[data-label="3"] { border-color: #C77DFF; color: #C77DFF; }
+        .likert-scale span[data-label="4"] { border-color: #f472b6; color: #f472b6; }
+        .likert-scale span[data-label="5"] { border-color: #ec4899; color: #ec4899; }
+
+        .likert-scale input[value="1"]:checked + span { background: #a1a1aa; color: #fff; border-color: #a1a1aa; transform: scale(1.1); }
+        .likert-scale input[value="2"]:checked + span { background: #b4b4bd; color: #fff; border-color: #b4b4bd; transform: scale(1.1); }
+        .likert-scale input[value="3"]:checked + span { background: #C77DFF; color: #fff; border-color: #C77DFF; transform: scale(1.1); }
+        .likert-scale input[value="4"]:checked + span { background: #f472b6; color: #fff; border-color: #f472b6; transform: scale(1.1); }
+        .likert-scale input[value="5"]:checked + span { background: #ec4899; color: #fff; border-color: #ec4899; transform: scale(1.1); }
+
+        .likert-labels { display: flex; justify-content: space-between; font-size: 0.85em; color: #796c8c; padding: 0 10px; }
+
+        #submit-btn {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #FF69B4, #6A4C9C);
+            color: #fff;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 5px 20px rgba(106, 76, 156, 0.3);
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* --- 結果表示エリア --- */
+        #result {
+            margin-top: 40px;
+            padding: 30px;
+            background: #fff;
+            border: 2px solid #e0d6ff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            display: none;
+        }
+        #result h2 { 
+            margin-top: 0; color: #6A4C9C; font-size: 1.4em; text-align: center; font-weight: 700; margin-bottom: 5px;
+        }
+        #result-type-title { 
+            font-family: 'Playfair Display', serif; color: #FF69B4; font-size: 1.6em; text-align: center; margin-top: 0; margin-bottom: 25px; line-height: 1.3; font-weight: 700;
+        }
+
+        .result-section { padding: 15px 0; border-bottom: 1px dashed #e0d6ff; margin-bottom: 15px; }
+        .result-section:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .result-section .section-title { font-size: 1.2em; font-weight: 700; color: #6A4C9C; margin-top: 5px; margin-bottom: 15px; text-align: center; }
+        
+        #result-description, #result-advice {
+            font-size: 0.95em; 
+            color: #4B415C;
+            padding: 20px;
+            background-color: #f7f3ff;
+            border-radius: 8px;
+            line-height: 1.7;
+            margin-bottom: 10px;
+            text-align: left;
+            border: 1px solid #e0d6ff;
+        }
+
+        /* --- タイプの詳細（ブレイクダウン） --- */
+        #result-breakdown { margin-bottom: 10px; }
+        .breakdown-item { display: flex; align-items: center; margin-bottom: 15px; background: #fdfcff; border: 1px solid #ede7f9; border-radius: 8px; padding: 12px 15px; }
+        .breakdown-item span:first-child { font-family: 'Noto Sans JP', sans-serif; font-size: 1.3em; font-weight: 700; color: #fff; background: linear-gradient(135deg, #FF69B4, #C77DFF); border-radius: 50%; width: 40px; height: 40px; line-height: 40px; text-align: center; margin-right: 15px; flex-shrink: 0;}
+        .breakdown-item p { margin: 0; font-size: 0.95em; color: #4B415C; line-height: 1.5; }
+        .breakdown-item p strong { font-size: 1.1em; color: #6A4C9C; display: block; }
+
+        /* --- プロのアドバイスエリア特化 --- */
+        #result-advice {
+            background-color: #fff0f5;
+            border-color: #fbcfe8;
+            border-left: 5px solid #FF69B4;
+        }
+        #result-advice strong { color: #e11d48; }
+
+        /* --- 探偵のCTAエリア --- */
+        .cta-section {
+            background: linear-gradient(135deg, #fff0f5 0%, #f3e8ff 100%);
+            border: 2px solid #FF69B4;
+            border-radius: 12px;
+            padding: 30px 25px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.15);
+        }
+        .cta-section h3 { color: #FF69B4; font-size: 1.4em; margin-top: 0; margin-bottom: 15px; font-weight: 700; }
+        .cta-section p { font-size: 1em; color: #4B415C; margin-bottom: 25px; font-weight: 500; line-height: 1.6; }
+        
+        #share-buttons { margin-top: 30px; padding-top: 20px; border-top: 1px dashed #d6c9e0; text-align: center; }
+        .share-btn { text-decoration: none; padding: 10px 20px; margin: 8px; border-radius: 50px; color: #fff; font-weight: 700; display: inline-block; font-size: 0.95em; transition: all 0.2s ease-in-out; min-width: 120px; text-align: center; }
+        #share-x { background-color: #000000; }
+        #share-line { background-color: #00B900; }
+
+        @media (max-width: 768px) {
+            #shindan-app { margin: 20px auto; padding: 20px 25px; }
+            #start-screen h1 { font-size: 2.2em; }
+            .btn-back-to-top { top: 15px; right: 15px; padding: 4px 12px; font-size: 0.8em; }
+            .likert-scale label:nth-child(1) span, .likert-scale label:nth-child(5) span { width: 38px; height: 38px; line-height: 38px; }
+            .likert-scale label:nth-child(2) span, .likert-scale label:nth-child(4) span { width: 32px; height: 32px; line-height: 32px; }
+            .likert-scale label:nth-child(3) span { width: 28px; height: 28px; line-height: 28px; }
+            .share-btn { display: block; width: calc(100% - 40px); margin: 10px auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="shindan-app">
+        <button class="btn-back-to-top">トップに戻る</button> 
+
+        <div id="start-screen">
+            <h1 class="title"><span>復縁アプローチ診断</span></h1>
+            <p class="subtitle">Find Your Way Back</p>
+            <p class="description">
+                「もう一度やり直したい」<br>
+                その願いを叶えるためには、自分と相手の現状を正しく知ることが第一歩です。<br><br>
+                12の質問から、あなたの復縁への傾向と、<br>成功率を高めるための具体的な処方箋を導き出します。
+            </p>
+            
+            <img src="https://mearin0424-tech.github.io/personality-test/images/top_image.png" alt="トップ画像" id="top-image" onerror="this.style.display='none'">
+            <br><br>
+            <button id="start-btn">診断をはじめる</button>
+        </div>
+
+        <form id="shindan-form">
+            <h2 class="form-title">直感で答えてください</h2>
+            <div id="questions-container"></div>
+            <button type="submit" id="submit-btn" style="display:none;">診断結果を見る</button>
+        </form>
+
+        <div id="result">
+            <h2>あなたの復縁アプローチタイプは...</h2>
+            <h3 id="result-type-title"></h3> 
+            
+            <!-- 1. 貴方のタイプ -->
+            <div class="result-section">
+                <p class="section-title">あなたの現状分析</p>
+                <div id="result-description"></div>
+            </div>
+
+            <!-- 2. タイプの詳細説明 -->
+            <div class="result-section">
+                <p class="section-title">タイプの詳細</p>
+                <div id="result-breakdown"></div>
+            </div>
+
+            <!-- 3. 専門家からの処方箋 -->
+            <div class="result-section">
+                <p class="section-title" style="color: #FF69B4;">専門家からの処方箋</p>
+                <div id="result-advice"></div>
+            </div>
+
+            <!-- 4. 無料相談申し込みへのリード -->
+            <div class="cta-section">
+                <h3>一人で悩まず、プロに頼りませんか？</h3>
+                <p>復縁は「タイミング」と「正しいアプローチ」が全てです。<br>手遅れになって完全にブロックされてしまう前に、専門家による状況調査や自然なきっかけ作り（復縁工作）をご検討ください。</p>
+                <button class="btn-primary" style="width: 100%; box-sizing: border-box;" onclick="alert('ここから公式LINEや無料相談フォームへ誘導します')">無料で復縁の専門家に相談する</button>
+            </div>
+
+            <div id="share-buttons">
+                <a href="#" id="share-x" class="share-btn" target="_blank">Xでシェア</a>
+                <a href="#" id="share-line" class="share-btn" target="_blank">LINEでシェア</a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- 1. データ定義 ---
+        
+        const axisDescriptions = {
+            'S': { title: '自分ベクトル (S)', text: '自分の感情や「やり直したい」という思いを優先して行動する傾向があります。' },
+            'P': { title: '相手ベクトル (P)', text: '相手の現在の状況や感情を気遣い、自分本位にならないよう意識する傾向があります。' },
+            'A': { title: '積極的 (A)', text: 'すぐに行動を起こし、直接的なアプローチで関係を修復しようとする傾向があります。' },
+            'W': { title: '消極的・待機 (W)', text: '冷却期間を置いたり、相手からのアクションを待つことを選ぶ傾向があります。' },
+            'E': { title: '感情的 (E)', text: '寂しさや怒りなど、その時の感情に流されやすく、直感的に動く傾向があります。' },
+            'L': { title: '論理的 (L)', text: '原因を分析し、理詰めや客観的な視点で状況を解決しようとする傾向があります。' },
+            'D': { title: '理想主義 (D)', text: '運命や愛情の力を強く信じ、精神的なつながりを重視する傾向があります。' },
+            'R': { title: '現実主義 (R)', text: '復縁の確率や相性など、シビアな現実を見据えて判断する傾向があります。' }
+        };
+
+        const questionData = [
+            { id: 'q1', axis: 'axis1', statement: '復縁したい一番の理由は「寂しい」「苦しい」という気持ちからだ', reverse: false },
+            { id: 'q2', axis: 'axis1', statement: '相手が今どんな生活リズムで、誰と遊んでいるかだいたい把握している', reverse: true }, 
+            { id: 'q3', axis: 'axis1', statement: '相手の気持ちを聞くより、まずは自分の「好き」という気持ちを伝えたい', reverse: false },
+            
+            { id: 'q4', axis: 'axis2', statement: '連絡が来ないと不安になり、つい連投や電話をしてしまうことがある', reverse: false },
+            { id: 'q5', axis: 'axis2', statement: '冷却期間を置くより、すぐに会って直接話し合って解決したい', reverse: false },
+            { id: 'q6', axis: 'axis2', statement: '自分からは連絡せず、相手からアクションが来るのをひたすら待っている', reverse: true }, 
+            
+            { id: 'q7', axis: 'axis3', statement: '相手と連絡を取ったり会ったりすると、感情的になって泣いたり怒ったりしてしまう', reverse: false },
+            { id: 'q8', axis: 'axis3', statement: 'なぜ別れることになったのか、原因を自分で分析したことがある', reverse: true }, 
+            { id: 'q9', axis: 'axis3', statement: '相手の言葉の裏を読むより、言葉通りに受け取って一喜一憂しがちだ', reverse: false },
+            
+            { id: 'q10', axis: 'axis4', statement: '私たちには特別な縁があり、最終的には絶対に結ばれる運命だと信じている', reverse: false },
+            { id: 'q11', axis: 'axis4', statement: 'もし復縁できなくても、この反省は次の恋愛に活かせると思っている', reverse: true }, 
+            { id: 'q12', axis: 'axis4', statement: '相手の悪いところや価値観の違いも、愛情さえあれば全て乗り越えられると思う', reverse: false }
+        ];
+
+        const resultData = {
+            'SAED': {
+                title: '感情のままに突っ走る<br>「情熱の暴走列車」タイプ',                desc: '「寂しい」「声が聞きたい」という自分の感情が先行し、後先考えずに行動してしまうタイプです。我慢できずに長文のLINEを送ったり、突然電話をかけたりと、相手にプレッシャーを与えてしまいがちです。',
+                advice: '<strong>【危険度：MAX】</strong><br>今すぐ直接的なアプローチをストップしてください！このまま感情をぶつけると「重い」「怖い」と思われ、完全にブロックされる危険があります。まずはプロの探偵が相手の「現在の警戒度」を調べ、冷却期間の目安を立てる必要があります。'
+            },
+            'SAER': {
+                title: '現実と感情の板挟み<br>「焦燥のメダリスト」タイプ',
+                desc: '頭では「今はしつこくしてはいけない」と分かっているのに、不安や焦りに負けて突発的に連絡してしまうタイプです。行動した直後に「またやってしまった…」と激しく後悔するループに陥っています。',
+                advice: '<strong>【危険度：大】</strong><br>自分で自分の感情をコントロールできなくなっている状態です。あなたが動けば動くほど、相手は離れていきます。第三者（工作員）を挟むことで、あなたが直接リスクを負わずに、相手の本当の気持ちを探り出すことができます。'
+            },
+            'SALD': {
+                title: '自分の正義を貫く<br>「独りよがりの勇者」タイプ',
+                desc: '「絶対にやり直せるはずだ」「愛があれば解決できる」と強く信じ、積極的にアプローチを仕掛けるタイプ。しかし、その行動はあくまで「自分目線」であり、相手が本当に望んでいる対応とズレている可能性があります。',
+                advice: 'あなたの行動力と愛情は素晴らしいですが、ベクトルが「自分」に向きすぎています。プロによる客観的な状況調査を行い、「相手が今、どんな距離感を求めているのか」を正確に把握してからアプローチの軌道修正をしましょう。'
+            },
+            'SALR': {
+                title: '理屈で相手を追い詰める<br>「冷徹な論破王」タイプ',
+                desc: '積極的に話し合いの場を持とうとしますが、論理武装して「なぜ別れるのか」「どこを直せばいいのか」と相手を論破してしまう傾向があります。正論をぶつけるため、相手が心を閉ざしやすいです。',
+                advice: '相手はあなたとの「理屈の通った論争」に疲れている可能性があります。正論で説き伏せるのではなく、感情のしこりを解くアプローチが必要です。第三者が間に入り、相手の警戒心を解きほぐす『復縁工作』が非常に有効なタイプです。'
+            },
+            'SWED': {
+                title: '奇跡を待ち続ける<br>「悲劇のヒロイン/ヒーロー」',
+                desc: '「いつか必ず向こうから連絡が来る」と運命を信じ、自分の感情を押し殺してひたすら待ち続けているタイプです。行動を起こして完全に振られるのが怖く、時間だけが過ぎてしまっています。',
+                advice: '<strong>【機会損失の危険あり】</strong><br>待つことは大切ですが、相手に新しいパートナーができてしまえば手遅れになります。まずは「相手の素行調査」だけでもプロに依頼してみませんか？現状を知ることで、待つべきか、動くべきかの正しい判断ができるようになります。'
+            },
+            'SWER': {
+                title: '諦めきれない<br>「未練の観察者」タイプ',
+                desc: '自分からは連絡しないものの、SNSなどで相手の動向を監視しては一喜一憂しているタイプ。現実は厳しいと見えているのに、感情の整理がついておらず、前に進むことも戻ることもできていません。',
+                advice: 'SNSの監視はあなたの心を削るだけで、現状打破には一切繋がりません。プロの調査員が代わりに「確実な情報」を掴み、あなたにとって最もリスクが少なく、最も成功率の高い「再会のシナリオ」を構築することができます。'
+            },
+            'SWLD': {
+                title: '精神世界で完結する<br>「祈りの修行僧」タイプ',
+                desc: '「縁があれば必ず繋がる」と信じ、無理な連絡などは一切しないタイプ。論理的に自分の心を守りながら静かに待ちますが、心の奥底では非常に深い未練と執着を抱えています。',
+                advice: '精神的な繋がりを信じる姿勢は美しいですが、現実の行動が伴わなければ復縁の扉は開きません。あなたの尊厳を守りつつ、ごく自然な形で（偶然を装うなどして）相手との接点を作るプロの工作を検討してみてはいかがでしょうか。'
+            },
+            'SWLR': {
+                title: '傷つくのを極端に恐れる<br>「石橋叩き割る職人」タイプ',
+                desc: '状況を分析しすぎて「今は無理だ」「連絡しても嫌われるだけだ」と自己完結し、一切のアクションを起こさないタイプ。失敗を恐れるあまり、わずかなチャンスすらも自ら逃しています。',
+                advice: 'あなたの状況分析は正しいかもしれませんが、1%でも可能性を上げるためには「外的な刺激」が絶対に必要です。あなたが直接動くリスクを負わずに、プロの工作員がターゲットに接触して心理誘導を行うアプローチが最適です。'
+            },
+            'PAED': {
+                title: '相手の顔色に振り回される<br>「依存パニック」タイプ',
+                desc: '相手の機嫌を最優先するあまり、少しでもLINEの返信が遅かったり冷たい態度を取られるとパニックになり、感情をぶつけてしまうタイプ。相手の言動に依存し、精神的に疲弊しています。',
+                advice: '相手の顔色を伺うほど、相手はあなたを下に見るようになり、対等な関係に戻れません。一度、プロの調査を挟んで「相手の本当の心理状態や生活状況」を客観的なデータとして受け取ることで、あなたのパニックは必ず落ち着きます。'
+            },
+            'PAER': {
+                title: '相手のためにと空回り<br>「尽くしすぎ空回り」タイプ',
+                desc: '相手のために良かれと思って積極的に動きますが、その「過剰な優しさ」や「尽くす行動」が、かえって相手にとっては重荷になっていることに気づきにくいタイプです。',
+                advice: '今の相手は「あなたからの優しさ」自体を重く、鬱陶しく感じている可能性が高いです。第三者（工作員）が相手の本当の本音（あなたへの不満）を聞き出すことで、あなたが取るべき「本当の正解の距離感」が明確になります。'
+            },
+            'PALD': {
+                title: '運命を信じて尽くす<br>「盲目的な守護天使」タイプ',
+                desc: '相手を最優先し、愛情と運命を信じて献身的にアプローチするタイプ。しかし、「相手は今、自分と距離を置きたがっている」というサインを見落とし、善意の押し付けになってしまうことがあります。',
+                advice: 'あなたの愛情は本物ですが、伝えるタイミングが間違っていれば完全に逆効果になります。プロの調査で「アプローチすべき正しいタイミング」を見極めることが、あなたの愛情を相手に届ける唯一の近道です。'
+            },
+            'PALR': {
+                title: '相手の行動を深読みしすぎる<br>「プロファイラー」タイプ',
+                desc: '相手の気持ちや状況を論理的に分析し、それに合わせて賢く動こうとするタイプ。しかし、当事者であるため推測に「希望的観測」が混じりやすく、推測が外れた時のリカバリーが苦手です。',
+                advice: 'あなたの推測能力は高いですが、当事者ゆえの「バイアス（偏見）」がかかっています。探偵の潜入調査などで「推測」を「確信（事実）」に変えてから動くことで、復縁の成功率は飛躍的に上がります。'
+            },
+            'PWED': {
+                title: '幸せを願い身を引く<br>「自己犠牲の聖母/聖人」タイプ',
+                desc: '相手の気持ちを尊重し、感情は激しく揺れ動きながらも自分からは身を引こうとするタイプ。「これでよかったのだ」と言い聞かせ、自分の本当の気持ちに蓋をしています。',
+                advice: '本当に諦めてしまって後悔しませんか？もし少しでも「やり直したい」気持ちがあるなら、最後の手段として「自然なきっかけ作り」をプロに依頼するという選択肢があります。あなたが直接踏み込まなくても、運命を少しだけ動かすことは可能です。'
+            },
+            'PWER': {
+                title: '現実を受け入れつつある<br>「ノスタルジー」タイプ',
+                desc: '相手の気持ちも現実的な難しさも理解しており、未練を抱えつつも思い出として昇華しようとしているタイプ。自ら復縁に向けて積極的に動くことはほぼありません。',
+                advice: '状況を冷静に受け入れる力は素晴らしいです。ただ、もし「相手に新しい恋人がいなければ…」などの条件付きで復縁を望むなら、事実確認のための素行調査だけでも行う価値はあります。モヤモヤを完全に晴らすための第一歩です。'
+            },
+            'PWLD': {
+                title: '理想と現実の狭間<br>「プラトニック」タイプ',
+                desc: '相手の今の立場を論理的に理解し、運命を信じてじっと待つタイプ。関係修復には長い時間がかかると覚悟を決めており、非常に忍耐強いです。',
+                advice: '長期戦を覚悟する忍耐力は復縁において強い武器です。しかし、数年単位の時間を無駄にする前に、工作員を派遣して「相手の心理状態に変化を促す」アプローチを仕掛ければ、その期間を数ヶ月に短縮できる可能性があります。'
+            },
+            'PWLR': {
+                title: '冷静に状況を見極める<br>「孤高のスナイパー」タイプ',
+                desc: '相手の状況も現実も冷静に分析し、自分本位にならずに最適なタイミングを図ることができる、復縁において最も優秀なタイプです。',
+                advice: '<strong>【成功率：高】</strong><br>あなたの冷静さは復縁において最大の武器です。あとは「自然な再会のきっかけ」さえあれば関係は修復に向かいます。探偵による工作（偶然を装った再会の演出など）を利用することで、あなたの計画は一気に現実のものとなるでしょう。'
+            },
+            'DEFAULT': {
+                title: '迷いの中にいる<br>「手探りの旅人」タイプ',
+                desc: '様々な感情や考えが入り混じり、自分でもどうしていいか分からなくなっている状態です。冷静になろうとする自分と、感情的になる自分が激しく葛藤しています。',
+                advice: '自分一人で答えを出そうとする必要はありません。こじれてしまった関係の修復には、客観的な視点が不可欠です。プロの探偵・アドバイザーにこれまでの経緯を話すだけで、絡まった糸を解くヒントが見つかります。'
+            }
+        };
+
+        // --- 2. 初期化と画面制御 ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const startScreen = document.getElementById('start-screen');
+            const shindanForm = document.getElementById('shindan-form');
+            const resultScreen = document.getElementById('result');
+            const startBtn = document.getElementById('start-btn');
+            const backToTopBtns = document.querySelectorAll('.btn-back-to-top'); 
+
+            function resetToStart(event) {
+                if (event) event.preventDefault(); 
+                
+                startScreen.style.display = 'block';
+                shindanForm.style.display = 'none';
+                resultScreen.style.display = 'none';
+                backToTopBtns.forEach(btn => btn.style.display = 'none'); 
+
+                shindanForm.reset();
+                document.querySelectorAll('.question.answered').forEach(q => q.classList.remove('answered'));
+                
+                document.getElementById('shindan-app').scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            startBtn.addEventListener('click', () => {
+                startScreen.style.display = 'none';
+                shindanForm.style.display = 'block';
+                backToTopBtns.forEach(btn => btn.style.display = 'block');
+                document.getElementById('shindan-app').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            backToTopBtns.forEach(btn => btn.addEventListener('click', resetToStart));
+
+            setTimeout(() => { document.querySelector('.title').classList.add('visible'); }, 300);
+
+            generateQuestionsHTML();
+        });
+
+        function generateQuestionsHTML() {
+            const container = document.getElementById('questions-container');
+            let htmlContent = '';
+
+            questionData.forEach((q, index) => {
+                htmlContent += `
+                    <div class="question" data-axis="${q.axis}" data-id="${q.id}">
+                        <p>Q${index + 1}. ${q.statement}</p>
+                        <div class="likert-scale">
+                            <label><input type="radio" name="${q.id}" value="1"> <span data-label="1"></span></label>
+                            <label><input type="radio" name="${q.id}" value="2"> <span data-label="2"></span></label>
+                            <label><input type="radio" name="${q.id}" value="3"> <span data-label="3"></span></label>
+                            <label><input type="radio" name="${q.id}" value="4"> <span data-label="4"></span></label>
+                            <label><input type="radio" name="${q.id}" value="5"> <span data-label="5"></span></label>
+                        </div>
+                        <div class="likert-labels">
+                            <span>そう思わない</span>
+                            <span>そう思う</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = htmlContent;
+            document.getElementById('submit-btn').style.display = 'block';
+
+            document.getElementById('shindan-form').addEventListener('change', (event) => {
+                if (event.target.type === 'radio') {
+                    const questionDiv = event.target.closest('.question');
+                    if (questionDiv) questionDiv.classList.add('answered');
+                }
+            });
+        }
+
+        // --- 3. 診断実行 ---
+        document.getElementById('shindan-form').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            
+            const formData = new FormData(event.target);
+            const answers = Object.fromEntries(formData.entries());
+
+            if (Object.keys(answers).length < questionData.length) {
+                alert("すべての質問に回答してください。");
+                return;
+            }
+
+            const scores = { 
+                axis1: { A: 0, B: 0 },
+                axis2: { A: 0, B: 0 },
+                axis3: { A: 0, B: 0 },
+                axis4: { A: 0, B: 0 } 
+            };
+
+            questionData.forEach(q => {
+                const answer = answers[q.id]; 
+                const axis = q.axis;
+                const isReverse = q.reverse; 
+
+                let targetA = isReverse ? 'B' : 'A';
+                let targetB = isReverse ? 'A' : 'B';
+
+                switch (answer) {
+                    case '5': scores[axis][targetA] += 2; break;
+                    case '4': scores[axis][targetA] += 1; break;
+                    case '3': break;
+                    case '2': scores[axis][targetB] += 1; break;
+                    case '1': scores[axis][targetB] += 2; break;
+                }
+            });
+
+            const type = [
+                (scores.axis1.A >= scores.axis1.B) ? 'S' : 'P',
+                (scores.axis2.A >= scores.axis2.B) ? 'A' : 'W',
+                (scores.axis3.A >= scores.axis3.B) ? 'E' : 'L',
+                (scores.axis4.A >= scores.axis4.B) ? 'D' : 'R' 
+            ].join('');
+
+            document.getElementById('shindan-form').style.display = 'none';
+            const resultEl = document.getElementById('result');
+            resultEl.style.display = 'block';
+
+            const result = resultData[type] || resultData["DEFAULT"];
+
+            resultEl.querySelector('#result-type-title').innerHTML = `(${type}) ${result.title}`;
+            resultEl.querySelector('#result-description').innerHTML = result.desc;
+            resultEl.querySelector('#result-advice').innerHTML = result.advice;
+            
+            const breakdownEl = resultEl.querySelector('#result-breakdown');
+            breakdownEl.innerHTML = ''; 
+            const typeChars = type.split('');
+            
+            typeChars.forEach(char => {
+                const desc = axisDescriptions[char];
+                if(desc) { 
+                    breakdownEl.innerHTML += `
+                        <div class="breakdown-item">
+                            <span>${char}</span>
+                            <p><strong>${desc.title}</strong>${desc.text}</p>
+                        </div>
+                    `;
+                }
+            });
+
+            const shareUrl = window.location.href; 
+            const hashTag = "復縁アプローチ診断"; 
+            const plainTitle = result.title.replace(/<br>/g, ' '); 
+            const shareText = `私の復縁アプローチタイプは【${plainTitle}（${type}）】でした！\nあなたも診断してみよう！\n#${hashTag}\n`;
+            
+            resultEl.querySelector('#share-x').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+            resultEl.querySelector('#share-line').href = `https://line.me/R/msg/text/?${encodeURIComponent(shareText + shareUrl)}`;
+
+            resultEl.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
