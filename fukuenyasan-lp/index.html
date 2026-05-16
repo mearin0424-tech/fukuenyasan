@@ -25,6 +25,16 @@
             --shining-gold: linear-gradient(45deg, #D4AF37 0%, #FFF3B0 50%, #B38808 100%);
             --burgundy-pink: #A64D5D;
             --light-burgundy: #F9F1F2;
+            /* Plan A: 章ごとのカラー */
+            --deep-navy: #0E1A33;
+            --navy-2: #182547;
+            --gold-main: #D4AF37;
+            --gold-light: #F6D365;
+            --gold-bg: #FFF8DC;
+            --royal-purple: #6B3FA0;
+            --purple-light: #9C6BD6;
+            --purple-deep: #3D2766;
+            --purple-bg: #EDE7F6;
         }
         body {
             font-family: 'Noto Sans JP', sans-serif;
@@ -33,7 +43,7 @@
             overflow-x: hidden;
             line-height: 1.6;
         }
-        .font-hannari { font-family: 'Shippori Mincho', serif; }
+        .font-hannari { font-family: 'Noto Sans JP', sans-serif; }
 
         /* ヒーローエリア */
         .hero-gradient {
@@ -87,9 +97,9 @@
             margin: 0 auto;
         }
         .pain-title {
-            font-family: 'Shippori Mincho', serif;
+            font-family: 'Noto Sans JP', sans-serif;
             font-size: 1.5rem;
-            font-weight: 800;
+            font-weight: 900;
             line-height: 1.5;
             text-align: center;
             color: var(--text-dark);
@@ -138,12 +148,11 @@
         }
         .warning-text {
             text-align: center;
-            font-family: 'Shippori Mincho', serif;
+            font-family: 'Noto Sans JP', sans-serif;
             font-size: 1.2rem;
-            font-weight: 800;
+            font-weight: 900;
             color: var(--primary-rose);
             line-height: 1.6;
-            font-style: italic;
         }
 
         /* セクション間トランジション（逆三角形） */
@@ -171,7 +180,7 @@
             position: relative;
         }
         .logic-title {
-            font-family: 'Shippori Mincho', serif;
+            font-family: 'Noto Sans JP', sans-serif;
             text-align: center;
             margin-bottom: 1.25rem;
             color: #fff;
@@ -195,7 +204,7 @@
             color: var(--primary-rose);
         }
         .notebook-message {
-            font-family: 'Zen Kurenaido', sans-serif;
+            font-family: 'Noto Sans JP', sans-serif;
             font-size: 0.82rem;
             font-weight: 600;
             color: #333;
@@ -302,10 +311,10 @@
         .guarantee-main {
             color: #fff;
             font-size: 1.15rem;
-            font-weight: 700;
+            font-weight: 800;
             line-height: 1.7;
             margin-bottom: 0.75rem;
-            font-family: 'Shippori Mincho', serif;
+            font-family: 'Noto Sans JP', sans-serif;
         }
         .guarantee-main strong {
             display: block;
@@ -508,15 +517,34 @@
             color: #4A3200;
             box-shadow:
                 0 8px 0 #9A7200,
-                0 10px 20px rgba(180,130,0,0.35),
-                inset 0 1px 0 rgba(255,255,255,0.6);
-            text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+                0 10px 24px rgba(220,160,0,0.55),
+                0 0 0 2px rgba(255,255,255,0.45) inset,
+                inset 0 1px 0 rgba(255,255,255,0.7);
+            text-shadow: 0 1px 0 rgba(255,255,255,0.55);
+            animation: yellow-pulse 1.8s ease-in-out infinite;
         }
         .btn-yellow:hover {
             box-shadow:
                 0 10px 0 #9A7200,
-                0 14px 24px rgba(180,130,0,0.4),
-                inset 0 1px 0 rgba(255,255,255,0.6);
+                0 14px 28px rgba(220,160,0,0.65),
+                0 0 0 2px rgba(255,255,255,0.55) inset,
+                inset 0 1px 0 rgba(255,255,255,0.7);
+        }
+        @keyframes yellow-pulse {
+            0%, 100% {
+                box-shadow:
+                    0 8px 0 #9A7200,
+                    0 10px 24px rgba(220,160,0,0.55),
+                    0 0 0 2px rgba(255,255,255,0.45) inset,
+                    inset 0 1px 0 rgba(255,255,255,0.7);
+            }
+            50% {
+                box-shadow:
+                    0 8px 0 #9A7200,
+                    0 10px 32px rgba(255,210,80,0.85),
+                    0 0 0 2px rgba(255,255,255,0.6) inset,
+                    inset 0 1px 0 rgba(255,255,255,0.7);
+            }
         }
         .btn-pink {
             background: linear-gradient(165deg, #FF8FB8 0%, #FF3D85 40%, #D81670 100%);
@@ -548,9 +576,16 @@
                 box-shadow:
                     0 8px 0 #9A0A4F,
                     0 10px 32px rgba(255,61,133,0.85),
-                    0 0 0 2px rgba(255,255,255,0.35) inset,
+                    0 0 0 2px rgba(255,255,255,0.4) inset,
                     inset 0 1px 0 rgba(255,255,255,0.5);
             }
+        }
+
+        /* CTAボタンラベル（読みやすいサンセリフ） */
+        .cta-label {
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif;
+            font-weight: 900;
+            letter-spacing: 0.08em;
         }
 
         /* リボン見出し */
@@ -788,7 +823,7 @@
             text-align: center;
         }
         .price-light-title {
-            font-family: 'Shippori Mincho', serif;
+            font-family: 'Noto Sans JP', sans-serif;
             font-size: 1.4rem;
             font-weight: 900;
             color: #2A1B1D;
@@ -887,9 +922,9 @@
             margin-bottom: 1.5rem;
         }
         .price-dark-title {
-            font-family: 'Shippori Mincho', serif;
+            font-family: 'Noto Sans JP', sans-serif;
             font-size: 1.2rem;
-            font-weight: 800;
+            font-weight: 900;
             margin-bottom: 1rem;
             letter-spacing: 0.05em;
         }
@@ -936,9 +971,9 @@
             opacity: 0.8;
         }
         .reason-quality-section-title .ja {
-            font-family: 'Shippori Mincho', serif;
+            font-family: 'Noto Sans JP', sans-serif;
             font-size: 1.5rem;
-            font-weight: 800;
+            font-weight: 900;
             color: var(--dark-rose);
             line-height: 1.4;
         }
@@ -983,12 +1018,27 @@
             z-index: 1;
         }
 
-        /* ===== 選ばれる理由（大胆リッチ版） ===== */
+        /* ===== 選ばれる理由（濃紺×ゴールド／パープル） ===== */
         .reason-section-bg {
-            background: radial-gradient(circle at top right, #FFF 0%, #FFF0F5 100%);
+            background:
+                radial-gradient(ellipse at 88% 8%, rgba(212,175,55,0.22) 0%, transparent 45%),
+                radial-gradient(ellipse at 10% 90%, rgba(156,107,214,0.20) 0%, transparent 50%),
+                linear-gradient(180deg, #0E1A33 0%, #182547 55%, #0E1A33 100%);
             position: relative;
             overflow: hidden;
+            color: #fff;
         }
+        .reason-section-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 22px 22px;
+            pointer-events: none;
+        }
+        .reason-section-bg > * { position: relative; z-index: 1; }
+        .reason-section-bg .text-gray-600 { color: rgba(255,255,255,0.78) !important; }
+        .reason-section-bg .text-gray-400 { color: rgba(255,255,255,0.45) !important; }
         .reason-section-title .en {
             display: inline-block;
             background: linear-gradient(135deg, #F6D365 0%, #FFEDB3 50%, #D4AF37 100%);
@@ -1001,11 +1051,12 @@
             margin-bottom: 0.5rem;
         }
         .reason-section-title .ja {
-            font-family: 'Shippori Mincho', serif;
+            font-family: 'Noto Sans JP', sans-serif;
             font-size: 1.75rem;
             font-weight: 900;
-            color: var(--dark-rose);
+            color: #FFFFFF;
             line-height: 1.35;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
         /* ===== 円形ダイアグラム（修正版） ===== */
@@ -1020,7 +1071,7 @@
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             width: 68%; aspect-ratio: 1;
-            border: 1px dashed rgba(216, 27, 96, 0.2);
+            border: 1px dashed rgba(212, 175, 55, 0.45);
             border-radius: 50%;
             animation: diagram-rotate 30s linear infinite;
             pointer-events: none;
@@ -1042,7 +1093,7 @@
             width: 148px; height: 148px;
             border-radius: 50%;
             background: #fff;
-            box-shadow: 0 8px 22px rgba(216, 27, 96, 0.12), inset 0 0 0 3px #fff;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4), inset 0 0 0 3px #fff;
             display: flex;
             flex-direction: column;
             align-items: stretch;
@@ -1064,7 +1115,7 @@
         .circle-bottom-left:hover { transform: scale(1.05); }
         .circle-bottom-right {
             bottom: 0; right: 0;
-            border: 3px solid var(--highlight-red);
+            border: 3px solid var(--royal-purple);
         }
         .circle-bottom-right:hover { transform: scale(1.05); }
         .circle-header {
@@ -1080,6 +1131,10 @@
         .circle-gold-header {
             background: linear-gradient(135deg, #F6D365, #D4AF37);
             color: #5C4300;
+        }
+        .circle-purple-header {
+            background: linear-gradient(135deg, #9C6BD6, #6B3FA0);
+            color: #fff;
         }
         .circle-body {
             flex: 1;
@@ -1106,6 +1161,14 @@
             line-height: 1;
             color: var(--highlight-red);
         }
+        .c-num-purple {
+            font-family: 'Shippori Mincho', serif;
+            font-weight: 900;
+            font-size: 1.6rem;
+            line-height: 1;
+            color: var(--royal-purple);
+        }
+        .reason-section-bg .c-sub { color: #555; }
         .c-sub {
             font-size: 0.65rem;
             font-weight: 800;
@@ -1125,8 +1188,8 @@
             border-radius: 24px;
             margin-bottom: 3.5rem;
             position: relative;
-            box-shadow: 0 15px 40px rgba(216, 27, 96, 0.08);
-            border: 2px solid #fff;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+            border: 2px solid rgba(255,255,255,0.15);
             overflow: visible;
         }
         .point-badge {
@@ -1149,6 +1212,11 @@
             color: #5C4300;
             box-shadow: 0 8px 20px rgba(212, 175, 55, 0.35);
         }
+        .point-badge.purple {
+            background: linear-gradient(135deg, #9C6BD6 0%, #6B3FA0 100%);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(107, 63, 160, 0.45);
+        }
         .point-badge span:first-child { font-size: 0.65rem; font-weight: 900; letter-spacing: 0.05em; }
         .point-badge span:last-child { font-family: 'Shippori Mincho', serif; font-size: 1.75rem; font-weight: 900; line-height: 1; }
         .img-placeholder {
@@ -1163,6 +1231,14 @@
             overflow: hidden;
             border-bottom: 1px solid rgba(216, 27, 96, 0.08);
         }
+        .bold-card.theme-gold .img-placeholder {
+            background: linear-gradient(135deg, #FFF3CC 0%, #fff 100%);
+            border-bottom-color: rgba(212,175,55,0.15);
+        }
+        .bold-card.theme-purple .img-placeholder {
+            background: linear-gradient(135deg, #EDE7F6 0%, #fff 100%);
+            border-bottom-color: rgba(107,63,160,0.15);
+        }
         .img-placeholder::before {
             content: '';
             position: absolute;
@@ -1173,7 +1249,7 @@
         @keyframes placeholder-pulse { 0% { transform: scale(1); } 100% { transform: scale(1.2); } }
         .card-body { padding: 2.25rem 1.5rem 2rem; position: relative; }
         .bold-title {
-            font-family: 'Shippori Mincho', serif;
+            font-family: 'Noto Sans JP', sans-serif;
             font-size: 1.3rem;
             font-weight: 900;
             color: var(--dark-rose);
@@ -1183,6 +1259,7 @@
             padding-bottom: 0.75rem;
         }
         .bold-title.gold-title { color: #7A5A00; border-bottom-color: #FFF3CC; }
+        .bold-title.purple-title { color: var(--purple-deep); border-bottom-color: #EDE7F6; }
         .card-desc { font-size: 0.9rem; color: #444; line-height: 1.85; font-weight: 500; }
         .price-ribbon-box {
             background: #fff;
@@ -1210,17 +1287,17 @@
             bottom: -20px; right: 10px;
             width: 110px; height: 110px;
             background: rgba(255,255,255,0.92);
-            border: 3px dashed var(--highlight-red);
+            border: 3px dashed var(--royal-purple);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             transform: rotate(15deg);
-            box-shadow: 0 10px 20px rgba(216, 27, 96, 0.15);
+            box-shadow: 0 10px 20px rgba(107, 63, 160, 0.25);
             z-index: 30;
         }
         .stamp-inner {
-            background: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);
+            background: linear-gradient(135deg, #9C6BD6 0%, #6B3FA0 100%);
             color: white;
             border-radius: 50%;
             width: 88px; height: 88px;
@@ -1232,66 +1309,109 @@
             line-height: 1.25;
         }
 
-        /* ===== 復縁ステップ ===== */
+        /* ===== 復縁ステップ（タイムライン版） ===== */
+        .flow-section-bg {
+            background: linear-gradient(180deg, #F4F8FC 0%, #FFFBF5 60%, #FFF3E0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .flow-timeline {
+            position: relative;
+            padding-left: 0;
+        }
+        .flow-timeline::before {
+            content: '';
+            position: absolute;
+            left: calc(0.5rem + 26px);
+            top: 30px;
+            bottom: 30px;
+            width: 3px;
+            background: linear-gradient(to bottom, #93B7E8 0%, #E8C7A5 50%, #D4AF37 100%);
+            border-radius: 2px;
+            z-index: 0;
+        }
         .flow-step {
             background: #ffffff;
-            border: 1px solid rgba(154, 74, 87, 0.15);
-            border-bottom: 4px solid var(--primary-rose);
+            border: 1px solid rgba(0,0,0,0.05);
             border-radius: 16px;
-            padding: 1.5rem 1.25rem;
+            padding: 1.25rem 1rem 1.25rem 0.5rem;
             position: relative;
-            box-shadow: 0 10px 25px rgba(154, 74, 87, 0.15);
+            box-shadow: 0 8px 22px rgba(20, 50, 90, 0.08);
             display: flex;
-            gap: 1rem;
+            gap: 0.9rem;
             overflow: hidden;
+            z-index: 1;
         }
         .flow-step::before {
             content: '';
             position: absolute;
             left: 0; top: 0; bottom: 0;
-            width: 6px;
-            background: linear-gradient(to bottom, var(--accent-rose), var(--primary-rose));
+            width: 5px;
+            background: linear-gradient(to bottom, #93B7E8, #6B95C8);
         }
+        .flow-step.step-2::before { background: linear-gradient(to bottom, #B8C5DB, #E8C7A5); }
+        .flow-step.step-3::before { background: linear-gradient(to bottom, #E8C7A5, #F0A07A); }
+        .flow-step.step-4::before { background: linear-gradient(to bottom, #F6D365, #D4AF37); }
         .flow-number {
             font-family: 'Shippori Mincho', serif;
             font-size: 4.5rem;
             font-weight: 900;
-            color: var(--light-rose);
+            color: rgba(20, 50, 90, 0.08);
             line-height: 1;
             position: absolute;
             bottom: -10px; right: 0;
             z-index: 0;
-            opacity: 0.6;
             letter-spacing: -0.05em;
         }
+        .flow-step.step-4 .flow-number { color: rgba(212, 175, 55, 0.22); }
         .flow-icon-wrap {
             width: 52px;
             height: 52px;
-            background: linear-gradient(135deg, #ffffff 0%, var(--light-rose) 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #DDE7F4 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--primary-rose);
+            color: #4A6FA5;
             flex-shrink: 0;
             position: relative;
-            z-index: 1;
-            box-shadow: 0 4px 12px rgba(154, 74, 87, 0.2), inset 0 2px 0 rgba(255,255,255,1);
-            border: 1px solid rgba(154, 74, 87, 0.1);
+            z-index: 2;
+            box-shadow: 0 4px 14px rgba(74, 111, 165, 0.25), inset 0 2px 0 rgba(255,255,255,1);
+            border: 2px solid #fff;
+            outline: 2px solid rgba(147, 183, 232, 0.5);
+        }
+        .flow-step.step-2 .flow-icon-wrap {
+            color: #8B6F5E;
+            background: linear-gradient(135deg, #ffffff 0%, #F0E2D2 100%);
+            outline-color: rgba(184, 197, 219, 0.6);
+        }
+        .flow-step.step-3 .flow-icon-wrap {
+            color: #B5683A;
+            background: linear-gradient(135deg, #ffffff 0%, #FCE0CB 100%);
+            outline-color: rgba(232, 199, 165, 0.7);
+        }
+        .flow-step.step-4 .flow-icon-wrap {
+            color: #7A5A00;
+            background: linear-gradient(135deg, #FFFAEC 0%, #F6D365 100%);
+            outline-color: rgba(212, 175, 55, 0.75);
+            box-shadow: 0 4px 18px rgba(212,175,55,0.45), inset 0 2px 0 rgba(255,255,255,1);
         }
         .flow-text { position: relative; z-index: 1; flex-grow: 1; }
         .flow-title {
             font-size: 1.05rem;
             font-weight: 800;
-            color: var(--dark-rose);
+            color: #1A3458;
             margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
             flex-wrap: wrap;
             gap: 0.5rem;
         }
+        .flow-step.step-2 .flow-title { color: #5C3F2D; }
+        .flow-step.step-3 .flow-title { color: #7A3F1F; }
+        .flow-step.step-4 .flow-title { color: #7A5A00; }
         .flow-step-label {
-            background: var(--primary-rose);
+            background: #4A6FA5;
             color: white;
             font-size: 0.65rem;
             padding: 2px 8px;
@@ -1299,13 +1419,20 @@
             font-weight: bold;
             letter-spacing: 0.05em;
         }
+        .flow-step.step-2 .flow-step-label { background: #8B6F5E; }
+        .flow-step.step-3 .flow-step-label { background: #B5683A; }
+        .flow-step.step-4 .flow-step-label {
+            background: linear-gradient(135deg, #F6D365 0%, #D4AF37 100%);
+            color: #5C4300;
+            box-shadow: 0 2px 6px rgba(212,175,55,0.5);
+        }
         .flow-desc { font-size: 0.8rem; color: #555555; line-height: 1.6; }
         .flow-badge {
             display: inline-block;
-            background: linear-gradient(to right, #FFF5F5, #ffffff);
-            color: var(--primary-rose);
-            border: 1px solid rgba(154, 74, 87, 0.25);
-            border-left: 3px solid var(--accent-rose);
+            background: linear-gradient(to right, #F0F5FB, #ffffff);
+            color: #4A6FA5;
+            border: 1px solid rgba(74, 111, 165, 0.25);
+            border-left: 3px solid #93B7E8;
             font-size: 0.65rem;
             font-weight: 800;
             padding: 4px 12px;
@@ -1313,25 +1440,36 @@
             margin-top: 0.75rem;
             box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
-        .flow-arrow {
-            text-align: center;
-            color: var(--accent-rose);
-            padding: 0.75rem 0;
-            display: flex;
-            justify-content: center;
+        .flow-step.step-2 .flow-badge { color: #8B6F5E; border-left-color: #B8C5DB; }
+        .flow-step.step-3 .flow-badge { color: #B5683A; border-left-color: #E8C7A5; }
+        .flow-step.step-4 .flow-badge {
+            color: #7A5A00;
+            border-left-color: #D4AF37;
+            background: linear-gradient(to right, #FFF8DC, #ffffff);
         }
-        .flow-arrow svg {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(to bottom, #ffffff, var(--light-rose));
-            border-radius: 50%;
-            padding: 6px;
-            box-shadow: 0 4px 12px rgba(154, 74, 87, 0.2);
-            border: 1px solid rgba(154, 74, 87, 0.1);
+        .flow-step.step-4 {
+            border: 1px solid rgba(212,175,55,0.4);
+            box-shadow: 0 12px 30px rgba(212,175,55,0.25);
+            background: linear-gradient(135deg, #FFFEF7 0%, #FFFAEC 100%);
         }
+        .flow-step.step-4::after {
+            content: '🎉 ゴール';
+            position: absolute;
+            top: -10px; right: 12px;
+            background: linear-gradient(135deg, #F6D365 0%, #D4AF37 100%);
+            color: #5C4300;
+            font-size: 0.6rem;
+            font-weight: 900;
+            padding: 3px 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(212,175,55,0.5);
+            letter-spacing: 0.05em;
+        }
+        .flow-arrow { display: none; }
+        .flow-timeline > .flow-step + .flow-step { margin-top: 1.25rem; }
         .flow-section-title .en {
             display: block;
-            color: var(--accent-rose);
+            color: #6B95C8;
             font-size: 0.75rem;
             font-weight: 800;
             letter-spacing: 0.2em;
@@ -1340,11 +1478,25 @@
             opacity: 0.9;
         }
         .flow-section-title .ja {
-            font-family: 'Shippori Mincho', serif;
+            font-family: 'Noto Sans JP', sans-serif;
             font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--dark-rose);
+            font-weight: 900;
+            color: #1A3458;
             line-height: 1.4;
+        }
+
+        /* セクション間のウェーブ区切り */
+        .wave-divider {
+            display: block;
+            width: 100%;
+            line-height: 0;
+            position: relative;
+            z-index: 2;
+        }
+        .wave-divider svg {
+            display: block;
+            width: 100%;
+            height: 50px;
         }
 
         /* ===== 復縁アプローチ診断 誘導セクション ===== */
@@ -1716,9 +1868,9 @@
 
             <!-- 円3：心理学（右下） -->
             <div class="point-circle circle-bottom-right">
-                <div class="circle-header">科学的アプローチ</div>
+                <div class="circle-header circle-purple-header">科学的アプローチ</div>
                 <div class="circle-body">
-                    <div class="c-num-pink" style="font-size:1.3rem; line-height:1.25;">心理学<br>脳科学</div>
+                    <div class="c-num-purple" style="font-size:1.3rem; line-height:1.25;">心理学<br>脳科学</div>
                     <div class="c-sub">に基づく工作</div>
                 </div>
             </div>
@@ -1730,7 +1882,7 @@
         <div class="space-y-12">
 
             <!-- POINT 1：実績 -->
-            <div class="bold-card">
+            <div class="bold-card theme-gold">
                 <div class="point-badge gold">
                     <span>POINT</span>
                     <span>1</span>
@@ -1770,16 +1922,16 @@
             </div>
 
             <!-- POINT 3：心理学（専門家スタンプ付き） -->
-            <div class="bold-card relative" style="margin-bottom: 5rem;">
-                <div class="point-badge">
+            <div class="bold-card theme-purple relative" style="margin-bottom: 5rem;">
+                <div class="point-badge purple">
                     <span>POINT</span>
                     <span>3</span>
                 </div>
                 <div class="img-placeholder">
-                    <svg class="w-14 h-14 opacity-20" fill="none" stroke="currentColor" style="color: var(--highlight-red);" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                    <svg class="w-14 h-14 opacity-20" fill="none" stroke="currentColor" style="color: var(--royal-purple);" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
                 </div>
                 <div class="card-body pb-20">
-                    <h3 class="bold-title">相手が自ら求めてくる<br>心理学・脳科学の工作</h3>
+                    <h3 class="bold-title purple-title">相手が自ら求めてくる<br>心理学・脳科学の工作</h3>
                     <p class="card-desc">
                         拒絶反応を和らげる高度な「心理誘導」で、自然にお相手があなたを求める環境を構築します。
                     </p>
@@ -1796,16 +1948,21 @@
         </div>
     </section>
 
+    <!-- セクション間ウェーブ（濃紺→明色） -->
+    <div class="wave-divider" style="background: var(--deep-navy);">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C240,80 540,0 720,32 C900,64 1200,16 1440,40 L1440,80 L0,80 Z" fill="#F4F8FC"/></svg>
+    </div>
+
     <!-- 6. 復縁成功までの流れ -->
-    <section class="px-5 py-12 bg-[#FAF8F5] fade-in">
+    <section class="px-5 py-12 flow-section-bg fade-in">
         <div class="flow-section-title text-center mb-10">
             <span class="en">Flow</span>
             <h2 class="ja">復縁成功までのステップ</h2>
         </div>
 
-        <div class="space-y-0">
+        <div class="flow-timeline">
             <!-- STEP 1 -->
-            <div class="flow-step">
+            <div class="flow-step step-1">
                 <div class="flow-number">01</div>
                 <div class="flow-icon-wrap">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
@@ -1825,7 +1982,7 @@
             </div>
 
             <!-- STEP 2 -->
-            <div class="flow-step">
+            <div class="flow-step step-2">
                 <div class="flow-number">02</div>
                 <div class="flow-icon-wrap">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
@@ -1845,7 +2002,7 @@
             </div>
 
             <!-- STEP 3 -->
-            <div class="flow-step">
+            <div class="flow-step step-3">
                 <div class="flow-number">03</div>
                 <div class="flow-icon-wrap">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -1865,7 +2022,7 @@
             </div>
 
             <!-- STEP 4 -->
-            <div class="flow-step">
+            <div class="flow-step step-4">
                 <div class="flow-number">04</div>
                 <div class="flow-icon-wrap">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
@@ -2127,14 +2284,14 @@
             <div class="flex flex-col items-center">
                 <span class="cta-callout text-center">＼ まずはお気軽にご相談ください ／</span>
                 <a href="./contact.html" class="btn-premium-3d btn-yellow py-5 text-2xl shadow-xl w-full floating-action">
-                    <span class="font-hannari text-center text-[#4A3200]">無料相談のお申込み</span>
+                    <span class="cta-label text-center text-[#4A3200]">無料相談のお申込み</span>
                 </a>
             </div>
             <div class="flex flex-col items-center">
                 <span class="cta-callout text-center">＼ 他社見積もり持参・今すぐ最安値を確認 ／</span>
                 <a href="tel:0353568550" class="btn-premium-3d btn-pink text-2xl flex-row gap-3 shadow-xl py-5 w-full floating-action">
                     <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
-                    <span class="font-hannari text-center text-white">お電話で無料相談</span>
+                    <span class="cta-label text-center text-white">お電話で無料相談</span>
                 </a>
                 <p class="text-[10px] text-gray-500 mt-2 leading-relaxed text-left bg-gray-50 px-3 py-2 rounded-lg border border-gray-100">
                     <span class="font-bold text-gray-600">※ご案内</span><br>
@@ -2251,14 +2408,14 @@
         <div class="flex gap-4 items-stretch h-16">
             <a href="./contact.html" class="flex-1 btn-premium-3d btn-yellow floating-action shadow-lg">
                 <span class="text-[9px] mb-0.5 font-normal leading-none opacity-80 text-center">24時間受付中</span>
-                <span class="font-hannari leading-none text-xl tracking-tighter text-center text-[#4A3200]">無料相談のお申込み</span>
+                <span class="cta-label leading-none text-xl tracking-tighter text-center text-[#4A3200]">無料相談のお申込み</span>
             </a>
             <a href="tel:0353568550" class="flex-1 btn-premium-3d btn-pink floating-action shadow-lg" title="お電話に出られない場合はオートアナウンスとなります。混雑時は速やかにカウンセラーを選定し折り返し対応いたします。">
                 <div class="flex items-center gap-1.5 text-left">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
                     <div class="text-left leading-tight">
                         <p class="text-[8px] font-normal opacity-90 text-left">タップで発信</p>
-                        <p class="font-hannari text-xl text-left text-white">03-5356-8550</p>
+                        <p class="cta-label text-xl text-left text-white">03-5356-8550</p>
                     </div>
                 </div>
             </a>
