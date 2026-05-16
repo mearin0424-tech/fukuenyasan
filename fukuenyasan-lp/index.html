@@ -586,6 +586,7 @@
             font-family: 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif;
             font-weight: 900;
             letter-spacing: 0.08em;
+            white-space: nowrap;
         }
 
         /* リボン見出し */
@@ -1247,6 +1248,23 @@
             animation: placeholder-pulse 4s ease-in-out infinite alternate;
         }
         @keyframes placeholder-pulse { 0% { transform: scale(1); } 100% { transform: scale(1.2); } }
+        .img-placeholder img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 1;
+        }
+        .img-placeholder::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(255,255,255,0.5) 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
         .card-body { padding: 2.25rem 1.5rem 2rem; position: relative; }
         .bold-title {
             font-family: 'Noto Sans JP', sans-serif;
@@ -1318,17 +1336,6 @@
         .flow-timeline {
             position: relative;
             padding-left: 0;
-        }
-        .flow-timeline::before {
-            content: '';
-            position: absolute;
-            left: calc(0.5rem + 26px);
-            top: 30px;
-            bottom: 30px;
-            width: 3px;
-            background: linear-gradient(to bottom, #93B7E8 0%, #E8C7A5 50%, #D4AF37 100%);
-            border-radius: 2px;
-            z-index: 0;
         }
         .flow-step {
             background: #ffffff;
@@ -1465,8 +1472,45 @@
             box-shadow: 0 4px 10px rgba(212,175,55,0.5);
             letter-spacing: 0.05em;
         }
-        .flow-arrow { display: none; }
-        .flow-timeline > .flow-step + .flow-step { margin-top: 1.25rem; }
+        /* デザイン矢印 */
+        .flow-arrow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.4rem 0;
+            position: relative;
+            height: 64px;
+        }
+        .flow-arrow::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px; height: 80px;
+            background: radial-gradient(circle, currentColor 0%, transparent 65%);
+            opacity: 0.18;
+            border-radius: 50%;
+        }
+        .flow-arrow svg {
+            width: 42px;
+            height: 46px;
+            position: relative;
+            z-index: 1;
+            color: currentColor;
+            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.18));
+            animation: arrow-pulse 1.8s ease-in-out infinite;
+            background: none;
+            padding: 0;
+            border-radius: 0;
+            border: none;
+        }
+        .flow-arrow.arrow-1 { color: #6B95C8; }
+        .flow-arrow.arrow-2 { color: #B5683A; }
+        .flow-arrow.arrow-3 { color: #D4AF37; }
+        @keyframes arrow-pulse {
+            0%, 100% { transform: translateY(0); opacity: 0.85; }
+            50%      { transform: translateY(8px); opacity: 1; }
+        }
         .flow-section-title .en {
             display: block;
             color: #6B95C8;
@@ -1888,7 +1932,8 @@
                     <span>1</span>
                 </div>
                 <div class="img-placeholder">
-                    <svg class="w-14 h-14 opacity-20" fill="none" stroke="currentColor" style="color: var(--cta-yellow);" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 16L3 5l5.5 5L12 4l3.5 6 5.5-5-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg>
+                    <!-- TODO: 実績/トロフィー系の画像に差し替えてください -->
+                    <img src="https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&w=800&q=80" alt="6,000件以上の成功実績" loading="lazy">
                 </div>
                 <div class="card-body">
                     <h3 class="bold-title gold-title">過去の失敗を未然に防ぐ<br>6,000件以上の実例データ</h3>
@@ -1905,7 +1950,8 @@
                     <span>2</span>
                 </div>
                 <div class="img-placeholder">
-                    <svg class="w-14 h-14 opacity-20" fill="none" stroke="currentColor" style="color: var(--highlight-red);" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <!-- TODO: 価格/電卓/お金系の画像に差し替えてください -->
+                    <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80" alt="業界最安水準" loading="lazy">
                 </div>
                 <div class="card-body">
                     <h3 class="bold-title">圧倒的実績のパターン化で<br>「業界最安水準」を実現</h3>
@@ -1928,7 +1974,8 @@
                     <span>3</span>
                 </div>
                 <div class="img-placeholder">
-                    <svg class="w-14 h-14 opacity-20" fill="none" stroke="currentColor" style="color: var(--royal-purple);" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                    <!-- TODO: 心理学/脳科学系の画像に差し替えてください -->
+                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=800&q=80" alt="心理学・脳科学の工作" loading="lazy">
                 </div>
                 <div class="card-body pb-20">
                     <h3 class="bold-title purple-title">相手が自ら求めてくる<br>心理学・脳科学の工作</h3>
@@ -1972,13 +2019,13 @@
                         <span class="flow-step-label">STEP</span>
                         無料相談・状況分析
                     </div>
-                    <p class="flow-desc">お二人の状況を詳しくお伺いし、復縁の可能性や最適なプランを診断・お見積りします。</p>
+                    <p class="flow-desc">復縁可能性とプランを無料で診断します。</p>
                     <span class="flow-badge">✓ 相談・お見積り完全無料</span>
                 </div>
             </div>
 
-            <div class="flow-arrow">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            <div class="flow-arrow arrow-1">
+                <svg viewBox="0 0 32 34" fill="none" stroke="currentColor"><path d="M8 6 L16 12 L24 6 M8 14 L16 20 L24 14 M8 22 L16 28 L24 22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
 
             <!-- STEP 2 -->
@@ -1992,13 +2039,13 @@
                         <span class="flow-step-label">STEP</span>
                         ご契約・戦略会議
                     </div>
-                    <p class="flow-desc">プランと費用に完全にご納得いただいた場合のみご契約となります。無理な勧誘はいたしません。</p>
+                    <p class="flow-desc">ご納得いただいた場合のみご契約。無理な勧誘なし。</p>
                     <span class="flow-badge">✓ 月々6,300円〜の分割対応</span>
                 </div>
             </div>
 
-            <div class="flow-arrow">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            <div class="flow-arrow arrow-2">
+                <svg viewBox="0 0 32 34" fill="none" stroke="currentColor"><path d="M8 6 L16 12 L24 6 M8 14 L16 20 L24 14 M8 22 L16 28 L24 22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
 
             <!-- STEP 3 -->
@@ -2012,13 +2059,13 @@
                         <span class="flow-step-label">STEP</span>
                         事前調査・工作の実行
                     </div>
-                    <p class="flow-desc">専門の工作員がお相手に自然に接触。心理誘導を用い、あなたへのマイナスイメージを払拭していきます。</p>
+                    <p class="flow-desc">工作員が自然に接触し、関係を温め直します。</p>
                     <span class="flow-badge">✓ 自社専属のプロのみが担当</span>
                 </div>
             </div>
 
-            <div class="flow-arrow">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            <div class="flow-arrow arrow-3">
+                <svg viewBox="0 0 32 34" fill="none" stroke="currentColor"><path d="M8 6 L16 12 L24 6 M8 14 L16 20 L24 14 M8 22 L16 28 L24 22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
 
             <!-- STEP 4 -->
@@ -2032,7 +2079,7 @@
                         <span class="flow-step-label">STEP</span>
                         再会・復縁の達成
                     </div>
-                    <p class="flow-desc">機が熟したタイミングで、偶然を装った再会などを演出。アドバイザーがあなたの言動もサポートします。</p>
+                    <p class="flow-desc">偶然を装った再会を演出し、復縁を達成します。</p>
                     <span class="flow-badge">✓ 復縁後も無料アフターサポート</span>
                 </div>
             </div>
@@ -2195,11 +2242,11 @@
                         </div>
                     </div>
                     <div class="pl-28 pt-1 text-left">
-                        <h3 class="font-bold text-base leading-tight mb-2 text-[#C04851] text-left">元彼から「会いたい」の連絡。</h3>
+                        <h3 class="font-bold text-base leading-tight mb-2 text-[#C04851] text-left">半年完全無視からプロポーズ。</h3>
                         <p class="text-[10px] text-gray-400 font-bold mb-4 text-left">(20代女性：会社員)</p>
                     </div>
                     <div class="mt-6 text-[12px] text-[#444] font-medium tracking-wider text-left leading-relaxed">
-                        <p>感情的に追い詰めLINEブロック。<span class="pink-marker">工作員が自然に接触し私の変化を伝えてくれた</span>おかげで、彼からブロックを解除されました。</p>
+                        <p>LINEブロック・SNS遮断で「一生会えない」と覚悟した日々。<span class="pink-marker">工作員が共通の知人経由で接触し彼の心の鎧を解体</span>。3ヶ月後、彼から「君以外考えられない」と<span class="pink-marker">婚約指輪を贈られました</span>。</p>
                     </div>
                 </div>
 
@@ -2214,11 +2261,11 @@
                         </div>
                     </div>
                     <div class="pl-28 pt-1 text-left">
-                        <h3 class="font-bold text-base leading-tight mb-2 text-[#C04851] text-left">信頼関係の再構築が成功。</h3>
+                        <h3 class="font-bold text-base leading-tight mb-2 text-[#C04851] text-left">新しい彼女から奪還、結婚へ。</h3>
                         <p class="text-[10px] text-gray-400 font-bold mb-4 text-left">(30代女性：公務員)</p>
                     </div>
                     <div class="mt-6 text-[12px] text-[#444] font-medium tracking-wider text-left leading-relaxed">
-                        <p>遠距離ですれ違い破局。<span class="pink-marker">彼の生活実態を踏まえた戦略的アプローチ</span>で不信感が消え、今は<span class="pink-marker">結婚前提で同居</span>しています。</p>
+                        <p>別れて1年、彼には新しい彼女が…。崩れ落ちる思いでプロに依頼。<span class="pink-marker">彼の本心を引き出す高度な心理戦略</span>で、彼自ら別れを選択。今は私の指に<span class="pink-marker">婚約指輪が光っています</span>。</p>
                     </div>
                 </div>
 
@@ -2233,11 +2280,11 @@
                         </div>
                     </div>
                     <div class="pl-28 pt-1 text-left">
-                        <h3 class="font-bold text-base leading-tight mb-2 text-[#C04851] text-left">もう一度、隣を歩ける幸せ。</h3>
+                        <h3 class="font-bold text-base leading-tight mb-2 text-[#C04851] text-left">着信拒否から3週間で再会。</h3>
                         <p class="text-[10px] text-gray-400 font-bold mb-4 text-left">(20代男性：自営業)</p>
                     </div>
                     <div class="mt-6 text-[12px] text-[#444] font-medium tracking-wider text-left leading-relaxed">
-                        <p>幼さが原因でフラれ連絡遮断。<span class="pink-marker">工作で第三者から自分の変化を伝達</span>し、無事復縁。今は将来の話をしています。</p>
+                        <p>修羅場の別れで全SNS・着信を拒否され、もう人生終わったと思っていました。<span class="pink-marker">第三者経由で「変わった僕」を演出する工作</span>で、<span class="pink-marker">彼女から「会いたい」とLINE</span>が来た瞬間、涙が止まりませんでした。</p>
                     </div>
                 </div>
 
@@ -2252,11 +2299,11 @@
                         </div>
                     </div>
                     <div class="pl-28 pt-1 text-left">
-                        <h3 class="font-bold text-base leading-tight mb-2 text-[#C04851] text-left">逆転の復縁が叶いました。</h3>
+                        <h3 class="font-bold text-base leading-tight mb-2 text-[#C04851] text-left">略奪された彼女を取り戻した。</h3>
                         <p class="text-[10px] text-gray-400 font-bold mb-4 text-left">(40代男性：経営者)</p>
                     </div>
                     <div class="mt-6 text-[12px] text-[#444] font-medium tracking-wider text-left leading-relaxed">
-                        <p>別れて半年、彼女に新しい彼が。<span class="pink-marker">「本当に大切な人」を再認識させる環境作り</span>のおかげで、無事ヨリを戻せました。</p>
+                        <p>仕事漬けで彼女を他の男に奪われた絶望の半年。<span class="pink-marker">プロの心理工作で彼女の本物の感情を引き出し</span>、ある日彼女から<span class="pink-marker">「やり直したい」と泣きながら懇願</span>される結果に。来春入籍します。</p>
                     </div>
                 </div>
 
