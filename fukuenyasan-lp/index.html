@@ -1543,27 +1543,41 @@
             height: 50px;
         }
 
-        /* ===== 復縁アプローチ診断 誘導セクション ===== */
+        /* ===== 復縁アプローチ診断 誘導セクション（印象重視リデザイン） ===== */
         .lp-diag-wrapper {
-            background: radial-gradient(circle at top right, #2a111a, #11050a);
-            padding: 40px 20px;
+            background:
+                radial-gradient(ellipse at 80% 15%, rgba(229,197,135,0.18) 0%, transparent 45%),
+                radial-gradient(ellipse at 20% 90%, rgba(176,66,83,0.18) 0%, transparent 50%),
+                linear-gradient(180deg, #1A0911 0%, #2a111a 50%, #11050a 100%);
+            padding: 56px 20px;
             display: flex;
             justify-content: center;
             font-family: 'Noto Sans JP', sans-serif;
             color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+        .lp-diag-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(229,197,135,0.06) 1px, transparent 1px);
+            background-size: 28px 28px;
+            pointer-events: none;
         }
         .lp-diag-container {
             width: 100%;
             max-width: 600px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 40px 30px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(229,197,135,0.03) 100%);
+            border: 1px solid rgba(229, 197, 135, 0.25);
+            border-radius: 20px;
+            padding: 40px 26px 36px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 80px rgba(229,197,135,0.08), inset 0 1px 0 rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
+            z-index: 1;
         }
         .lp-diag-container::before {
             content: '';
@@ -1572,9 +1586,81 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle at center, rgba(176, 66, 83, 0.1) 0%, transparent 50%);
+            background: radial-gradient(circle at center, rgba(229, 197, 135, 0.08) 0%, transparent 50%);
             z-index: 0;
             pointer-events: none;
+        }
+        /* 大きな「?」アイコン */
+        .lp-diag-icon-mark {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffdf89 0%, #d4af37 100%);
+            color: #2a111a;
+            font-family: 'Shippori Mincho', serif;
+            font-size: 2.6rem;
+            font-weight: 900;
+            line-height: 1;
+            margin: 0 auto 14px;
+            box-shadow: 0 8px 24px rgba(229,197,135,0.45), inset 0 -2px 0 rgba(0,0,0,0.15);
+            animation: diag-bob 2.4s ease-in-out infinite;
+        }
+        @keyframes diag-bob {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50%      { transform: translateY(-6px) rotate(3deg); }
+        }
+        /* 3カラム特徴グリッド */
+        .lp-diag-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 22px 0 28px;
+        }
+        .lp-diag-feature {
+            background: rgba(229, 197, 135, 0.06);
+            border: 1px solid rgba(229, 197, 135, 0.28);
+            border-radius: 14px;
+            padding: 14px 6px 12px;
+            text-align: center;
+            position: relative;
+        }
+        .lp-diag-feature-num {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffdf89 0%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+        .lp-diag-feature-unit {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: #e5c587;
+            margin-left: 1px;
+        }
+        .lp-diag-feature-label {
+            font-size: 0.7rem;
+            color: #d1c4c9;
+            font-weight: 700;
+            margin-top: 6px;
+            letter-spacing: 0.05em;
+        }
+        /* 信頼ライン */
+        .lp-diag-trust {
+            margin-top: 16px;
+            font-size: 0.78rem;
+            color: #a89a9f;
+            letter-spacing: 0.03em;
+        }
+        .lp-diag-trust-num {
+            color: #e5c587;
+            font-weight: 800;
+            font-family: 'Shippori Mincho', serif;
+            font-size: 0.95rem;
         }
         .lp-diag-content {
             position: relative;
@@ -1583,14 +1669,14 @@
         .lp-diag-hesitate {
             display: inline-block;
             background: rgba(229, 197, 135, 0.1);
-            border: 1px solid rgba(229, 197, 135, 0.3);
+            border: 1px solid rgba(229, 197, 135, 0.35);
             color: #e5c587;
-            padding: 6px 18px;
+            padding: 5px 14px;
             border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            letter-spacing: 0.05em;
+            font-size: 0.72rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+            letter-spacing: 0.1em;
         }
         .lp-diag-subtitle {
             font-family: 'Cinzel', serif;
@@ -1601,14 +1687,15 @@
             font-weight: 700;
         }
         .lp-diag-title {
-            font-family: 'Noto Serif JP', serif;
-            font-size: 1.8rem;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 2rem;
             font-weight: 900;
-            line-height: 1.4;
+            line-height: 1.35;
             margin-top: 0;
-            margin-bottom: 25px;
+            margin-bottom: 14px;
             color: #ffffff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            text-shadow: 0 4px 16px rgba(0,0,0,0.6);
+            letter-spacing: 0.01em;
         }
         .lp-diag-title .highlight {
             color: #e5c587;
@@ -1617,10 +1704,10 @@
             -webkit-text-fill-color: transparent;
         }
         .lp-diag-desc {
-            font-size: 0.95rem;
-            line-height: 1.8;
+            font-size: 0.9rem;
+            line-height: 1.7;
             color: #d1c4c9;
-            margin-bottom: 30px;
+            margin-bottom: 0;
         }
         .lp-diag-desc .text-gold {
             color: #e5c587;
@@ -1673,19 +1760,28 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            background: linear-gradient(135deg, #a53b4b 0%, #802735 100%);
+            background: linear-gradient(135deg, #c84d5d 0%, #8b2435 100%);
             color: #ffffff;
             text-decoration: none;
-            padding: 18px 20px;
-            border-radius: 8px;
-            font-size: 1.15rem;
-            font-weight: 700;
+            padding: 20px 20px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 900;
             letter-spacing: 0.05em;
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(165, 59, 75, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.2);
-            border: 1px solid #bc4658;
+            box-shadow: 0 12px 28px rgba(200, 77, 93, 0.45), 0 0 40px rgba(229,197,135,0.15), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(229,197,135,0.4);
+            animation: diag-btn-pulse 2s ease-in-out infinite;
+        }
+        @keyframes diag-btn-pulse {
+            0%, 100% {
+                box-shadow: 0 12px 28px rgba(200, 77, 93, 0.45), 0 0 40px rgba(229,197,135,0.15), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+            }
+            50% {
+                box-shadow: 0 12px 32px rgba(200, 77, 93, 0.7), 0 0 60px rgba(229,197,135,0.35), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+            }
         }
         .lp-diag-btn:hover {
             transform: translateY(-3px);
@@ -1932,8 +2028,10 @@
                     <span>1</span>
                 </div>
                 <div class="img-placeholder">
-                    <!-- TODO: 実績/トロフィー系の画像に差し替えてください -->
-                    <img src="https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&w=800&q=80" alt="6,000件以上の成功実績" loading="lazy">
+                    <!-- TODO: 実績/業績データの画像に差し替えてください -->
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80" alt="6,000件以上の成功実績"
+                         loading="lazy"
+                         onerror="this.onerror=null;this.src='https://placehold.co/800x500/F6D365/7A5A00.png?text=6%2C000%2B+RESULTS&font=montserrat';">
                 </div>
                 <div class="card-body">
                     <h3 class="bold-title gold-title">過去の失敗を未然に防ぐ<br>6,000件以上の実例データ</h3>
@@ -2353,43 +2451,41 @@
         <div class="lp-diag-container">
             <div class="lp-diag-content">
 
-                <div class="lp-diag-hesitate">いきなり相談するのは不安…という方へ</div>
+                <div class="lp-diag-icon-mark">?</div>
+                <div class="lp-diag-hesitate">FREE DIAGNOSIS</div>
 
                 <h2 class="lp-diag-title">
-                    まずは<span class="highlight">ご自身</span>で<br>診断してみませんか？
+                    あなたは今、<br>
+                    <span class="highlight">復縁できるタイプ？</span>
                 </h2>
 
                 <p class="lp-diag-desc">
-                    あなたの状況・相手との関係性・別れた原因をもとに、<span class="text-gold">今すべき最適なアプローチ</span>を客観的に判定します。<br>
-                    感情的な行動で可能性を潰す前に、まずは今の状況の整理を。
+                    感情的な行動で可能性を潰す前に、<br><span class="text-gold">今すぐ現状チェック</span>を。
                 </p>
 
-                <div class="lp-diag-record">
-                    <div class="lp-diag-number">6,000</div>
-                    <div class="lp-diag-record-text">件以上の<br>復縁支援実績に基づく診断</div>
-                </div>
-
-                <div class="lp-diag-dashes">
-                    <div class="lp-diag-dash active"></div>
-                    <div class="lp-diag-dash active"></div>
-                    <div class="lp-diag-dash active"></div>
-                    <div class="lp-diag-dash active"></div>
-                    <div class="lp-diag-dash"></div>
-                    <div class="lp-diag-dash"></div>
-                    <div class="lp-diag-dash"></div>
-                    <div class="lp-diag-dash"></div>
-                    <div class="lp-diag-dash"></div>
+                <div class="lp-diag-features">
+                    <div class="lp-diag-feature">
+                        <div><span class="lp-diag-feature-num">60</span><span class="lp-diag-feature-unit">秒</span></div>
+                        <div class="lp-diag-feature-label">で完了</div>
+                    </div>
+                    <div class="lp-diag-feature">
+                        <div><span class="lp-diag-feature-num">12</span><span class="lp-diag-feature-unit">問</span></div>
+                        <div class="lp-diag-feature-label">の質問</div>
+                    </div>
+                    <div class="lp-diag-feature">
+                        <div><span class="lp-diag-feature-num">¥0</span></div>
+                        <div class="lp-diag-feature-label">登録不要</div>
+                    </div>
                 </div>
 
                 <a href="./diagnosis.html" class="lp-diag-btn">
-                    無料で診断をはじめる
+                    今すぐ無料で診断する
                     <span class="lp-diag-btn-icon">→</span>
                 </a>
 
-                <ul class="lp-diag-merits">
-                    <li>個人情報の入力・会員登録は一切不要</li>
-                    <li>結果はその場ですぐに表示されます</li>
-                </ul>
+                <p class="lp-diag-trust">
+                    <span class="lp-diag-trust-num">6,000件以上</span>の復縁支援実績に基づく診断
+                </p>
 
             </div>
         </div>
