@@ -109,16 +109,37 @@
             </button>
         </div>
 
-        <!-- モバイルフルスクリーンメニュー -->
-        <div class="fixed inset-0 bg-white/95 backdrop-blur-md z-[55] flex-col justify-center items-center gap-6 transition-all duration-300 opacity-0 pointer-events-none" id="mobile-menu">
-            <nav class="flex flex-col items-center gap-6 text-xl font-bold">
-                <a href="#services" class="mobile-link text-gray-800 hover:text-brand">サービス</a>
-                <a href="#team" class="mobile-link text-gray-800 hover:text-brand">専門家チーム</a>
-                <a href="#cases" class="mobile-link text-gray-800 hover:text-brand">成功事例</a>
-                <a href="#column" class="mobile-link text-gray-800 hover:text-brand">お役立ちコラム</a>
-                <a href="#company" class="mobile-link text-gray-800 hover:text-brand">会社概要</a>
-            </nav>
+        <!-- モバイルサイドメニュー（ドロワー） -->
+        <div class="fixed inset-y-0 right-0 w-64 bg-white/95 backdrop-blur-xl shadow-2xl z-[55] transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col pointer-events-none border-l border-gray-100" id="mobile-menu">
+            <div class="pt-24 px-6 flex-1 overflow-y-auto">
+                <nav class="flex flex-col gap-6 text-base font-bold">
+                    <a href="#services" class="mobile-link flex items-center gap-4 text-gray-800 hover:text-brand border-b border-gray-100 pb-4">
+                        <i class="fa-solid fa-hand-holding-heart text-brand w-6 text-center"></i> サービス
+                    </a>
+                    <a href="#team" class="mobile-link flex items-center gap-4 text-gray-800 hover:text-brand border-b border-gray-100 pb-4">
+                        <i class="fa-solid fa-users text-brand w-6 text-center"></i> 専門家チーム
+                    </a>
+                    <a href="#cases" class="mobile-link flex items-center gap-4 text-gray-800 hover:text-brand border-b border-gray-100 pb-4">
+                        <i class="fa-solid fa-star text-brand w-6 text-center"></i> 成功事例
+                    </a>
+                    <a href="#column" class="mobile-link flex items-center gap-4 text-gray-800 hover:text-brand border-b border-gray-100 pb-4">
+                        <i class="fa-solid fa-newspaper text-brand w-6 text-center"></i> お役立ちコラム
+                    </a>
+                    <a href="#company" class="mobile-link flex items-center gap-4 text-gray-800 hover:text-brand pb-4">
+                        <i class="fa-solid fa-building text-brand w-6 text-center"></i> 会社概要
+                    </a>
+                </nav>
+            </div>
+            <!-- メニュー内のCTAボタン -->
+            <div class="p-6 bg-gray-50 border-t border-gray-100">
+                <a href="#contact" class="mobile-link block w-full bg-brand text-white text-center py-3 rounded-xl font-bold shadow-md active:scale-95 transition-transform">
+                    無料相談を予約
+                </a>
+            </div>
         </div>
+        
+        <!-- メニュー背景オーバーレイ -->
+        <div class="fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-[54] opacity-0 pointer-events-none transition-opacity duration-300 md:hidden" id="mobile-overlay"></div>
     </header>
 
     <!-- 2. ヒーローセクション -->
@@ -473,24 +494,28 @@
     <!-- スクリプト -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // モバイルフルスクリーンメニューのトグル
+            // モバイルサイドメニューのトグル
             const mobileBtn = document.getElementById('mobile-menu-btn');
             const menuIcon = document.getElementById('menu-icon');
             const mobileMenu = document.getElementById('mobile-menu');
-            const mobileLinks = document.querySelectorAll('.mobile-link');
+            const mobileOverlay = document.getElementById('mobile-overlay');
             let isMenuOpen = false;
 
             function toggleMenu() {
                 isMenuOpen = !isMenuOpen;
                 if (isMenuOpen) {
-                    mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
-                    mobileMenu.classList.add('opacity-100', 'pointer-events-auto', 'flex');
+                    mobileMenu.classList.remove('translate-x-full', 'pointer-events-none');
+                    mobileMenu.classList.add('translate-x-0', 'pointer-events-auto');
+                    mobileOverlay.classList.remove('opacity-0', 'pointer-events-none');
+                    mobileOverlay.classList.add('opacity-100', 'pointer-events-auto');
                     menuIcon.classList.remove('fa-bars');
                     menuIcon.classList.add('fa-xmark');
-                    document.body.style.overflow = 'hidden'; // 背景スクロール防止
+                    document.body.style.overflow = 'hidden';
                 } else {
-                    mobileMenu.classList.add('opacity-0', 'pointer-events-none');
-                    mobileMenu.classList.remove('opacity-100', 'pointer-events-auto', 'flex');
+                    mobileMenu.classList.add('translate-x-full', 'pointer-events-none');
+                    mobileMenu.classList.remove('translate-x-0', 'pointer-events-auto');
+                    mobileOverlay.classList.add('opacity-0', 'pointer-events-none');
+                    mobileOverlay.classList.remove('opacity-100', 'pointer-events-auto');
                     menuIcon.classList.remove('fa-xmark');
                     menuIcon.classList.add('fa-bars');
                     document.body.style.overflow = '';
@@ -498,8 +523,35 @@
             }
 
             mobileBtn.addEventListener('click', toggleMenu);
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', toggleMenu);
+            mobileOverlay.addEventListener('click', toggleMenu); // 暗い背景タップでも閉じる
+
+            // スムーズスクロールによる確実なページ内遷移
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href').substring(1);
+                    if (!targetId) return;
+                    
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        e.preventDefault(); // デフォルトの遷移挙動をキャンセル
+                        
+                        if (isMenuOpen) {
+                            toggleMenu(); // メニューが開いていれば閉じる
+                        }
+
+                        // メニューが閉じるアニメーションを少し待ってからスクロール開始
+                        setTimeout(() => {
+                            const headerOffset = 80; // 固定ヘッダーの高さ分ズラす
+                            const elementPosition = targetElement.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                            
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: "smooth"
+                            });
+                        }, 150);
+                    }
+                });
             });
 
             // ヘッダーのスクロールエフェクト
