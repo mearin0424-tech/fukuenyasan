@@ -319,7 +319,7 @@
                 12の質問から、あなたの復縁への傾向と、<br>成功率を高めるための具体的な処方箋を導き出します。
             </p>
 
-            <img src="https://mearin0424-tech.github.io/personality-test/images/top_image.png" alt="トップ画像" id="top-image" onerror="this.style.display='none'">
+            <img src="./images/doctor.png" alt="復縁アプローチ診断" id="top-image" onerror="this.style.display='none'">
             <br><br>
             <button id="start-btn" disabled>診断データを読み込み中...</button>
         </div>
@@ -471,8 +471,8 @@
 
         async function loadDiagnosisData() {
             const [axesRes, resultsRes] = await Promise.all([
-                fetch('../results/diagnosis-axes.csv', { cache: 'no-cache' }),
-                fetch('../results/diagnosis-results.csv', { cache: 'no-cache' })
+                fetch('./results/diagnosis-axes.csv', { cache: 'no-cache' }),
+                fetch('./results/diagnosis-results.csv', { cache: 'no-cache' })
             ]);
             if (!axesRes.ok) throw new Error('diagnosis-axes.csv の取得に失敗しました (' + axesRes.status + ')');
             if (!resultsRes.ok) throw new Error('diagnosis-results.csv の取得に失敗しました (' + resultsRes.status + ')');
