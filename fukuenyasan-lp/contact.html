@@ -67,7 +67,7 @@
         </div>
 
         <!-- フォーム -->
-        <form id="contactForm" class="px-4 pb-10 bg-white rounded-b-[1.75rem]">
+        <form id="contactForm" method="post" action="mail.php" class="px-4 pb-10 bg-white rounded-b-[1.75rem]">
 
             <!-- セクションヘッダーテンプレート用マクロ（JSで生成） -->
 
@@ -85,13 +85,13 @@
                     <!-- お名前 -->
                     <div>
                         <div class="mb-2"><div class="flex items-center gap-2"><label class="font-black text-gray-800 text-sm">お名前</label><span class="bg-pink-500 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-[0_2px_0_rgb(190,24,93)]">必須</span></div><p class="text-[11px] text-gray-500 mt-1 font-bold">ニックネームでも構いません</p></div>
-                        <input type="text" name="name" placeholder="例）山田 太郎" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all placeholder:text-gray-300 shadow-inner">
+                        <input type="text" name="お名前" placeholder="例）山田 太郎" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all placeholder:text-gray-300 shadow-inner">
                     </div>
                     <!-- ご年齢 -->
                     <div>
                         <div class="mb-2"><div class="flex items-center gap-2"><label class="font-black text-gray-800 text-sm">ご年齢</label><span class="bg-pink-500 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-[0_2px_0_rgb(190,24,93)]">必須</span></div></div>
                         <div class="relative">
-                            <select name="age" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner appearance-none pr-10 cursor-pointer">
+                            <select name="ご年齢" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner appearance-none pr-10 cursor-pointer">
                                 <option value="">選択してください</option>
                             </select>
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -101,7 +101,7 @@
                     <div>
                         <div class="mb-2"><div class="flex items-center gap-2"><label class="font-black text-gray-800 text-sm">性別</label><span class="bg-pink-500 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-[0_2px_0_rgb(190,24,93)]">必須</span></div></div>
                         <div class="relative">
-                            <select name="gender" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner appearance-none pr-10 cursor-pointer">
+                            <select name="性別" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner appearance-none pr-10 cursor-pointer">
                                 <option value="">選択してください</option>
                                 <option value="男性">男性</option>
                                 <option value="女性">女性</option>
@@ -114,7 +114,7 @@
                     <div>
                         <div class="mb-2"><div class="flex items-center gap-2"><label class="font-black text-gray-800 text-sm">お住まいの都道府県</label><span class="bg-pink-500 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-[0_2px_0_rgb(190,24,93)]">必須</span></div></div>
                         <div class="relative">
-                            <select name="pref" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner appearance-none pr-10 cursor-pointer">
+                            <select name="お住まいの都道府県" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner appearance-none pr-10 cursor-pointer">
                                 <option value="">選択してください</option>
                             </select>
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -139,14 +139,14 @@
                         <div class="mb-2"><div class="flex items-center gap-2"><label class="font-black text-gray-800 text-sm">ご相談の種類</label><span class="bg-pink-500 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-[0_2px_0_rgb(190,24,93)]">必須</span></div><p class="text-[11px] text-gray-500 mt-1 font-bold">複数選択可</p></div>
                         <div id="consultationTypes" class="grid grid-cols-1 gap-3 mt-2"></div>
                         <div id="typeOtherWrap" hidden class="mt-3 animate-fadeIn">
-                            <textarea name="type_other" placeholder="その他の内容をご記入ください" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner resize-none h-20"></textarea>
+                            <textarea name="ご相談の種類（その他）" placeholder="その他の内容をご記入ください" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner resize-none h-20"></textarea>
                         </div>
                     </div>
                     <!-- 離別時期 -->
                     <div>
                         <div class="mb-2"><div class="flex items-center gap-2"><label class="font-black text-gray-800 text-sm">離別・疎遠になった時期</label><span class="bg-pink-500 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-[0_2px_0_rgb(190,24,93)]">必須</span></div></div>
                         <div class="relative">
-                            <select name="timing" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner appearance-none pr-10 cursor-pointer">
+                            <select name="離別してしまった時期" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner appearance-none pr-10 cursor-pointer">
                                 <option value="">選択してください</option>
                             </select>
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -157,13 +157,13 @@
                         <div class="mb-2"><div class="flex items-center gap-2"><label class="font-black text-gray-800 text-sm">現在のお相手との状況</label><span class="bg-pink-500 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-[0_2px_0_rgb(190,24,93)]">必須</span></div><p class="text-[11px] text-gray-500 mt-1 font-bold">複数選択可</p></div>
                         <div id="situations" class="grid grid-cols-1 gap-3 mt-2"></div>
                         <div id="statusOtherWrap" hidden class="mt-3 animate-fadeIn">
-                            <textarea name="status_other" placeholder="その他の状況をご記入ください" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner resize-none h-20"></textarea>
+                            <textarea name="現在の状況（その他）" placeholder="その他の状況をご記入ください" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner resize-none h-20"></textarea>
                         </div>
                     </div>
                     <!-- 状況の詳細 -->
                     <div>
                         <div class="mb-2"><div class="flex items-center gap-2"><label class="font-black text-gray-800 text-sm">状況の詳細</label><span class="bg-gray-400 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-[0_2px_0_rgb(156,163,175)]">任意</span></div><p class="text-[11px] text-gray-500 mt-1 font-bold">簡単な内容で構いません。詳細なヒアリングはご相談時に行います。</p></div>
-                        <textarea name="detail" placeholder="例）2年付き合った彼女と3ヶ月前に別れました。原因は自分の浮気で、現在はLINEをブロックされています…" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner resize-y min-h-[120px]"></textarea>
+                        <textarea name="状況の詳細" placeholder="例）2年付き合った彼女と3ヶ月前に別れました。原因は自分の浮気で、現在はLINEをブロックされています…" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner resize-y min-h-[120px]"></textarea>
                     </div>
                 </div>
             </div>
@@ -182,13 +182,13 @@
                     <!-- ご相談内容 -->
                     <div>
                         <div class="mb-2"><div class="flex items-center gap-2"><label class="font-black text-gray-800 text-sm">ご相談内容を簡単に教えてください。</label><span class="bg-pink-500 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-[0_2px_0_rgb(190,24,93)]">必須</span></div></div>
-                        <textarea name="consultation" placeholder="例）復縁に向けてどう動けばいいかアドバイスが欲しいです。" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner resize-y min-h-[100px]"></textarea>
+                        <textarea name="ご相談内容の詳細" placeholder="例）復縁に向けてどう動けばいいかアドバイスが欲しいです。" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner resize-y min-h-[100px]"></textarea>
                     </div>
                     <!-- 予算 -->
                     <div>
                         <div class="mb-2"><div class="flex items-center gap-2"><label class="font-black text-gray-800 text-sm">ご予算の目安はございますか？</label><span class="bg-gray-400 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-[0_2px_0_rgb(156,163,175)]">任意</span></div><p class="text-[11px] text-gray-500 mt-1 font-bold">各予算に合わせた柔軟なプランをご用意しております</p></div>
                         <div class="relative">
-                            <select name="budget" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner appearance-none pr-10 cursor-pointer">
+                            <select name="ご予算" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner appearance-none pr-10 cursor-pointer">
                                 <option value="">選択してください</option>
                             </select>
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -199,7 +199,7 @@
                         <div class="mb-2"><div class="flex items-center gap-2"><label class="font-black text-gray-800 text-sm">ご依頼にあたってご不安なことがあれば教えてください。</label><span class="bg-gray-400 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-[0_2px_0_rgb(156,163,175)]">任意</span></div><p class="text-[11px] text-gray-500 mt-1 font-bold">複数選択可</p></div>
                         <div id="anxieties" class="grid grid-cols-1 gap-3 mt-2"></div>
                         <div id="anxietyOtherWrap" hidden class="mt-3 animate-fadeIn">
-                            <textarea name="anxiety_other" placeholder="その他のご不安な点をご記入ください" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner resize-none h-20"></textarea>
+                            <textarea name="ご不安な点（その他）" placeholder="その他のご不安な点をご記入ください" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner resize-none h-20"></textarea>
                         </div>
                     </div>
                 </div>
@@ -218,15 +218,15 @@
                 <div class="space-y-5 bg-gray-50/50 p-4 rounded-2xl border-2 border-gray-100">
                     <div>
                         <div class="mb-2"><div class="flex items-center gap-2"><label class="font-black text-gray-800 text-sm">メールアドレス</label><span class="bg-pink-500 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-[0_2px_0_rgb(190,24,93)]">必須</span></div><p class="text-[11px] text-gray-500 mt-1 font-bold">正確にご入力ください（半角英数字）</p></div>
-                        <input type="email" name="email" placeholder="example@mail.com" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner placeholder:text-gray-300">
+                        <input type="email" name="Email" placeholder="example@mail.com" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner placeholder:text-gray-300">
                     </div>
                     <div>
                         <div class="mb-2"><div class="flex items-center gap-2"><label class="font-black text-gray-800 text-sm">メールアドレス（確認）</label><span class="bg-pink-500 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-[0_2px_0_rgb(190,24,93)]">必須</span></div></div>
-                        <input type="email" name="email_confirm" placeholder="もう一度入力してください" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner placeholder:text-gray-300">
+                        <input type="email" name="確認用Email" placeholder="もう一度入力してください" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner placeholder:text-gray-300">
                     </div>
                     <div>
                         <div class="mb-2"><div class="flex items-center gap-2"><label class="font-black text-gray-800 text-sm">電話番号</label><span class="bg-pink-500 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-[0_2px_0_rgb(190,24,93)]">必須</span></div></div>
-                        <input type="tel" name="tel" placeholder="例）09012345678" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner placeholder:text-gray-300">
+                        <input type="tel" name="ご連絡先電話番号" placeholder="例）09012345678" class="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner placeholder:text-gray-300">
                     </div>
                 </div>
             </div>
@@ -244,11 +244,11 @@
                 <div class="bg-gray-50/50 p-4 rounded-2xl border-2 border-gray-100">
                     <div class="flex flex-col gap-3">
                         <label class="flex items-center gap-2 cursor-pointer bg-white p-3 rounded-xl border-2 border-gray-200 hover:border-pink-300 transition-all shadow-sm">
-                            <input type="radio" name="contact_time" value="immediate" checked class="w-4 h-4 accent-pink-500 flex-shrink-0 cursor-pointer" onchange="toggleDatePicker(false)">
+                            <input type="radio" name="連絡可能な日時" value="今すぐ対応希望" checked class="w-4 h-4 accent-pink-500 flex-shrink-0 cursor-pointer" onchange="toggleDatePicker(false)">
                             <span class="text-sm font-bold text-gray-800">今すぐ対応希望 <span class="text-[10px] text-gray-500 font-bold">（営業時間内に折り返しご連絡します）</span></span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer bg-white p-3 rounded-xl border-2 border-gray-200 hover:border-pink-300 transition-all shadow-sm">
-                            <input type="radio" name="contact_time" value="specific" class="w-4 h-4 accent-pink-500 flex-shrink-0 cursor-pointer" onchange="toggleDatePicker(true)">
+                            <input type="radio" name="連絡可能な日時" value="日時を指定する" class="w-4 h-4 accent-pink-500 flex-shrink-0 cursor-pointer" onchange="toggleDatePicker(true)">
                             <span class="text-sm font-bold text-gray-800">日時を指定する</span>
                         </label>
                     </div>
@@ -257,9 +257,9 @@
                         <div>
                             <div class="text-xs font-black text-gray-700 mb-1.5">第1希望</div>
                             <div class="flex flex-col gap-2">
-                                <input type="date" name="date1" class="w-full bg-white border-2 border-gray-200 rounded-xl px-3 py-2 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner">
+                                <input type="date" name="日付1" class="w-full bg-white border-2 border-gray-200 rounded-xl px-3 py-2 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner">
                                 <div class="relative">
-                                    <select name="time1" class="w-full bg-white border-2 border-gray-200 rounded-xl px-3 py-2 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner appearance-none pr-8">
+                                    <select name="希望時間1" class="w-full bg-white border-2 border-gray-200 rounded-xl px-3 py-2 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner appearance-none pr-8">
                                         <option value="">時間帯を選択</option>
                                     </select>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -269,9 +269,9 @@
                         <div>
                             <div class="text-xs font-black text-gray-700 mb-1.5">第2希望（任意）</div>
                             <div class="flex flex-col gap-2">
-                                <input type="date" name="date2" class="w-full bg-white border-2 border-gray-200 rounded-xl px-3 py-2 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner">
+                                <input type="date" name="日付2" class="w-full bg-white border-2 border-gray-200 rounded-xl px-3 py-2 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner">
                                 <div class="relative">
-                                    <select name="time2" class="w-full bg-white border-2 border-gray-200 rounded-xl px-3 py-2 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner appearance-none pr-8">
+                                    <select name="希望時間2" class="w-full bg-white border-2 border-gray-200 rounded-xl px-3 py-2 text-sm font-bold text-gray-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all shadow-inner appearance-none pr-8">
                                         <option value="">時間帯を選択</option>
                                     </select>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -313,18 +313,18 @@
         items.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; el.appendChild(o); });
     }
 
-    function buildCheckboxGroup(containerId, items, otherToggleId) {
+    function buildCheckboxGroup(containerId, items, otherToggleId, fieldName) {
         const container = document.getElementById(containerId);
         items.forEach(item => {
             const label = document.createElement('label');
             label.className = 'flex items-start gap-2 cursor-pointer group';
-            label.innerHTML = `<input type="checkbox" class="mt-0.5 w-4 h-4 accent-pink-500 flex-shrink-0 cursor-pointer"><span class="text-sm font-bold text-gray-700 group-hover:text-pink-600 transition-colors leading-snug">${item}</span>`;
+            label.innerHTML = `<input type="checkbox" name="${fieldName}[]" value="${item}" class="mt-0.5 w-4 h-4 accent-pink-500 flex-shrink-0 cursor-pointer"><span class="text-sm font-bold text-gray-700 group-hover:text-pink-600 transition-colors leading-snug">${item}</span>`;
             container.appendChild(label);
         });
         // その他
         const otherLabel = document.createElement('label');
         otherLabel.className = 'flex items-start gap-2 cursor-pointer group';
-        otherLabel.innerHTML = `<input type="checkbox" class="mt-0.5 w-4 h-4 accent-pink-500 flex-shrink-0 cursor-pointer" id="${otherToggleId}Cb"><span class="text-sm font-bold text-gray-700 group-hover:text-pink-600 transition-colors">その他</span>`;
+        otherLabel.innerHTML = `<input type="checkbox" name="${fieldName}[]" value="その他" class="mt-0.5 w-4 h-4 accent-pink-500 flex-shrink-0 cursor-pointer" id="${otherToggleId}Cb"><span class="text-sm font-bold text-gray-700 group-hover:text-pink-600 transition-colors">その他</span>`;
         container.appendChild(otherLabel);
         document.getElementById(`${otherToggleId}Cb`).addEventListener('change', e => {
             const wrap = document.getElementById(`${otherToggleId}Wrap`);
@@ -333,7 +333,7 @@
     }
 
     function fillTimeSelects() {
-        ['time1', 'time2'].forEach(name => {
+        ['希望時間1', '希望時間2'].forEach(name => {
             const el = document.querySelector(`select[name="${name}"]`);
             times.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; el.appendChild(o); });
         });
@@ -343,19 +343,16 @@
         document.getElementById('datePickerWrap').hidden = !show;
     }
 
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        window.location.href = './thanks.html';
-    });
+    // 送信は mail.php に POST するため、JSによる遷移は不要
 
     // 初期化
-    fillSelect('age', ages);
-    fillSelect('pref', prefs);
-    fillSelect('timing', timings);
-    fillSelect('budget', budgets);
-    buildCheckboxGroup('consultationTypes', consultationTypes, 'typeOther');
-    buildCheckboxGroup('situations', situations, 'statusOther');
-    buildCheckboxGroup('anxieties', anxieties, 'anxietyOther');
+    fillSelect('ご年齢', ages);
+    fillSelect('お住まいの都道府県', prefs);
+    fillSelect('離別してしまった時期', timings);
+    fillSelect('ご予算', budgets);
+    buildCheckboxGroup('consultationTypes', consultationTypes, 'typeOther', 'ご相談の種類');
+    buildCheckboxGroup('situations', situations, 'statusOther', '現在お相手とはどのような状況');
+    buildCheckboxGroup('anxieties', anxieties, 'anxietyOther', 'ご不安な点');
     fillTimeSelects();
 </script>
 
