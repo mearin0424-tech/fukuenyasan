@@ -247,7 +247,7 @@
         .result-section { padding: 15px 0; border-bottom: 1px dashed #e0d6ff; margin-bottom: 15px; }
         .result-section:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .result-section .section-title { font-size: 1.2em; font-weight: 700; color: #6A4C9C; margin-top: 5px; margin-bottom: 15px; text-align: center; }
-        .section-title .doctor-icon { display: inline-block; vertical-align: middle; width: 36px; height: 36px; margin-right: 8px; }
+        .doctor-icon { display: block; max-width: 80%; height: auto; margin: 0 auto 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
         #result-description, #result-advice {
             font-size: 0.95em;
@@ -289,11 +289,6 @@
         .cta-section h3 { color: #FF69B4; font-size: 1.4em; margin-top: 0; margin-bottom: 15px; font-weight: 700; }
         .cta-section p { font-size: 1em; color: #4B415C; margin-bottom: 25px; font-weight: 500; line-height: 1.6; }
 
-        #share-buttons { margin-top: 30px; padding-top: 20px; border-top: 1px dashed #d6c9e0; text-align: center; }
-        .share-btn { text-decoration: none; padding: 10px 20px; margin: 8px; border-radius: 50px; color: #fff; font-weight: 700; display: inline-block; font-size: 0.95em; transition: all 0.2s ease-in-out; min-width: 120px; text-align: center; }
-        #share-x { background-color: #000000; }
-        #share-line { background-color: #00B900; }
-
         @media (max-width: 768px) {
             #shindan-app { margin: 20px auto; padding: 20px 25px; }
             #start-screen h1 { font-size: 2.2em; }
@@ -301,7 +296,6 @@
             .likert-scale label:nth-child(1) span, .likert-scale label:nth-child(5) span { width: 38px; height: 38px; line-height: 38px; }
             .likert-scale label:nth-child(2) span, .likert-scale label:nth-child(4) span { width: 32px; height: 32px; line-height: 32px; }
             .likert-scale label:nth-child(3) span { width: 28px; height: 28px; line-height: 28px; }
-            .share-btn { display: block; width: calc(100% - 40px); margin: 10px auto; }
         }
     </style>
 </head>
@@ -349,13 +343,14 @@
 
             <!-- 3. 専門家からの処方箋 -->
             <div class="result-section">
-                <p class="section-title" style="color: #FF69B4;"><img src="./images/doctor.png" alt="" class="doctor-icon">専門家からの処方箋</p>
+                <img src="./images/doctor.png" alt="" class="doctor-icon">
+                <p class="section-title" style="color: #FF69B4;">専門家からの処方箋</p>
                 <div id="result-advice"></div>
             </div>
 
             <!-- 4. 無料相談申し込みへのリード -->
             <div class="cta-section">
-                <h3>一人で悩まず、プロに頼りませんか？</h3>
+                <h3>まずはあなたの現在のご状況を正確に教えてください</h3>
                 <p>復縁は「タイミング」と「正しいアプローチ」が全てです。<br>完全に手遅れになってしまう前に、専門家によるヒアリング、<br>自然なきっかけづくり・心理誘導（復縁工作）をご検討ください。</p>
                 <a href="tel:0353568550" class="btn-primary" style="width: 100%; box-sizing: border-box; display: inline-block; text-align: center; text-decoration: none;">お電話で無料相談する（03-5356-8550）</a>
                 <p style="font-size: 11px; color: #888; margin-top: 10px; line-height: 1.6; text-align: left; background: #f8f8f8; padding: 8px 12px; border-radius: 6px;">
@@ -363,10 +358,6 @@
                 </p>
             </div>
 
-            <div id="share-buttons">
-                <a href="#" id="share-x" class="share-btn" target="_blank">Xでシェア</a>
-                <a href="#" id="share-line" class="share-btn" target="_blank">LINEでシェア</a>
-            </div>
         </div>
 
     </div>
@@ -563,10 +554,18 @@
             document.getElementById('submit-btn').style.display = 'block';
 
             document.getElementById('shindan-form').addEventListener('change', (event) => {
-                if (event.target.type === 'radio') {
-                    const questionDiv = event.target.closest('.question');
-                    if (questionDiv) questionDiv.classList.add('answered');
-                }
+                if (event.target.type !== 'radio') return;
+                const questionDiv = event.target.closest('.question');
+                if (!questionDiv) return;
+                questionDiv.classList.add('answered');
+
+                // 選択の視覚フィードバックを見せてから、次の質問（無ければ送信ボタン）へスクロール
+                setTimeout(() => {
+                    let next = questionDiv.nextElementSibling;
+                    while (next && !next.classList.contains('question')) next = next.nextElementSibling;
+                    const target = next || document.getElementById('submit-btn');
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 280);
             });
         }
 
@@ -647,14 +646,6 @@
                     `;
                 }
             });
-
-            const shareUrl = window.location.href;
-            const hashTag = "復縁アプローチ診断";
-            const plainTitle = result.title.replace(/<br>/g, ' ');
-            const shareText = `私の復縁アプローチタイプは【${plainTitle}（${type}）】でした！\nあなたも診断してみよう！\n#${hashTag}\n`;
-
-            resultEl.querySelector('#share-x').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
-            resultEl.querySelector('#share-line').href = `https://line.me/R/msg/text/?${encodeURIComponent(shareText + shareUrl)}`;
 
             resultEl.scrollIntoView({ behavior: 'smooth' });
         });
