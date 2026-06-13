@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  LP量産テンプレート  （このファイルを複製して新規LPを作る）
+  ============================================================
+  使い方:
+    1. このファイルを lp/ 内にコピー（例: lp/reconcile-30s.html）
+    2. <title> と <!-- LP本文 --> を差し替えるだけ
+    3. デザインは ../assets/css/theme.css を共有（個別CSSは原則書かない）
+
+  共通リンク規約（lp/ 配下からの相対パス）:
+    - CSS         : ../assets/css/theme.css
+    - 画像        : ../assets/img/xxx.png
+    - 無料相談    : ../shared/contact.html
+    - 12問診断    : ../shared/diagnosis.html
+    - 完了ページ  : ../shared/thanks.html
+    - トップLP    : ./main.html
+
+  CTAボタン作法（theme.css のクラスを使う）:
+    - 黄(フォーム遷移): btn-premium-3d btn-yellow floating-action + .cta-label
+    - 桃(電話発信)    : btn-premium-3d btn-pink   floating-action + .cta-label（tel:0353568550 専用）
+  ============================================================
+-->
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ▼ LPごとに書き換え -->
+    <title>復縁屋さん | 〇〇〇〇</title>
+    <meta name="description" content="〇〇〇〇">
+    <!-- ▲ -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;700;900&family=Shippori+Mincho:wght@400;700;800;900&family=Yuji+Syuku&family=Zen+Kurenaido&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+</head>
+<body class="max-w-[480px] mx-auto shadow-2xl bg-white min-h-screen pb-40 text-center">
+
+    <!-- ============ LP本文ここから（自由に組み立て） ============ -->
+    <section class="hero-gradient px-6 py-16">
+        <h1 class="text-3xl font-black leading-tight mb-4">
+            ここに<span style="color: var(--highlight-red);">訴求の見出し</span>
+        </h1>
+        <p class="text-base leading-relaxed mb-10 text-gray-700">
+            サブコピー・導入文をここに記載します。
+        </p>
+
+        <div class="flex flex-col items-center">
+            <span class="cta-callout text-center">＼ まずはお気軽にご相談ください ／</span>
+            <a href="../shared/contact.html" class="btn-premium-3d btn-yellow py-5 text-2xl shadow-xl w-full floating-action">
+                <span class="cta-label text-center text-[#4A3200]">無料相談のお申込み</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="px-6 py-12 fade-in">
+        <p class="leading-relaxed text-gray-700">
+            セクションを必要なだけ追加してください。
+        </p>
+    </section>
+    <!-- ============ LP本文ここまで ============ -->
+
+    <!-- 固定下部CTA（全LP共通・そのまま使う） -->
+    <div class="fixed bottom-0 left-0 right-0 max-w-[480px] mx-auto plain-header px-4 py-4 z-50">
+        <div class="flex gap-3 items-stretch h-16">
+            <a href="../shared/contact.html" class="flex-1 btn-premium-3d btn-yellow cta-fixed-btn floating-action shadow-lg">
+                <span class="text-[9px] mb-0.5 font-normal leading-none opacity-80 text-center">24時間受付中</span>
+                <span class="cta-label cta-fixed-main leading-none text-center text-[#4A3200]">無料相談フォーム</span>
+            </a>
+            <a href="tel:0353568550" class="flex-1 btn-premium-3d btn-pink cta-fixed-btn floating-action shadow-lg" title="お電話に出られない場合はオートアナウンスとなります。混雑時は速やかにカウンセラーを選定し折り返し対応いたします。">
+                <div class="flex items-center justify-center gap-1 text-left">
+                    <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+                    <div class="text-left leading-tight min-w-0">
+                        <p class="text-[8px] font-normal opacity-90 text-left">タップで発信</p>
+                        <p class="cta-label cta-fixed-num text-left text-white">03-5356-8550</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <footer class="p-10 text-center text-gray-400 text-[10px] mb-20 bg-white border-t border-gray-50">
+        <p class="mb-2">株式会社Azucar</p>
+        <p>© 2024 Fukuenyasan All Rights Reserved.</p>
+    </footer>
+
+    <!-- スクロールで .fade-in 要素をフェードイン（全LP共通） -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

@@ -288,6 +288,26 @@
         }
         .cta-section h3 { color: #FF69B4; font-size: 1.4em; margin-top: 0; margin-bottom: 15px; font-weight: 700; }
         .cta-section p { font-size: 1em; color: #4B415C; margin-bottom: 25px; font-weight: 500; line-height: 1.6; }
+        /* --- 診断結果の活用を促すメモ --- */
+        .cta-section .cta-note {
+            font-size: 0.92em; color: #6A4C9C; font-weight: 700;
+            background: #fff; border: 1px dashed #FF69B4; border-radius: 8px;
+            padding: 11px 14px; margin: -8px 0 22px; line-height: 1.7;
+        }
+        .cta-section .cta-note strong { color: #FF69B4; }
+        /* --- フォーム/電話の2系統CTA --- */
+        .cta-btn-group { display: flex; flex-direction: column; gap: 12px; }
+        .cta-btn {
+            width: 100%; box-sizing: border-box; display: inline-block;
+            text-align: center; text-decoration: none; font-size: 1.1em; padding: 15px 18px;
+        }
+        .btn-secondary {
+            font-family: 'Noto Sans JP', sans-serif; background: #fff; color: #c2477f;
+            border: 2px solid #FF69B4; border-radius: 50px; font-weight: 700;
+            cursor: pointer; box-shadow: 0 4px 14px rgba(255,105,180,0.18);
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-secondary:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255,105,180,0.28); }
 
         @media (max-width: 768px) {
             #shindan-app { margin: 20px auto; padding: 20px 25px; }
@@ -313,7 +333,7 @@
                 12の質問から、あなたの復縁への傾向と、<br>成功率を高めるための具体的な処方箋を導き出します。
             </p>
 
-            <img src="./images/doctor.png" alt="復縁アプローチ診断" id="top-image" onerror="this.style.display='none'">
+            <img src="../assets/img/doctor.png" alt="復縁アプローチ診断" id="top-image" onerror="this.style.display='none'">
             <br><br>
             <button id="start-btn" disabled>診断データを読み込み中...</button>
         </div>
@@ -343,7 +363,7 @@
 
             <!-- 3. 専門家からの処方箋 -->
             <div class="result-section">
-                <img src="./images/doctor.png" alt="" class="doctor-icon">
+                <img src="../assets/img/doctor.png" alt="" class="doctor-icon">
                 <p class="section-title" style="color: #FF69B4;">専門家からの処方箋</p>
                 <div id="result-advice"></div>
             </div>
@@ -352,7 +372,11 @@
             <div class="cta-section">
                 <h3>まずはあなたの現在のご状況を正確に教えてください</h3>
                 <p>復縁は「タイミング」と「正しいアプローチ」が全てです。<br>完全に手遅れになってしまう前に、専門家によるヒアリング、<br>自然なきっかけづくり・心理誘導（復縁工作）をご検討ください。</p>
-                <a href="tel:0353568550" class="btn-primary" style="width: 100%; box-sizing: border-box; display: inline-block; text-align: center; text-decoration: none;">お電話で無料相談する（03-5356-8550）</a>
+                <p class="cta-note">ご相談の際は、担当したカウンセラーに<strong>診断タイプの結果</strong>をお伝えいただくと、現状に合ったご提案がスムーズです。</p>
+                <div class="cta-btn-group">
+                    <a href="./contact.html" class="btn-primary cta-btn">フォームで無料相談する</a>
+                    <a href="tel:0353568550" class="btn-secondary cta-btn">お電話で無料相談する（03-5356-8550）</a>
+                </div>
                 <p style="font-size: 11px; color: #888; margin-top: 10px; line-height: 1.6; text-align: left; background: #f8f8f8; padding: 8px 12px; border-radius: 6px;">
                     ※お電話に出られずオートアナウンスとなる場合がございます。混雑時は速やかにカウンセラーを選定し折り返しご対応いたします。
                 </p>
@@ -462,8 +486,8 @@
 
         async function loadDiagnosisData() {
             const [axesRes, resultsRes] = await Promise.all([
-                fetch('./results/diagnosis-axes.csv', { cache: 'no-cache' }),
-                fetch('./results/diagnosis-results.csv', { cache: 'no-cache' })
+                fetch('../data/diagnosis-axes.csv', { cache: 'no-cache' }),
+                fetch('../data/diagnosis-results.csv', { cache: 'no-cache' })
             ]);
             if (!axesRes.ok) throw new Error('diagnosis-axes.csv の取得に失敗しました (' + axesRes.status + ')');
             if (!resultsRes.ok) throw new Error('diagnosis-results.csv の取得に失敗しました (' + resultsRes.status + ')');
@@ -625,8 +649,8 @@
 
             resultEl.querySelector('#result-type-title').innerHTML = `(${type}) ${result.title}`;
             const resultImage = resultEl.querySelector('#result-image');
-            resultImage.onerror = function () { this.onerror = null; this.src = './images/results/OTHER.png'; };
-            resultImage.src = `./images/results/${type}.png`;
+            resultImage.onerror = function () { this.onerror = null; this.src = '../assets/img/results/OTHER.png'; };
+            resultImage.src = `../assets/img/results/${type}.png`;
             resultImage.alt = result.title.replace(/<[^>]+>/g, '');
             resultEl.querySelector('#result-description').innerHTML = renderRichText(result.desc);
             resultEl.querySelector('#result-advice').innerHTML = renderRichText(result.advice);

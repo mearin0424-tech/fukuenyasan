@@ -1,0 +1,10 @@
+# バックアップ/配布用 zip（リポジトリには含めない）
+fukuenyasan-lp.zip
+*.zip
+
+# ローカル個人設定
+**/.claude/settings.local.json
+
+# OS
+.DS_Store
+Thumbs.db
