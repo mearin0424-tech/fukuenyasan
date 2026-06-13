@@ -2,13 +2,13 @@
 <!--
   lp/listing.html — Google広告(リスティング)用「超安全文言」LP
   ──────────────────────────────────────────────────────────
-  方針: 審査リスクの高い表現を徹底排除する。
+  デザインは lp/main.html と同等品質（theme.css の高品質コンポーネントを流用）。
+  文言は審査リスクの高い表現を徹底排除する:
    ・断定/保証なし（必ず/100%/成功率/絶対 など使わない）
    ・誇大・未検証の数値なし（○○%、実績○件 など使わない）
    ・操作/欺瞞を想起させる語なし（工作/心理誘導/別れさせ など使わない）
    ・不安を過度に煽らない（手遅れ/もう終わり 等は使わない）
    ・恋愛相談・カウンセリングとして提示し、結果非保証を明記
-  デザインは ../assets/css/theme.css を共有。
 -->
 <html lang="ja">
 <head>
@@ -24,134 +24,266 @@
 </head>
 <body class="max-w-[480px] mx-auto shadow-2xl bg-white min-h-screen pb-40 text-center">
 
-    <!-- Hero -->
-    <section class="hero-gradient px-6 pt-14 pb-12">
-        <p class="tracking-[0.2em] text-[11px] text-gray-500 mb-4">恋愛・復縁のご相談</p>
-        <h1 class="text-[26px] font-black leading-snug mb-5">
-            もう一度、<br>
-            自分の気持ちと<br>
-            <span style="color: var(--primary-rose);">向き合う</span>ために。
-        </h1>
-        <p class="text-sm leading-relaxed text-gray-700 mb-8">
-            別れや恋愛のお悩みを、<br>
-            専門のカウンセラーが丁寧にお伺いします。<br>
-            まずはお気軽に、無料でご相談ください。
-        </p>
+    <!-- 1. ファーストビュー（白文字を下寄せ。背景の暗いオーバーレイで可読性を確保） -->
+    <section class="relative h-[90vh] flex flex-col justify-end p-8 hero-gradient text-white">
+        <div class="absolute top-10 left-8 right-8">
+            <div class="flex flex-wrap items-center gap-2 mb-4">
+                <span class="hash-tag">#ご相談無料</span>
+                <span class="hash-tag">#秘密厳守</span>
+                <span class="hash-tag">#専門カウンセラー</span>
+            </div>
+            <p class="text-sm font-bold tracking-[0.15em] text-white uppercase">恋愛・復縁のご相談</p>
+        </div>
+
+        <div class="mb-8 text-white text-left">
+            <h1 class="font-hannari font-bold leading-tight mb-5 drop-shadow-xl text-white">
+                <span class="text-xl block mb-2 opacity-95 font-medium tracking-wider">もう一度、</span>
+                <span class="text-[2.7rem] block leading-tight">
+                    自分の<span style="color: var(--highlight-red); text-shadow: 0 0 20px rgba(217, 74, 90, 0.6);">気持ち</span>と<br>向き合うために。
+                </span>
+            </h1>
+            <p class="text-sm leading-relaxed font-light opacity-95 tracking-wide drop-shadow-lg">
+                別れや恋愛のお悩みを、<br>
+                専門のカウンセラーが丁寧にお伺いします。<br>
+                まずはお気軽に、無料でご相談ください。
+            </p>
+        </div>
+    </section>
+
+    <!-- 2. ファーストCTA -->
+    <section class="px-6 pt-10 pb-4 bg-white text-center">
         <div class="flex flex-col items-center">
             <span class="cta-callout text-center">＼ ご相談は無料・秘密厳守 ／</span>
             <a href="../shared/contact.html" class="btn-premium-3d btn-yellow py-5 text-xl shadow-xl w-full floating-action">
                 <span class="cta-label text-center text-[#4A3200]">無料相談フォームへ</span>
             </a>
         </div>
+        <p class="text-[11px] text-gray-400 mt-3 font-bold">24時間受付・無理な勧誘はいたしません</p>
     </section>
 
-    <!-- お悩み共感（不安を煽らず、寄り添う） -->
-    <section class="px-6 py-12 fade-in">
-        <h2 class="text-xl font-black mb-6 leading-relaxed">こんなお気持ち、<br>ありませんか？</h2>
-        <ul class="text-left space-y-3 text-[15px] text-gray-700 leading-relaxed">
-            <li class="bg-rose-50/60 rounded-xl px-4 py-3">大切だった人と、もう一度きちんと話したい</li>
-            <li class="bg-rose-50/60 rounded-xl px-4 py-3">別れたあと、どう過ごせばよいか分からない</li>
-            <li class="bg-rose-50/60 rounded-xl px-4 py-3">気持ちの整理がつかず、一人で抱え込んでいる</li>
-            <li class="bg-rose-50/60 rounded-xl px-4 py-3">誰に相談したらよいか分からない</li>
-        </ul>
-        <p class="text-sm text-gray-600 mt-6 leading-relaxed">
-            どんなお悩みでも大丈夫です。<br>まずはお話を聞かせてください。
+    <!-- 3. 悩みへの共感（不安を煽らず寄り添う） -->
+    <section class="pain-section">
+        <div class="pain-bg-wrapper">
+            <img src="../assets/img/fukuenyasan-nayami.jpg" alt="悩む人" class="pain-bg-img" loading="lazy">
+            <div class="pain-overlay"></div>
+        </div>
+        <div class="pain-content">
+            <h2 class="pain-title">
+                こんなお気持ち、<br>
+                ありませんか？
+            </h2>
+            <div class="pain-card">
+                <div class="pain-item">
+                    <div class="pain-icon">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </div>
+                    <p>大切だった人と、<br><span class="marker-line">もう一度きちんと話したい</span></p>
+                </div>
+                <div class="pain-item">
+                    <div class="pain-icon">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </div>
+                    <p>別れたあと、<br><span class="marker-line">どう過ごせばよいか分からない</span></p>
+                </div>
+                <div class="pain-item">
+                    <div class="pain-icon">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </div>
+                    <p>気持ちの整理がつかず、<br><span class="marker-line">一人で抱え込んでいる</span></p>
+                </div>
+            </div>
+            <p class="text-center text-sm text-gray-600 mt-6 font-bold leading-relaxed">
+                どんなお悩みでも大丈夫です。<br>まずはお話を聞かせてください。
+            </p>
+        </div>
+    </section>
+
+    <!-- 4. 私たちにできること（濃紺の高級セクション + 3カード） -->
+    <section class="px-5 py-16 reason-section-bg fade-in">
+        <div class="reason-section-title text-center mb-10">
+            <span class="en">What We Can Do</span>
+            <h2 class="ja">私たちに<br>できること</h2>
+            <p class="text-[12px] text-gray-600 mt-4 font-bold leading-relaxed">
+                結果を急がず、まずはあなたのお気持ちに寄り添います。<br>
+                専門のカウンセラーが、これからを一緒に考えます。
+            </p>
+        </div>
+
+        <div class="space-y-12">
+            <!-- CARD 1 -->
+            <div class="bold-card theme-gold">
+                <div class="point-badge gold"><span>POINT</span><span>1</span></div>
+                <div class="img-placeholder">
+                    <svg class="w-20 h-20" fill="none" stroke="#C49A3E" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h5m-9 7l3.5-2.5A2 2 0 0110.5 18H18a3 3 0 003-3V7a3 3 0 00-3-3H6a3 3 0 00-3 3v14z"/></svg>
+                </div>
+                <div class="card-body">
+                    <h3 class="bold-title gold-title">お話を、<br>丁寧に伺います</h3>
+                    <p class="card-desc">専門のカウンセラーが、あなたのお気持ちやご状況をゆっくりとお聞きします。話すことで、心が少し軽くなることもあります。</p>
+                </div>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="bold-card">
+                <div class="point-badge"><span>POINT</span><span>2</span></div>
+                <div class="img-placeholder">
+                    <svg class="w-20 h-20" fill="none" stroke="#D81B60" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div class="card-body">
+                    <h3 class="bold-title">状況を、<br>一緒に整理します</h3>
+                    <p class="card-desc">今の状況を客観的に整理し、これからの選択肢を一緒に考えます。何から始めればよいかが、見えてきます。</p>
+                </div>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="bold-card theme-purple">
+                <div class="point-badge purple"><span>POINT</span><span>3</span></div>
+                <div class="img-placeholder">
+                    <svg class="w-20 h-20" fill="none" stroke="#6B3FA0" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/></svg>
+                </div>
+                <div class="card-body">
+                    <h3 class="bold-title purple-title">あなたに合った<br>ご提案をします</h3>
+                    <p class="card-desc">無理のない範囲で、次の一歩をご提案します。続けるかどうかはご自由で、無理な勧誘はいたしません。</p>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-[11px] text-gray-400 mt-8 leading-relaxed">
+            ※ 当サービスはお気持ちの整理と今後の選択を支援する恋愛相談サービスです。特定の結果をお約束するものではありません。
         </p>
     </section>
 
-    <div class="wave-divider"></div>
+    <!-- セクション間ウェーブ（濃紺→明色） -->
+    <div class="wave-divider" style="background: var(--deep-navy);">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C240,80 540,0 720,32 C900,64 1200,16 1440,40 L1440,80 L0,80 Z" fill="#F4F8FC"/></svg>
+    </div>
 
-    <!-- 私たちにできること -->
-    <section class="px-6 py-12 fade-in">
-        <h2 class="text-xl font-black mb-6">私たちにできること</h2>
-        <div class="space-y-5 text-left">
-            <div class="rounded-2xl border-2 border-gray-100 shadow-sm p-5">
-                <p class="font-black mb-1">お話を丁寧に伺います</p>
-                <p class="text-sm text-gray-600 leading-relaxed">専門のカウンセラーが、あなたのお気持ちやご状況をゆっくりお聞きします。</p>
+    <!-- 5. ご相談の流れ -->
+    <section class="px-5 py-12 flow-section-bg fade-in">
+        <div class="flow-section-title text-center mb-10">
+            <span class="en">Flow</span>
+            <h2 class="ja">ご相談の流れ</h2>
+        </div>
+
+        <div class="flow-timeline">
+            <!-- STEP 1 -->
+            <div class="flow-step step-1">
+                <div class="flow-number">01</div>
+                <div class="flow-icon-wrap">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+                <div class="flow-text">
+                    <div class="flow-title"><span class="flow-step-label">STEP</span>無料相談フォームからお申込み</div>
+                    <p class="flow-desc">お名前・ご連絡先と、簡単なお悩みをご記入ください。</p>
+                    <span class="flow-badge">✓ 24時間受付・相談無料</span>
+                </div>
             </div>
-            <div class="rounded-2xl border-2 border-gray-100 shadow-sm p-5">
-                <p class="font-black mb-1">状況を一緒に整理します</p>
-                <p class="text-sm text-gray-600 leading-relaxed">今の状況を客観的に整理し、これからの選択肢を一緒に考えます。</p>
+
+            <div class="flow-arrow arrow-1">
+                <svg viewBox="0 0 32 34" fill="none" stroke="currentColor"><path d="M8 6 L16 12 L24 6 M8 14 L16 20 L24 14 M8 22 L16 28 L24 22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <div class="rounded-2xl border-2 border-gray-100 shadow-sm p-5">
-                <p class="font-black mb-1">あなたに合ったご提案</p>
-                <p class="text-sm text-gray-600 leading-relaxed">無理のない範囲で、次の一歩をご提案します。ご利用は任意です。</p>
+
+            <!-- STEP 2 -->
+            <div class="flow-step step-2">
+                <div class="flow-number">02</div>
+                <div class="flow-icon-wrap">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                </div>
+                <div class="flow-text">
+                    <div class="flow-title"><span class="flow-step-label">STEP</span>カウンセラーがヒアリング</div>
+                    <p class="flow-desc">ご都合に合わせて、お話を丁寧に伺います。費用はかかりません。</p>
+                    <span class="flow-badge">✓ プライバシー厳守</span>
+                </div>
+            </div>
+
+            <div class="flow-arrow arrow-2">
+                <svg viewBox="0 0 32 34" fill="none" stroke="currentColor"><path d="M8 6 L16 12 L24 6 M8 14 L16 20 L24 14 M8 22 L16 28 L24 22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="flow-step step-3">
+                <div class="flow-number">03</div>
+                <div class="flow-icon-wrap">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                </div>
+                <div class="flow-text">
+                    <div class="flow-title"><span class="flow-step-label">STEP</span>これからの選択肢をご提案</div>
+                    <p class="flow-desc">ご状況に合わせた進め方をご案内します。続けるかどうかはご自由です。</p>
+                    <span class="flow-badge">✓ 無理な勧誘はいたしません</span>
+                </div>
             </div>
         </div>
-        <p class="text-xs text-gray-500 mt-6 leading-relaxed bg-gray-50 rounded-lg px-4 py-3 text-left">
-            ※ 当サービスはお客様のお気持ちの整理と今後の選択を支援する恋愛相談サービスです。特定の結果をお約束するものではありません。
-        </p>
     </section>
 
-    <!-- ご相談の流れ -->
-    <section class="px-6 py-12 fade-in bg-rose-50/40">
-        <h2 class="text-xl font-black mb-8">ご相談の流れ</h2>
-        <div class="space-y-6 text-left">
-            <div class="flex items-start gap-4">
-                <span class="font-mincho text-2xl font-black" style="color: var(--primary-rose);">1</span>
-                <div><p class="font-black">無料相談フォームからお申込み</p><p class="text-sm text-gray-600">24時間受付。お名前とご連絡先、簡単なお悩みをご記入ください。</p></div>
-            </div>
-            <div class="flex items-start gap-4">
-                <span class="font-mincho text-2xl font-black" style="color: var(--primary-rose);">2</span>
-                <div><p class="font-black">カウンセラーがヒアリング</p><p class="text-sm text-gray-600">ご都合に合わせて、お話を伺います。費用はかかりません。</p></div>
-            </div>
-            <div class="flex items-start gap-4">
-                <span class="font-mincho text-2xl font-black" style="color: var(--primary-rose);">3</span>
-                <div><p class="font-black">これからの選択肢をご提案</p><p class="text-sm text-gray-600">ご状況に合わせた進め方をご案内します。続けるかどうかはご自由です。</p></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 安心ポイント -->
-    <section class="px-6 py-12 fade-in">
-        <h2 class="text-xl font-black mb-6">安心してご相談いただくために</h2>
-        <div class="grid grid-cols-1 gap-4 text-left">
-            <div class="rounded-2xl bg-white border-2 border-rose-100 shadow-sm p-5">
-                <p class="font-black mb-1">相談は無料です</p>
-                <p class="text-sm text-gray-600">初回のご相談に費用はかかりません。</p>
-            </div>
-            <div class="rounded-2xl bg-white border-2 border-rose-100 shadow-sm p-5">
-                <p class="font-black mb-1">プライバシー厳守</p>
-                <p class="text-sm text-gray-600">ご相談内容や個人情報は厳重に取り扱います。</p>
-            </div>
-            <div class="rounded-2xl bg-white border-2 border-rose-100 shadow-sm p-5">
-                <p class="font-black mb-1">無理な勧誘はいたしません</p>
-                <p class="text-sm text-gray-600">ご相談だけのご利用も歓迎です。</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="px-6 py-12 fade-in bg-rose-50/40">
-        <h2 class="text-xl font-black mb-6">よくあるご質問</h2>
+    <!-- 6. 安心ポイント -->
+    <section class="px-6 py-14 bg-white fade-in">
+        <h2 class="font-hannari text-2xl font-bold mb-8 leading-relaxed">安心してご相談<br>いただくために</h2>
         <div class="space-y-4 text-left">
-            <div class="rounded-xl bg-white p-4 shadow-sm">
-                <p class="font-black text-sm mb-1">Q. 相談は本当に無料ですか？</p>
-                <p class="text-sm text-gray-600">はい。初回のご相談は無料です。費用が発生する場合は事前に必ずご説明します。</p>
+            <div class="rounded-2xl bg-rose-50/60 border border-rose-100 p-5 flex items-start gap-4">
+                <svg class="w-7 h-7 shrink-0 mt-0.5" fill="none" stroke="#D81B60" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <div><p class="font-black mb-0.5">相談は無料です</p><p class="text-sm text-gray-600 leading-relaxed">初回のご相談に費用はかかりません。</p></div>
             </div>
-            <div class="rounded-xl bg-white p-4 shadow-sm">
-                <p class="font-black text-sm mb-1">Q. 秘密は守られますか？</p>
-                <p class="text-sm text-gray-600">ご相談内容・個人情報は厳重に管理し、第三者に開示することはありません。</p>
+            <div class="rounded-2xl bg-rose-50/60 border border-rose-100 p-5 flex items-start gap-4">
+                <svg class="w-7 h-7 shrink-0 mt-0.5" fill="none" stroke="#D81B60" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                <div><p class="font-black mb-0.5">プライバシー厳守</p><p class="text-sm text-gray-600 leading-relaxed">ご相談内容・個人情報は厳重に取り扱います。</p></div>
             </div>
-            <div class="rounded-xl bg-white p-4 shadow-sm">
-                <p class="font-black text-sm mb-1">Q. 必ず復縁できますか？</p>
-                <p class="text-sm text-gray-600">ご状況により異なり、結果をお約束することはできません。まずはお気持ちを整理するところから、一緒に始めましょう。</p>
+            <div class="rounded-2xl bg-rose-50/60 border border-rose-100 p-5 flex items-start gap-4">
+                <svg class="w-7 h-7 shrink-0 mt-0.5" fill="none" stroke="#D81B60" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <div><p class="font-black mb-0.5">無理な勧誘はいたしません</p><p class="text-sm text-gray-600 leading-relaxed">ご相談だけのご利用も歓迎です。</p></div>
             </div>
         </div>
     </section>
 
-    <!-- 最終CTA -->
-    <section class="px-6 py-14 text-center">
-        <h2 class="text-xl font-black mb-4 leading-relaxed">一人で抱え込まず、<br>まずはお話しください。</h2>
-        <p class="text-sm text-gray-600 mb-8 leading-relaxed">ご相談は無料・秘密厳守です。<br>無理な勧誘はいたしません。</p>
-        <div class="flex flex-col items-center gap-4">
-            <a href="../shared/contact.html" class="btn-premium-3d btn-yellow py-5 text-xl shadow-xl w-full floating-action">
-                <span class="cta-label text-center text-[#4A3200]">無料相談フォームへ</span>
-            </a>
-            <a href="tel:0353568550" class="btn-premium-3d btn-pink text-lg flex-row gap-3 shadow-xl py-4 w-full floating-action">
-                <svg class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
-                <span class="cta-label text-center text-white">お電話で相談する</span>
-            </a>
+    <!-- 7. FAQ -->
+    <section class="px-6 py-12 bg-rose-50/40 fade-in">
+        <h2 class="font-hannari text-2xl font-bold mb-6 text-center">よくあるご質問</h2>
+        <div class="space-y-3 text-left">
+            <details class="bg-white p-5 rounded-2xl shadow-sm group border border-gray-100">
+                <summary class="list-none font-bold text-sm cursor-pointer flex justify-between items-center text-gray-700">相談は本当に無料ですか？<span class="group-open:rotate-180 transition-transform font-bold" style="color: var(--primary-rose);">▼</span></summary>
+                <p class="text-sm text-gray-600 mt-3 leading-relaxed">はい。初回のご相談は無料です。費用が発生する場合は、事前に必ずご説明します。</p>
+            </details>
+            <details class="bg-white p-5 rounded-2xl shadow-sm group border border-gray-100">
+                <summary class="list-none font-bold text-sm cursor-pointer flex justify-between items-center text-gray-700">秘密は守られますか？<span class="group-open:rotate-180 transition-transform font-bold" style="color: var(--primary-rose);">▼</span></summary>
+                <p class="text-sm text-gray-600 mt-3 leading-relaxed">ご相談内容・個人情報は厳重に管理し、第三者に開示することはありません。</p>
+            </details>
+            <details class="bg-white p-5 rounded-2xl shadow-sm group border border-gray-100">
+                <summary class="list-none font-bold text-sm cursor-pointer flex justify-between items-center text-gray-700">必ず復縁できますか？<span class="group-open:rotate-180 transition-transform font-bold" style="color: var(--primary-rose);">▼</span></summary>
+                <p class="text-sm text-gray-600 mt-3 leading-relaxed">ご状況により異なり、結果をお約束することはできません。まずはお気持ちを整理するところから、一緒に始めましょう。</p>
+            </details>
+            <details class="bg-white p-5 rounded-2xl shadow-sm group border border-gray-100">
+                <summary class="list-none font-bold text-sm cursor-pointer flex justify-between items-center text-gray-700">相談だけでも大丈夫ですか？<span class="group-open:rotate-180 transition-transform font-bold" style="color: var(--primary-rose);">▼</span></summary>
+                <p class="text-sm text-gray-600 mt-3 leading-relaxed">もちろんです。お気持ちを話すだけのご利用も歓迎しています。無理な勧誘はいたしません。</p>
+            </details>
+        </div>
+    </section>
+
+    <!-- 8. 最終CTA -->
+    <section class="p-12 text-center fade-in" style="background: linear-gradient(to bottom, #FFF 0%, var(--cta-bg) 50%, #FFF 100%);">
+        <h2 class="font-hannari text-2xl mb-6 leading-relaxed font-bold text-center" style="color: var(--primary-rose);">
+            一人で抱え込まず、<br>
+            まずはお話しください。
+        </h2>
+        <p class="text-sm text-gray-600 mb-10 leading-loose text-center">
+            ご相談は無料・秘密厳守です。<br>
+            無理な勧誘はいたしません。
+        </p>
+        <div class="space-y-10 px-2 text-center">
+            <div class="flex flex-col items-center">
+                <span class="cta-callout text-center">＼ まずはお気軽にご相談ください ／</span>
+                <a href="../shared/contact.html" class="btn-premium-3d btn-yellow py-5 text-xl shadow-xl w-full floating-action">
+                    <span class="cta-label text-center text-[#4A3200]">無料相談フォームへ</span>
+                </a>
+            </div>
+            <div class="flex flex-col items-center">
+                <span class="cta-callout text-center">＼ お電話でのご相談はこちら ／</span>
+                <a href="tel:0353568550" class="btn-premium-3d btn-pink text-xl flex-row gap-3 shadow-xl py-5 w-full floating-action">
+                    <svg class="w-7 h-7 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+                    <span class="cta-label text-center text-white">お電話で相談する</span>
+                </a>
+                <p class="text-[10px] text-gray-500 mt-2 leading-relaxed text-left bg-gray-50 px-3 py-2 rounded-lg border border-gray-100">
+                    <span class="font-bold text-gray-600">※ご案内</span><br>
+                    お電話に出られずオートアナウンスになる場合がございます。混雑時は速やかにカウンセラーを選定し折り返しご対応いたします。
+                </p>
+            </div>
         </div>
     </section>
 
