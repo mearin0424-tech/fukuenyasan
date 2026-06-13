@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!--
+  レスポンシブ崩れ検証ハーネス（依存なし）
+  ─────────────────────────────────────────────
+  ・各ページを iframe に読み込み、横幅を min〜max まで step px ずつ
+    スイープしながら assets/js/layout-check.js で崩れを検出する。
+  ・必ず静的サーバ経由で開く（file:// はCORSで失敗）:
+      npx http-server fukuenyasan-lp -p 8123 -c-1
+      → http://localhost:8123/tools/responsive-qa.html
+  ・新しいLPを追加したら下の PAGES 配列にパスを足すだけ。
+  ・注意: 表示中のDOMのみ検証する。診断ツール(shared/diagnosis.html)の
+    「結果画面」など、操作後にしか出ない画面は別途、回答完了後に確認すること。
+-->
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📱 レスポンシブ崩れ検証</title>
+<script src="../assets/js/layout-check.js"></script>
+<style>
+  body { font-family: -apple-system, 'Hiragino Sans', 'Noto Sans JP', sans-serif; margin: 0; background: #f6f7fb; color: #222; }
+  header { background: #1f2937; color: #fff; padding: 18px 24px; }
+  header h1 { margin: 0 0 4px; font-size: 18px; }
+  header p { margin: 0; font-size: 12px; opacity: .8; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; padding: 16px 24px; background: #fff; border-bottom: 1px solid #e5e7eb; }
+  .controls label { font-size: 11px; font-weight: 700; color: #6b7280; display: block; margin-bottom: 4px; }
+  .controls input { width: 80px; padding: 6px 8px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; }
+  .controls button { background: #2563eb; color: #fff; border: 0; padding: 10px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
+  .controls button:disabled { background: #9ca3af; cursor: default; }
+  #summary { padding: 14px 24px; font-size: 15px; font-weight: 700; }
+  #summary.ok { color: #047857; }
+  #summary.ng { color: #b91c1c; }
+  table { border-collapse: collapse; width: calc(100% - 48px); margin: 0 24px 40px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.08); border-radius: 8px; overflow: hidden; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid #eee; font-size: 13px; vertical-align: top; }
+  th { background: #f9fafb; font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: .04em; }
+  td.page { font-family: ui-monospace, monospace; white-space: nowrap; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+  .badge.ok { background: #d1fae5; color: #047857; }
+  .badge.ng { background: #fee2e2; color: #b91c1c; }
+  .badge.run { background: #e5e7eb; color: #374151; }
+  .issue { margin: 6px 0; padding: 8px 10px; background: #fff7ed; border-left: 3px solid #f97316; border-radius: 4px; font-size: 12px; line-height: 1.5; }
+  .issue .t { font-weight: 700; color: #c2410c; }
+  .issue .sel { font-family: ui-monospace, monospace; color: #1d4ed8; }
+  .issue .w { color: #6b7280; }
+  /* オフスクリーンの計測用ステージ（左上に固定、視界外へ） */
+  #stageWrap { position: fixed; left: -10000px; top: 0; }
+  #stage { border: 0; height: 900px; background: #fff; }
+</style>
+</head>
+<body>
+<header>
+  <h1>📱 レスポンシブ崩れ検証ハーネス</h1>
+  <p>各LPを指定幅で全数スイープし「横はみ出し / 要素の画面外 / 文字切れ」を検出します。</p>
+</header>
+
+<div class="controls">
+  <div><label>最小幅 (px)</label><input id="minW" type="number" value="320"></div>
+  <div><label>最大幅 (px)</label><input id="maxW" type="number" value="480"></div>
+  <div><label>刻み (px)</label><input id="stepW" type="number" value="2"></div>
+  <button id="run">検証する</button>
+</div>
+
+<div id="summary">準備中…</div>
+<table id="results">
+  <thead><tr><th style="width:230px">ページ</th><th style="width:90px">判定</th><th>検出内容</th></tr></thead>
+  <tbody></tbody>
+</table>
+
+<div id="stageWrap"><iframe id="stage" title="stage"></iframe></div>
+
+<script>
+(function () {
+  // ── 検証対象（新LPはここに追記） ──────────────────────────
+  var PAGES = [
+    '/index.html',
+    '/lp/main.html',
+    '/lp/diagnosis.html',
+    '/lp/listing.html',
+    '/shared/contact.html',
+    '/shared/thanks.html',
+    '/shared/diagnosis.html'
+  ];
+  var PRESETS = [320, 360, 375, 390, 414, 430]; // 代表的な実機幅（必ず検査）
+
+  var stage = document.getElementById('stage');
+  var tbody = document.querySelector('#results tbody');
+  var summaryEl = document.getElementById('summary');
+  var runBtn = document.getElementById('run');
+
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  function loadPage(path) {
+    return new Promise(function (resolve) {
+      var done = false;
+      stage.onload = function () { done = true; resolve(); };
+      stage.src = path;
+      // 念のためのタイムアウト
+      setTimeout(function () { if (!done) resolve(); }, 8000);
+    });
+  }
+
+  function widthList(min, max, step) {
+    var set = {};
+    PRESETS.forEach(function (w) { if (w >= min && w <= max) set[w] = 1; });
+    for (var w = min; w <= max; w += step) set[w] = 1;
+    return Object.keys(set).map(Number).sort(function (a, b) { return a - b; });
+  }
+
+  // 1ページを全幅スイープ。問題シグネチャごとに発生した幅域を集約して返す。
+  async function auditPage(path, widths) {
+    await loadPage(path);
+    var win = stage.contentWindow;
+    // フォント＆Tailwind(CDN)コンパイルの確定待ち
+    try { if (win.document.fonts && win.document.fonts.ready) await win.document.fonts.ready; } catch (e) {}
+    await sleep(700);
+
+    // スクロール連動の表示演出(IntersectionObserverの .fade-in 等)を発火させてから測定する。
+    // これをしないと未表示状態(opacity:0/初期幅)を誤検出してしまう。
+    try {
+      var d = win.document;
+      var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight);
+      for (var y = 0; y <= h; y += 300) { win.scrollTo(0, y); await sleep(10); }
+      win.scrollTo(0, 0);
+      await sleep(300);
+    } catch (e) {}
+
+    var found = {}; // key = type|sel|detail(正規化) -> {type, sel, detail, widths:[]}
+    for (var i = 0; i < widths.length; i++) {
+      var w = widths[i];
+      stage.style.width = w + 'px';
+      // レイアウト確定（offsetWidth/innerWidth の読み出しが同期リフローを強制する）
+      void stage.offsetWidth;
+      void win.innerWidth;
+      if (i % 16 === 0) await sleep(0); // 長時間ループでもUIを固めないため時々yield
+      var issues = win.layoutAudit ? win.layoutAudit(win) : (window.layoutAudit ? window.layoutAudit(win) : []);
+      issues.forEach(function (is) {
+        // detail内の数値は幅で変わるので、type+selでまとめる
+        var key = is.type + '|' + is.sel;
+        if (!found[key]) found[key] = { type: is.type, sel: is.sel, sample: is.detail, widths: [] };
+        found[key].widths.push(w);
+      });
+    }
+    return Object.keys(found).map(function (k) { return found[k]; });
+  }
+
+  function fmtWidths(ws) {
+    // 連続する幅域を 320–360 のように圧縮
+    ws = ws.slice().sort(function (a, b) { return a - b; });
+    var out = [], s = ws[0], p = ws[0];
+    for (var i = 1; i <= ws.length; i++) {
+      if (ws[i] === p + 1 || ws[i] === p + 2) { p = ws[i]; continue; }
+      out.push(s === p ? (s + 'px') : (s + '–' + p + 'px'));
+      s = p = ws[i];
+    }
+    return out.join(', ');
+  }
+
+  var TYPE_LABEL = {
+    'page-overflow': '横スクロール発生',
+    'element-overflow': '要素が画面外へ',
+    'text-clip': '文字が切れる'
+  };
+
+  function renderRow(path) {
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td class="page">' + path + '</td>' +
+      '<td><span class="badge run">検証中…</span></td><td></td>';
+    tbody.appendChild(tr);
+    return tr;
+  }
+
+  function fillRow(tr, groups) {
+    var badge = tr.children[1];
+    var detail = tr.children[2];
+    if (!groups.length) {
+      badge.innerHTML = '<span class="badge ok">✅ OK</span>';
+      detail.textContent = '崩れなし';
+      return 0;
+    }
+    badge.innerHTML = '<span class="badge ng">❌ ' + groups.length + '件</span>';
+    detail.innerHTML = groups.map(function (g) {
+      return '<div class="issue"><span class="t">' + (TYPE_LABEL[g.type] || g.type) + '</span> ' +
+        '<span class="sel">' + g.sel + '</span><br>' +
+        g.sample + '<br><span class="w">発生幅: ' + fmtWidths(g.widths) + '</span></div>';
+    }).join('');
+    return groups.length;
+  }
+
+  async function run() {
+    runBtn.disabled = true;
+    tbody.innerHTML = '';
+    summaryEl.className = '';
+    var min = +document.getElementById('minW').value || 320;
+    var max = +document.getElementById('maxW').value || 480;
+    var step = Math.max(1, +document.getElementById('stepW').value || 2);
+    var widths = widthList(min, max, step);
+    summaryEl.textContent = '検証中… (' + PAGES.length + 'ページ × ' + widths.length + '幅)';
+
+    window.__QA = { running: true, pages: {}, totalIssues: 0 };
+    var totalIssues = 0, ngPages = 0;
+    for (var i = 0; i < PAGES.length; i++) {
+      var tr = renderRow(PAGES[i]);
+      var groups = await auditPage(PAGES[i], widths);
+      var n = fillRow(tr, groups);
+      window.__QA.pages[PAGES[i]] = groups;
+      if (n) { ngPages++; totalIssues += n; }
+    }
+    window.__QA.running = false;
+    window.__QA.totalIssues = totalIssues;
+
+    if (totalIssues === 0) {
+      summaryEl.className = 'ok';
+      summaryEl.textContent = '✅ 全 ' + PAGES.length + 'ページ / 幅 ' + min + '–' + max + 'px (刻み' + step + ') で崩れは検出されませんでした。';
+    } else {
+      summaryEl.className = 'ng';
+      summaryEl.textContent = '❌ ' + ngPages + 'ページで計 ' + totalIssues + '件の崩れを検出（幅 ' + min + '–' + max + 'px）。下表を確認してください。';
+    }
+    stage.style.width = '375px';
+    runBtn.disabled = false;
+  }
+
+  runBtn.addEventListener('click', run);
+  window.addEventListener('load', run); // 開いたら自動実行
+})();
+</script>
+</body>
+</html>
