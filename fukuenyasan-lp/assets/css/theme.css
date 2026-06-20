@@ -1539,6 +1539,55 @@
             line-height: 1.4;
         }
 
+        /* ── ローズ基調LP向け Flow 配色オーバーライド ──────────────
+           共有の青→茶→金フロー（main.html の濃紺/ゴールド章に整合）を
+           listing.html 等ローズ基調のLP用にローズ〜ピンクへ統一する。
+           使い方: <section class="... flow-section-bg flow-rose"> と併記。
+           main.html は flow-rose を付けないため影響を受けない。 */
+        .flow-rose.flow-section-bg {
+            background: linear-gradient(180deg, #FFF5F8 0%, #FFFFFF 55%, #FDF1F2 100%);
+        }
+        .flow-rose .flow-step { box-shadow: 0 8px 22px rgba(142, 62, 73, 0.10); }
+        .flow-rose .flow-step::before { background: linear-gradient(to bottom, #C97B84, #8E3E49); }
+        .flow-rose .flow-step.step-2::before { background: linear-gradient(to bottom, #D98A93, #C04851); }
+        .flow-rose .flow-step.step-3::before { background: linear-gradient(to bottom, #F0B5C5, #D94A5A); }
+        .flow-rose .flow-number { color: rgba(142, 62, 73, 0.07); }
+        .flow-rose .flow-icon-wrap {
+            color: #8E3E49;
+            background: linear-gradient(135deg, #ffffff 0%, #F4DEE0 100%);
+            outline-color: rgba(199, 123, 132, 0.5);
+            box-shadow: 0 4px 14px rgba(142, 62, 73, 0.22), inset 0 2px 0 rgba(255,255,255,1);
+        }
+        .flow-rose .flow-step.step-2 .flow-icon-wrap {
+            color: #C04851;
+            background: linear-gradient(135deg, #ffffff 0%, #F8E2E6 100%);
+            outline-color: rgba(192, 72, 81, 0.45);
+        }
+        .flow-rose .flow-step.step-3 .flow-icon-wrap {
+            color: #D94A5A;
+            background: linear-gradient(135deg, #ffffff 0%, #FCE4EC 100%);
+            outline-color: rgba(217, 74, 90, 0.45);
+        }
+        .flow-rose .flow-title,
+        .flow-rose .flow-step.step-2 .flow-title,
+        .flow-rose .flow-step.step-3 .flow-title { color: #632B32; }
+        .flow-rose .flow-step-label { background: #8E3E49; }
+        .flow-rose .flow-step.step-2 .flow-step-label { background: #C04851; }
+        .flow-rose .flow-step.step-3 .flow-step-label { background: #D94A5A; }
+        .flow-rose .flow-badge {
+            color: #8E3E49;
+            border-color: rgba(142, 62, 73, 0.22);
+            border-left-color: #C97B84;
+            background: linear-gradient(to right, #FDF1F2, #ffffff);
+        }
+        .flow-rose .flow-step.step-2 .flow-badge { color: #C04851; border-left-color: #D98A93; }
+        .flow-rose .flow-step.step-3 .flow-badge { color: #D94A5A; border-left-color: #F0B5C5; }
+        .flow-rose .flow-arrow.arrow-1 { color: #C97B84; }
+        .flow-rose .flow-arrow.arrow-2 { color: #C04851; }
+        .flow-rose .flow-arrow.arrow-3 { color: #D94A5A; }
+        .flow-rose .flow-section-title .en { color: var(--accent-rose); }
+        .flow-rose .flow-section-title .ja { color: var(--dark-rose); }
+
         /* セクション間のウェーブ区切り */
         .wave-divider {
             display: block;
