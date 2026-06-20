@@ -4,6 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository layout
 
+This repo hosts **two sibling static sites**, each independent (no shared CSS/JS):
+
+| ディレクトリ | 種別 | 用途 |
+|---|---|---|
+| `fukuenyasan-lp/` | LP量産サイト | Tailwind CDN + theme.css。広告・SNS向けのコンバージョン特化LP（mobile-first） |
+| `fukuenyasan-hp/` | コーポレートHP | 自前CSS（assets/css/site.css）。情報量重視の多ページ構成・SEO/権威感向け |
+
+**両者の使い分け**: LPは「特定の訴求軸で素早く成約に導く」、HPは「会社・サービスを網羅的に知ってもらう」。フォーム送信のバックエンド（`api/mail.php`）はLP側に1本だけ存在し、HPからもLP配下の `../fukuenyasan-lp/api/mail.php` を `action` に指定して共用する。
+
 A single static site, `fukuenyasan-lp/` (Japanese, mobile-first, Tailwind CDN + a shared CSS file). **No build step, no tests, no linter.** The site is structured to mass-produce landing pages (LP) that share one design system and a common set of destination pages.
 
 ```
@@ -30,6 +39,53 @@ fukuenyasan-lp/
 ```
 
 **注意:** 以前あった独立プロジェクト `diagnosis/`（jQuery + Multi-Step-Form-Js）は削除済み。そのメーラー（`mail.php` / `avm_chatwork.php`）は `fukuenyasan-lp/api/` に統合された。12問診断は `shared/diagnosis.html`（バニラJS + CSV）として作り直されている。
+
+### コーポレートHP `fukuenyasan-hp/` の構成
+
+LPとは独立した、情報量重視の多ページコーポレートサイト。デザインは**`lp/diagnosis.html`系のピンク基調**（アイボリー#FBF7F4 × ピンク#FFE4E1 × ローズ#8E3E49 × 強調ピンク#FF8FA3→#C04851 グラデ）に明朝900 + Playfair Display英文を組み合わせた、可愛らしく権威も保つトーン。**LPの`theme.css`は使わず、`assets/css/site.css`に自己完結**。`pulse-glow` / `float-anim` / `pain-card` / `type-card` などのクラスも diagnosis LP と同名で揃えてある。画像はLPの `doctor.png` / `fukuenyasan-top.png` / `fukuenyasan-nayami.jpg` と `results/*.png`（16タイプ）をHP側にも複製して所有（`assets/img/`）。
+
+```
+fukuenyasan-hp/
+├── index.html              トップ（ヒーロー画像doctor.png＋16タイプ診断グリッド＋5つの約束＋4サービス＋7ケース＋場面別8＋地域別12＋性別/職業別グリッド＋統計＋流れ＋声＋ニュース＋FAQ＋CTA）
+├── about/index.html        私たちについて（代表メッセージ・運営姿勢）
+├── company/index.html      会社概要（基本情報・沿革・アクセス）
+├── service/
+│   ├── index.html            サービス一覧
+│   ├── counseling.html       復縁相談・カウンセリング（初回無料）
+│   ├── reconciliation.html   復縁サポートプラン（月次伴走）
+│   ├── consulting.html       恋愛コンサルティング（場面ごとの個別相談）
+│   └── investigation.html    事前状況確認（判断材料の客観化。違法調査は明確に否定）
+├── case/                   ケース別8ページ（index / lovers / ex-girlfriend / ex-boyfriend / married / separation / family / friends）
+├── situation/              場面別ページ（index + 8場面：突然の別れ / 浮気 / 価値観 / 遠距離 / 喧嘩 / 倦怠期 / 結婚観 / 家族反対）
+├── region/                 地域別ページ（index + 12都道府県：tokyo/kanagawa/chiba/saitama/osaka/aichi/kyoto/hyogo/fukuoka/hokkaido/miyagi/hiroshima）
+├── gender/                 性別ページ（index + female / male / senior）
+├── occupation/             職業別ページ（index + 8職業：会社員 / 自営業 / エグゼクティブ / 公務員 / 医療 / 看護師 / 学生 / 主婦）
+├── flow/index.html         ご相談から成約までの9ステップ
+├── price/index.html        料金案内（明朗会計・月々6,300円〜の分割・5つの約束）
+├── voice/index.html        ご相談者の声（9事例・全件に「個人の感想です」明記）
+├── faq/index.html          よくあるご質問（カテゴリ別25問前後）
+├── column/                 コラム（index + 9記事程度の読み物。各4000字超）
+├── recruit/index.html      採用情報
+├── contact/index.html      無料相談フォーム（action=「../../fukuenyasan-lp/api/mail.php」でLPのバックエンドを共用）
+├── privacy/index.html      プライバシーポリシー
+├── tokushoho/index.html    特定商取引法に基づく表示
+├── sitemap/index.html      サイトマップ
+└── assets/
+    ├── css/site.css          共通デザインシステム（ピンク基調・diagnosis LP系。旧 --bordeaux 系は後方互換エイリアスで残してある）
+    ├── js/site.js            ハンバーガー開閉 + fade-in IntersectionObserver
+    └── img/                  LPから複製したdoctor.png / fukuenyasan-top.png / fukuenyasan-nayami.jpg + results/*.png（16タイプ）
+```
+
+**HP編集時の注意**:
+- 全ページがヘッダ/フッタ/モバイル固定CTAを丸ごとコピペで持っている（静的サイト・ビルドなし）。ナビ項目・フッタリンクを変える場合は全ページに反映が必要。ナビは8項目固定：私たちについて / サービス / ケース別 / 場面別 / 地域別 / 料金 / コラム / FAQ。
+- ヘッダのCTAボタン文言は「▶ 無料相談」、固定下部CTAは「▶ 無料相談フォーム」と「📞 03-5356-8550」。
+- フッタは4カラム：ブランド+所在地 / サービス・ケース / 地域・プロフィール別 / 会社情報・サポート。
+- 文言ポリシーはLPの`listing.html`と同等の「結果非保証・断定なし・最上級なし」を全ページ徹底。「必ず復縁できる」「業界最安」「100%」「成功率」等は一切使わない。「工作」「別れさせ」「心理戦略」「接触工作」も使わない（recreation/状況分析/お話を伺うで置き換え）。
+- お客様の声・体験談には必ず`<p class="voice-disclaimer">※個人の感想です。同様の結果を保証するものではありません。</p>`を付ける。
+- 価格訴求は事実ベース（月々6,300円〜、自社分割、明朗会計）のみ。
+- 16タイプ診断（type-card grid）は `../../fukuenyasan-lp/shared/diagnosis.html` へ誘導。HPはLPの診断ツールを再利用する設計。
+- お問い合わせフォームの`action`は`../../fukuenyasan-lp/api/mail.php`を相対指定。LP側のメーラーを再利用する形（HP単独で配信する場合は別途バックエンドが必要）。
+- CSS変数の `--bordeaux` / `--bordeaux-dark` / `--bordeaux-soft` は site.css 内で `--accent-rose` / `--primary-rose` / `--bg-soft-pink` へエイリアスしてある（旧デザイン時代のインラインstyleが残る箇所への安全装置）。
 
 ### 「diagnosis」が2つある点に注意
 - `lp/diagnosis.html` — 診断を**宣伝する紹介LP**。独自のピンク/パープル系CSS（`btn-cta-main` 等）を `<style>` に内蔵し、`theme.css` は使っていない。
