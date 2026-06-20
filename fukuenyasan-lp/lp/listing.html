@@ -20,7 +20,7 @@
 <meta name="description" content="別れや恋愛のお悩みを、専門カウンセラーが丁寧にお伺いします。お気持ちの整理とこれからの選択を一緒に考える無料相談。プライバシー厳守・無理な勧誘はいたしません。月々6,300円〜の分割にも対応。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;700;800&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;700;800&family=Noto+Serif+JP:wght@500;700&family=Yuji+Syuku&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js');</script>
 <style>
   :root{
@@ -71,19 +71,25 @@
   .btn-ghost:active{transform:translateY(2px);background:#F1EADF;}
   .cta-note{display:block;text-align:center;font-size:11px;color:var(--muted);margin-top:11px;}
 
-  /* ===== HERO ===== */
-  .hero{padding:48px 28px 40px;}
-  .kicker{font-size:12px;letter-spacing:.18em;color:var(--accent);}
-  .kicker-line{height:1px;background:var(--accent);width:34px;margin:14px 0 22px;}
-  .hero h1{font-size:36px;line-height:1.4;font-weight:500;color:var(--ink);letter-spacing:.01em;}
-  .hero h1 em{color:var(--accent);font-style:normal;}
-  .hero p{font-size:14px;line-height:2;color:var(--ink-soft);margin:20px 0 30px;}
+  /* ===== HERO（背景画像＋暗オーバーレイに白文字をのせる＝旧 hero-gradient 方式を踏襲）
+     上＝キッカー／下＝見出しの上下構図で、中央の写真を見せつつ余白を締める ===== */
+  .hero{position:relative;min-height:88vh;display:flex;flex-direction:column;justify-content:space-between;
+    padding:42px 28px 46px;color:#fff;
+    background:
+      linear-gradient(to top, rgba(0,0,0,.82) 3%, rgba(0,0,0,.32) 40%, rgba(0,0,0,0) 70%),
+      linear-gradient(to right, rgba(0,0,0,.55) 0%, rgba(0,0,0,.14) 46%, rgba(0,0,0,0) 72%),
+      linear-gradient(rgba(0,0,0,.40) 0%, rgba(0,0,0,0) 24%),
+      url('../assets/img/fukuenyasan-top.png');
+    background-size:cover;background-position:62% 32%;}
+  .kicker{font-size:12px;letter-spacing:.18em;color:#EBB9B1;text-shadow:0 1px 10px rgba(0,0,0,.45);}
+  .kicker-line{height:1px;background:#EBB9B1;width:34px;margin:13px 0 0;}
+  .hero h1{font-size:36px;line-height:1.4;font-weight:500;color:#fff;letter-spacing:.01em;text-shadow:0 2px 18px rgba(0,0,0,.4);}
+  .hero h1 em{color:#F3A89F;font-style:normal;}
+  .hero p{font-size:14px;line-height:2;color:rgba(255,255,255,.9);margin:20px 0 30px;text-shadow:0 1px 12px rgba(0,0,0,.35);}
   .sub-link{display:block;text-align:center;margin-top:17px;font-size:13px;}
-  .sub-link span.u{border-bottom:1px solid #C9BCA9;padding-bottom:2px;}
-  .tags{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:26px;font-size:11.5px;color:var(--muted);}
-  .tags i{color:#D8CDBC;}
-  .hero-figure{margin-top:30px;border-radius:18px;overflow:hidden;border:1px solid var(--hair);background:#fff;}
-  .hero-figure img{width:100%;height:200px;object-fit:cover;}
+  .sub-link span.u{border-bottom:1px solid rgba(255,255,255,.5);padding-bottom:2px;}
+  .tags{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:26px;font-size:11.5px;color:rgba(255,255,255,.82);}
+  .tags i{color:rgba(255,255,255,.4);}
 
   /* 見出し共通 */
   h2{font-size:22px;font-weight:500;line-height:1.55;}
@@ -95,14 +101,25 @@
   .pain-item{border-left:2px solid var(--accent-soft);padding:5px 0 5px 16px;margin-top:15px;font-size:14px;line-height:1.7;}
   .lead-soft{font-size:13px;color:var(--ink-soft);line-height:1.9;margin-top:18px;}
 
-  /* 専門家の声 */
-  .expert{display:flex;gap:16px;align-items:center;margin-top:22px;}
-  .expert-img{width:76px;height:76px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1px solid var(--hair);background:#fff;}
-  .expert-img img{width:100%;height:100%;object-fit:cover;}
-  .expert-name{font-size:17px;font-weight:500;}
-  .expert-role{font-size:11.5px;color:var(--accent);margin-top:3px;letter-spacing:.04em;}
-  .expert-quote{position:relative;margin-top:22px;padding:22px 22px 22px 24px;background:#fff;border:1px solid var(--hair);border-radius:16px;font-size:14px;line-height:1.95;color:var(--ink-soft);}
-  .expert-quote::before{content:'“';position:absolute;top:2px;left:12px;font-family:'Shippori Mincho',serif;font-size:40px;color:var(--accent-soft);}
+  /* 専門家の声：ノート／手記風カード */
+  .notebook{position:relative;margin-top:24px;background:#FFFDF8;border:1px solid var(--hair);border-radius:6px;
+    padding:36px 24px 26px 48px;overflow:hidden;box-shadow:0 16px 36px rgba(150,110,70,.13);}
+  /* 横罫線（メッセージ帯の背景に薄く） */
+  .notebook::before{content:'';position:absolute;left:0;right:0;top:70px;height:200px;pointer-events:none;
+    background-image:repeating-linear-gradient(transparent 0 31px, rgba(140,110,80,.13) 31px 32px);}
+  /* 左マージン線（赤） */
+  .notebook::after{content:'';position:absolute;top:0;bottom:0;left:36px;width:1px;background:rgba(176,88,78,.32);}
+  .nb-tab{position:absolute;top:0;right:20px;background:var(--accent);color:#fff;font-size:10px;letter-spacing:.2em;padding:6px 13px 7px;border-radius:0 0 5px 5px;}
+  .nb-quote{position:relative;font-family:'Shippori Mincho',serif;font-size:46px;line-height:.55;color:var(--accent-soft);height:24px;}
+  .nb-msg{position:relative;font-size:14px;line-height:32px;color:var(--ink);}
+  .nb-sign-wrap{position:relative;text-align:right;margin-top:12px;}
+  .nb-sign{font-family:'Yuji Syuku',serif;font-size:23px;color:var(--ink-soft);display:inline-block;transform:rotate(-2.5deg);}
+  .nb-foot{position:relative;margin-top:20px;padding-top:18px;border-top:1px solid var(--hair);display:flex;align-items:center;gap:14px;}
+  .nb-img{width:62px;height:62px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid #fff;box-shadow:0 0 0 1px var(--hair);background:#F1EADF;}
+  .nb-img img{width:100%;height:100%;object-fit:cover;}
+  .nb-name{font-size:16px;font-weight:500;}
+  .nb-role{font-size:11.5px;color:var(--accent);margin-top:3px;letter-spacing:.03em;}
+  .nb-cred{font-size:10.5px;color:var(--muted);margin-top:3px;line-height:1.55;}
 
   /* 理由 */
   .reason{display:flex;gap:16px;margin-top:22px;}
@@ -136,18 +153,22 @@
   .flow .t{font-size:14.5px;font-weight:500;}
   .flow .d{font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:4px;}
 
-  /* ご相談者の声（横スクロール・意図的なので overflow 監視から除外される設計） */
-  .voices-scroller{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:22px -28px 0;padding:0 28px 6px;}
+  /* ご相談者の声：画鋲で留めたメモ風（横スクロール・意図的なので overflow 監視から除外） */
+  .voices-scroller{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:22px -28px 0;padding:0 28px;}
   .voices-scroller::-webkit-scrollbar{display:none;}
-  .voices-row{display:flex;gap:16px;width:max-content;}
-  .voice-card{width:248px;background:#fff;border:1px solid var(--hair);border-radius:18px;padding:22px;flex-shrink:0;}
+  .voices-row{display:flex;gap:22px;width:max-content;padding:22px 2px 16px;}
+  .voice-card{position:relative;width:236px;background:#FFFDF8;border:1px solid var(--hair);border-radius:3px;padding:26px 20px 20px;flex-shrink:0;box-shadow:0 10px 24px rgba(150,110,70,.13);}
+  .voice-card:nth-child(odd){transform:rotate(-1.5deg);}
+  .voice-card:nth-child(even){transform:rotate(1.3deg);}
+  .voice-card::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:15px;height:15px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #E59289, var(--accent));box-shadow:0 3px 5px rgba(0,0,0,.28);}
   .voice-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
-  .voice-avatar{width:46px;height:46px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1px solid var(--hair);background:#F1EADF;}
+  .voice-avatar{width:46px;height:46px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid #fff;box-shadow:0 0 0 1px var(--hair);background:#F1EADF;}
   .voice-avatar img{width:100%;height:100%;object-fit:cover;}
   .voice-who{font-size:11.5px;color:var(--muted);}
   .voice-who b{display:block;font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px;}
-  .voice-card p{font-size:12.5px;line-height:1.85;color:var(--ink-soft);}
-  .voice-hint{text-align:center;font-size:11px;color:var(--muted);margin-top:12px;}
+  .voice-card p{font-size:12.5px;line-height:1.9;color:var(--ink-soft);}
+  .voice-hint{text-align:center;font-size:11px;color:var(--muted);margin-top:14px;}
   .voice-disclaim{text-align:center;font-size:10px;color:#A89F95;margin-top:8px;}
 
   /* FAQ */
@@ -172,7 +193,7 @@
   .fixed-bar a:active{transform:translateY(2px);}
   .fb-form{background:var(--accent);color:var(--bg);box-shadow:0 3px 0 var(--accent-edge);}
   .fb-form:active{box-shadow:0 1px 0 var(--accent-edge);}
-  .fb-tel{display:flex;align-items:center;justify-content:center;gap:6px;background:transparent;color:var(--ink);border:1px solid #C9BCA9;}
+  .fb-tel{display:flex;align-items:center;justify-content:center;gap:6px;background:transparent;color:var(--ink);border:1px solid #C9BCA9;letter-spacing:.01em;}
 </style>
 </head>
 <body>
@@ -181,19 +202,20 @@
 
   <!-- 1. HERO -->
   <div class="hero scene">
-    <div class="kicker a-up">恋愛・復縁カウンセリング</div>
-    <div class="kicker-line a-line" style="--d:.15s"></div>
-    <h1 class="serif">
-      <span class="a-mask" style="--d:.12s"><span>もう一度、</span></span>
-      <span class="a-mask" style="--d:.26s"><span>自分の<em>気持ち</em>と</span></span>
-      <span class="a-mask" style="--d:.40s"><span>向き合うために。</span></span>
-    </h1>
-    <p class="a-blur" style="--d:.55s">別れの整理から、これからの選択まで。<br>専門のカウンセラーが、あなたの状況に<br>合わせて一緒に考えます。</p>
-    <a class="btn a-up" style="--d:.66s" href="../shared/contact.html">無料で相談する</a>
-    <span class="cta-note a-up" style="--d:.74s">ご相談無料・24時間受付・無理な勧誘はいたしません</span>
-    <a class="sub-link a-up" style="--d:.82s" href="../shared/diagnosis.html"><span class="u">3分の無料診断をする</span> <span class="arrow">→</span></a>
-    <div class="tags a-up" style="--d:.92s"><span>ご相談無料</span><i>/</i><span>秘密厳守</span><i>/</i><span>専門カウンセラー</span><i>/</i><span>月々6,300円〜</span></div>
-    <div class="hero-figure a-blur" style="--d:1s"><img src="../assets/img/fukuenyasan-top.png" alt="恋愛・復縁カウンセリング" loading="lazy" onerror="this.closest('.hero-figure').style.display='none'"></div>
+    <div class="hero-top">
+      <div class="kicker a-up">恋愛・復縁カウンセリング</div>
+      <div class="kicker-line a-line" style="--d:.15s"></div>
+    </div>
+    <div class="hero-main">
+      <h1 class="serif">
+        <span class="a-mask" style="--d:.12s"><span>終わらせる前に、</span></span>
+        <span class="a-mask" style="--d:.26s"><span>もう一度、</span></span>
+        <span class="a-mask" style="--d:.40s"><span><em>チャンス</em>を作る。</span></span>
+      </h1>
+      <p class="a-blur" style="--d:.55s">一人で結論を出す前に、まずは話してみませんか。<br>今の状況とこれからの選択を、<br>専門のカウンセラーと一緒に整理します。</p>
+      <a class="btn a-up" style="--d:.66s" href="../shared/contact.html">無料で相談する</a>
+      <span class="cta-note a-up" style="--d:.78s;color:rgba(255,255,255,.75)">ご相談はすべて無料。秘密厳守で、無理な勧誘はいたしません。</span>
+    </div>
   </div>
 
   <!-- 2. 悩み共感 -->
@@ -210,17 +232,21 @@
   <!-- 3. 専門家の声（審査セーフ：結果保証なし・数値なし） -->
   <div class="hair-wrap"><div class="hair a-line"></div></div>
   <section class="scene">
-    <div class="k2 a-up">message</div>
+    <div class="k2 a-up">expert message</div>
     <h2 class="serif"><span class="a-mask" style="--d:.08s"><span>専門家からの</span></span><span class="a-mask" style="--d:.20s"><span>メッセージ</span></span></h2>
-    <div class="expert a-up" style="--d:.28s">
-      <div class="expert-img"><img src="https://lh3.googleusercontent.com/d/1yVkCgFQ8zp2FRvclO7a4BPEm12G_7CUR" alt="カウンセラー" loading="lazy" onerror="this.onerror=null;this.src='../assets/img/doctor.png';"></div>
-      <div>
-        <div class="expert-name serif">三上 裕司</div>
-        <div class="expert-role">恋愛・復縁カウンセラー</div>
+    <div class="notebook a-blur" style="--d:.3s">
+      <span class="nb-tab">EXPERT</span>
+      <div class="nb-quote">“</div>
+      <p class="nb-msg">復縁や恋愛のお悩みは、お一人で抱えるほど出口が見えなくなりがちです。私たちは答えを押し付けることはいたしません。これまで数多くの離別・復縁のご相談に向き合ってきた経験をもとに、あなたのお気持ちとご状況をひとつずつ丁寧に伺い、これからの選択肢を一緒に整理していきます。まずは、話すことから始めてみませんか。</p>
+      <div class="nb-sign-wrap"><span class="nb-sign">三上 裕司</span></div>
+      <div class="nb-foot">
+        <div class="nb-img"><img src="https://lh3.googleusercontent.com/d/1yVkCgFQ8zp2FRvclO7a4BPEm12G_7CUR" alt="カウンセラー" loading="lazy" onerror="this.onerror=null;this.src='../assets/img/doctor.png';"></div>
+        <div>
+          <div class="nb-name serif">三上 裕司</div>
+          <div class="nb-role">恋愛・復縁専門カウンセラー</div>
+          <div class="nb-cred">離別・復縁のご相談を専門に対応／傾聴を大切にしたカウンセリング</div>
+        </div>
       </div>
-    </div>
-    <div class="expert-quote a-blur" style="--d:.36s">
-      復縁や恋愛のお悩みは、お一人で抱えるほど出口が見えなくなりがちです。私たちは答えを押し付けるのではなく、あなたのお気持ちとご状況を丁寧に伺い、これからの選択肢を一緒に整理していきます。まずは、話すことから始めてみませんか。
     </div>
   </section>
 
@@ -261,6 +287,7 @@
         <div>月々6,300円〜の分割払いに対応</div>
         <div>明朗会計・後からの不当な追加費用なし</div>
         <div>ご予算に合わせた組み方もご相談OK</div>
+        <div>他社のお見積りをお持ちの方は、ご相談時にお気軽にご提示ください</div>
       </div>
       <div class="price-fine">
         ※分割ローンお支払いには別途手数料がかかります。<br>
@@ -342,10 +369,10 @@
     <p class="a-blur" style="--d:.22s">ご相談は無料・秘密厳守です。<br>無理な勧誘はいたしません。</p>
     <a class="btn a-up" style="--d:.34s" href="../shared/contact.html">無料で相談する</a>
     <a class="btn-ghost a-up" style="--d:.44s" href="tel:0353568550">
-      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
-      お電話で相談する
+      <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+      <span style="font-weight:500;letter-spacing:.02em;">03-5356-8550</span>
     </a>
-    <span class="cta-note a-up" style="--d:.52s">お電話に出られずオートアナウンスとなる場合がございます。混雑時は折り返しご対応いたします。</span>
+    <span class="cta-note a-up" style="--d:.52s">タップでそのまま発信できます。お電話に出られずオートアナウンスとなる場合は、混雑時のため折り返しご対応いたします。</span>
   </section>
 
   <footer>
@@ -359,7 +386,7 @@
     <a class="fb-form" href="../shared/contact.html">無料相談フォーム</a>
     <a class="fb-tel" href="tel:0353568550">
       <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
-      お電話する
+      03-5356-8550
     </a>
   </div>
 
@@ -387,7 +414,7 @@
       });
       var max=document.documentElement.scrollHeight-vh;
       if(prog) prog.style.setProperty('--p', (max>0?Math.min(window.scrollY/max*100,100):0)+'%');
-      if(window.scrollY>240) bar.classList.add('in'); else bar.classList.remove('in');
+      bar.classList.add('in'); // 帯は常時表示（読み込み後にせり上がってキープ・いつでもフォーム/電話へ）
     }
     window.addEventListener('scroll',check,{passive:true});
     window.addEventListener('resize',check);
