@@ -59,7 +59,7 @@ fukuenyasan-lp/
 - **`index.html`（入口ハブ）**: ヘッダ → LP一覧カード（MAIN / DIAGNOSIS LP / LISTING…増えたらカード追加）→ 共通ページ直行リンク（無料相談フォーム・診断・電話）→ フッタ。
 - **`lp/main.html`（総合LP）**: 下記「Architecture of `lp/main.html`」の通り（Hero→痛み訴求→根拠→選ばれる理由→ステップ→費用→満足度/体験談→最終CTA/診断誘導→FAQ→会社情報→固定下部CTA）。
 - **`lp/diagnosis.html`（診断紹介LP）**: HERO → PAIN POINTS（悩み）→ ABOUT THE TEST（診断とは）→ TYPE PREVIEW（タイプ一覧 `type-card`）→ HOW IT WORKS（手順）→ TRUST/STATS → FINAL CTA（**診断 + フォーム + 電話**の3導線）→ FOOTER → 固定下部CTA（診断 + フォーム）。**独自CSSを内蔵し theme.css 不使用。**
-- **`lp/listing.html`（広告用・超安全文言）**: Hero（ハッシュタグに `#月々6,300円〜` を含む）→ ファーストCTA → お悩み共感（不安を煽らない）→ **選ばれる理由「私たちが大切にしていること」（専門特化／明朗会計／勧誘なしの3点・番号は明朝）** → 無料診断誘導 → **費用面でのご相談しやすさ（前倒し配置。月々6,300円〜の分割／一括vs分割の自社内対比／「1日あたり約210円＝6,300÷30の事実換算・カフェ1杯分」／無料相談／明朗会計／予算に合わせた組み方OK。「業界最安値」等の最上級は使わずに価格訴求）** → ご相談の流れ（3ステップ）→ 安心ポイント（相談無料/秘密厳守/無理な勧誘なし）→ FAQ（「必ず復縁できますか？」に正直回答）→ 最終CTA → フッタ（運営者表記 + 免責文）→ 固定下部CTA。**断定・誇大・数値訴求・操作的表現は禁止**（詳細はファイル冒頭コメント参照）。価格の割安訴求は事実換算（1日◯円）のみで、即日返信・見積り総額の事前提示などの未確認の断定はしない。
+- **`lp/listing.html`（広告用・超安全文言／静謐エディトリアルデザイン）**: Hero（kicker＋明朝の行マスク見出し＋トラストタグ `#月々6,300円〜` 等＋`fukuenyasan-top.png`）→ お悩み共感（`fukuenyasan-nayami.jpg`・不安を煽らない）→ **専門家からのメッセージ（カウンセラー名＋顔写真＋審査セーフな寄り添い文。結果保証・数値・「心理戦略/工作」等は使わない）** → 私たちが大切にしていること（専門特化／明朗会計／勧誘なしの3点）→ 無料診断誘導（`doctor.png`）→ **費用面（月々6,300円〜の分割／「1日あたり約210円＝6,300÷30の事実換算・カフェ1杯分」カウントアップ／無料相談／明朗会計）** → ご相談の流れ（3ステップ）→ **ご相談者の声（横スクロールカード・顔写真付き・審査セーフな感想＋「個人の感想です。効果・結果を保証しません」明記。"成功者の声"ではなく"ご相談者の声"とする）** → FAQ（「必ず復縁できますか？」に正直回答）→ 最終CTA（フォーム+電話）→ フッタ（運営者表記 + 免責文）→ 固定下部CTA。デザインは theme.css 不使用の独自CSS（アイボリー×明朝×ボルドー1色）＋エディトリアル系モーション（行マスク・ブラーイン・ヘアラインのドロー・スクロール進捗バー・数値カウントアップ。`prefers-reduced-motion` 対応）。**断定・誇大・数値訴求・操作的表現・最上級は禁止**（詳細はファイル冒頭コメント参照）。専門家/相談者の声も結果非保証で書く。価格の割安訴求は事実換算（1日◯円）のみ。
 - **`shared/contact.html`（相談フォーム）**: `method="post" action="../api/mail.php"`。入力項目＝お名前 / ご年齢 / 性別 / 都道府県 / ご相談の種類 / 離別時期 / 現在の状況 / 状況の詳細 / ご相談内容の詳細 / ご予算 / ご不安な点 / Email / 確認用Email / ご連絡先電話番号 / 連絡可能な日時。送信後 `api/mail.php` が `shared/thanks.html` へリダイレクト。
 - **`shared/thanks.html`（送信完了）**: 完了メッセージ + `lp/main.html` への戻り導線。
 - **`shared/diagnosis.html`（12問診断ツール）— 3状態を JS で切替**:
@@ -70,7 +70,7 @@ fukuenyasan-lp/
 
 ### 共通要素
 - 全LP共通の**固定下部CTAバー**（黄=フォーム / 桃=電話、`cta-fixed-*` クラス）と、スクロール表示演出 `.fade-in`（IntersectionObserver）。
-- `lp/diagnosis.html` 以外は `assets/css/theme.css` を共有。
+- `lp/diagnosis.html` と `lp/listing.html` 以外は `assets/css/theme.css` を共有（この2つは独自CSSを内蔵）。
 
 ## How to run / preview
 
@@ -134,7 +134,7 @@ Reading order, top to bottom:
 
 ## Design system conventions
 
-スタイルは **`assets/css/theme.css`** を編集する（main.html の旧インラインstyleを抽出したもの）。`lp/main.html` / `_template.html` / `index.html` がこれを `<link>` で共有。例外: `lp/diagnosis.html` だけは独自CSSを内蔵し theme.css を使わない。
+スタイルは **`assets/css/theme.css`** を編集する（main.html の旧インラインstyleを抽出したもの）。`lp/main.html` / `_template.html` / `index.html` がこれを `<link>` で共有。例外: `lp/diagnosis.html` と `lp/listing.html` は独自CSSを内蔵し theme.css を使わない（listing は「静謐エディトリアル」デザイン＝アイボリー×明朝×ボルドー1色＋エディトリアル系モーションを `<style>` に自己完結）。
 
 ### Color tokens (`:root`)
 - Rose family — `--primary-rose`, `--dark-rose`, `--accent-rose`, `--light-rose`, `--highlight-red`
