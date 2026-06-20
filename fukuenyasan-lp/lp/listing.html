@@ -2,394 +2,401 @@
 <!--
   lp/listing.html — Google広告(リスティング)用「超安全文言」LP
   ──────────────────────────────────────────────────────────
-  デザインは lp/main.html と同等品質（theme.css の高品質コンポーネントを流用）。
+  デザイン: 静謐エディトリアル（アイボリー × 明朝 × ボルドー1色）＋ エディトリアル系モーション。
+            theme.css は使わず、この <style> に自己完結（lp/diagnosis.html と同様の独自CSS方式）。
   文言は審査リスクの高い表現を徹底排除する:
    ・断定/保証なし（必ず/100%/成功率/絶対 など使わない）
-   ・誇大・未検証の数値なし（○○%、実績○件 など使わない）
-   ・操作/欺瞞を想起させる語なし（工作/心理誘導/別れさせ など使わない）
+   ・誇大・未検証の数値なし（○○%、実績○件、業界No.1 など使わない）
+   ・操作/欺瞞を想起させる語なし（工作/心理戦略/別れさせ など使わない）
    ・不安を過度に煽らない（手遅れ/もう終わり 等は使わない）
-   ・恋愛相談・カウンセリングとして提示し、結果非保証を明記
+   ・「専門家の声」「ご相談者の声」も結果非保証・個人の感想と明記し、数値・断定を載せない
+   ・価格の割安訴求は事実換算（1日約210円＝6,300÷30）のみ。最上級は使わない
 -->
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>恋愛・復縁のご相談｜専門カウンセラーによる無料相談</title>
-    <meta name="description" content="別れや恋愛のお悩みを、専門カウンセラーが丁寧にお伺いします。お気持ちの整理とこれからの選択を一緒に考える無料相談。プライバシー厳守・無理な勧誘はいたしません。">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;700;900&family=Shippori+Mincho:wght@400;700;800;900&family=Yuji+Syuku&family=Zen+Kurenaido&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/theme.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>恋愛・復縁のご相談｜専門カウンセラーによる無料相談</title>
+<meta name="description" content="別れや恋愛のお悩みを、専門カウンセラーが丁寧にお伺いします。お気持ちの整理とこれからの選択を一緒に考える無料相談。プライバシー厳守・無理な勧誘はいたしません。月々6,300円〜の分割にも対応。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;700;800&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root{
+    --ink:#2B2622; --ink-soft:#6E655C; --muted:#8A8178;
+    --bg:#F7F3EC; --card:#FFFFFF; --hair:#E3DACE; --hair-2:#EFE7DA;
+    --accent:#B0584E; --accent-edge:#8A3D36; --accent-soft:#D9B7B1;
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Noto Sans JP',sans-serif;background:#E9E3DA;color:var(--ink);-webkit-font-smoothing:antialiased;}
+  .device{max-width:480px;margin:0 auto;background:var(--bg);min-height:100vh;box-shadow:0 0 60px rgba(0,0,0,.10);overflow:hidden;position:relative;}
+  .serif{font-family:'Shippori Mincho','Noto Serif JP',serif;}
+  a{text-decoration:none;color:inherit;}
+  img{display:block;max-width:100%;}
+  section{padding:44px 28px;}
+
+  /* ===== モーション・プリミティブ ===== */
+  .js .a-mask{overflow:hidden;padding-bottom:.08em;}
+  .js .a-mask>span{display:block;transform:translateY(118%);transition:transform 1.05s var(--ease) var(--d,0ms);}
+  .js .in .a-mask>span,.js .a-mask.in>span{transform:none;}
+  .js .a-up{opacity:0;transform:translateY(24px);transition:opacity .95s ease var(--d,0ms), transform .95s var(--ease) var(--d,0ms);}
+  .js .in.a-up,.js .in .a-up{opacity:1;transform:none;}
+  .js .a-blur{opacity:0;filter:blur(11px);transform:translateY(8px);transition:opacity 1.1s ease var(--d,0ms), filter 1.1s ease var(--d,0ms), transform 1.1s ease var(--d,0ms);}
+  .js .in.a-blur,.js .in .a-blur{opacity:1;filter:none;transform:none;}
+  .js .a-line{transform:scaleX(0);transform-origin:left;transition:transform 1.1s var(--ease) var(--d,0ms);}
+  .js .in.a-line,.js .in .a-line{transform:scaleX(1);}
+  .arrow{display:inline-block;animation:nudge 1.9s ease-in-out infinite;}
+  @keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}
+    .js .a-mask>span,.js .a-up,.js .a-blur{opacity:1!important;transform:none!important;filter:none!important;} .js .a-line{transform:scaleX(1)!important;}}
+
+  /* スクロール進捗（極細） */
+  .scroll-prog{position:fixed;top:0;left:0;right:0;max-width:480px;margin:0 auto;height:3px;z-index:60;background:rgba(176,88,78,.12);}
+  .scroll-prog span{display:block;height:100%;width:var(--p,0%);background:var(--accent);}
+
+  .hair-wrap{padding:0 28px;}
+  .hair{height:1px;background:var(--hair);}
+
+  /* ===== 立体ボタン（控えめ） ===== */
+  .btn{position:relative;display:block;text-align:center;background:var(--accent);color:var(--bg);font-size:15px;padding:18px;
+    border-radius:999px;letter-spacing:.04em;font-weight:500;overflow:hidden;
+    box-shadow:0 3px 0 var(--accent-edge), 0 9px 20px rgba(176,88,78,.20);
+    transition:transform .16s var(--ease), box-shadow .16s var(--ease);}
+  .btn::before{content:'';position:absolute;left:0;right:0;top:0;height:50%;border-radius:999px 999px 40% 40%/999px 999px 20px 20px;
+    background:linear-gradient(rgba(255,255,255,.18),rgba(255,255,255,0));pointer-events:none;}
+  .btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--accent-edge), 0 4px 11px rgba(176,88,78,.18);}
+  .btn-ghost{display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;background:transparent;color:var(--ink);border:1px solid #C9BCA9;font-size:14px;padding:16px;border-radius:999px;margin-top:12px;transition:transform .16s, background .2s;}
+  .btn-ghost:active{transform:translateY(2px);background:#F1EADF;}
+  .cta-note{display:block;text-align:center;font-size:11px;color:var(--muted);margin-top:11px;}
+
+  /* ===== HERO ===== */
+  .hero{padding:48px 28px 40px;}
+  .kicker{font-size:12px;letter-spacing:.18em;color:var(--accent);}
+  .kicker-line{height:1px;background:var(--accent);width:34px;margin:14px 0 22px;}
+  .hero h1{font-size:36px;line-height:1.4;font-weight:500;color:var(--ink);letter-spacing:.01em;}
+  .hero h1 em{color:var(--accent);font-style:normal;}
+  .hero p{font-size:14px;line-height:2;color:var(--ink-soft);margin:20px 0 30px;}
+  .sub-link{display:block;text-align:center;margin-top:17px;font-size:13px;}
+  .sub-link span.u{border-bottom:1px solid #C9BCA9;padding-bottom:2px;}
+  .tags{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:26px;font-size:11.5px;color:var(--muted);}
+  .tags i{color:#D8CDBC;}
+  .hero-figure{margin-top:30px;border-radius:18px;overflow:hidden;border:1px solid var(--hair);background:#fff;}
+  .hero-figure img{width:100%;height:200px;object-fit:cover;}
+
+  /* 見出し共通 */
+  h2{font-size:22px;font-weight:500;line-height:1.55;}
+  .k2{font-size:11px;letter-spacing:.2em;color:var(--accent);margin-bottom:6px;}
+
+  .figure{border-radius:16px;overflow:hidden;border:1px solid var(--hair);margin-bottom:22px;}
+  .figure img{width:100%;height:190px;object-fit:cover;}
+
+  .pain-item{border-left:2px solid var(--accent-soft);padding:5px 0 5px 16px;margin-top:15px;font-size:14px;line-height:1.7;}
+  .lead-soft{font-size:13px;color:var(--ink-soft);line-height:1.9;margin-top:18px;}
+
+  /* 専門家の声 */
+  .expert{display:flex;gap:16px;align-items:center;margin-top:22px;}
+  .expert-img{width:76px;height:76px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1px solid var(--hair);background:#fff;}
+  .expert-img img{width:100%;height:100%;object-fit:cover;}
+  .expert-name{font-size:17px;font-weight:500;}
+  .expert-role{font-size:11.5px;color:var(--accent);margin-top:3px;letter-spacing:.04em;}
+  .expert-quote{position:relative;margin-top:22px;padding:22px 22px 22px 24px;background:#fff;border:1px solid var(--hair);border-radius:16px;font-size:14px;line-height:1.95;color:var(--ink-soft);}
+  .expert-quote::before{content:'“';position:absolute;top:2px;left:12px;font-family:'Shippori Mincho',serif;font-size:40px;color:var(--accent-soft);}
+
+  /* 理由 */
+  .reason{display:flex;gap:16px;margin-top:22px;}
+  .reason .n{font-size:20px;color:var(--accent);min-width:26px;line-height:1.3;}
+  .reason b{font-weight:500;font-size:15px;}
+  .reason p{font-size:13px;line-height:1.7;color:var(--ink-soft);margin-top:3px;}
+
+  /* 診断バナー */
+  .diag{background:#F1EADF;border-radius:20px;padding:30px 24px;text-align:center;}
+  .diag img{width:130px;margin:0 auto 14px;}
+  .diag h3{font-size:19px;font-weight:500;line-height:1.5;margin-bottom:10px;}
+  .diag p{font-size:13px;color:var(--ink-soft);line-height:1.8;margin-bottom:20px;}
+
+  /* 価格 */
+  .price-card{background:var(--card);border:1px solid var(--hair);border-radius:18px;padding:30px 26px;text-align:center;box-shadow:0 10px 26px rgba(176,88,78,.06);}
+  .price-card .lead{font-size:12.5px;color:var(--muted);margin-bottom:10px;}
+  .price-num{display:flex;align-items:baseline;justify-content:center;gap:5px;}
+  .price-num .pre,.price-num .post{font-size:15px;color:var(--ink-soft);}
+  .price-num .big{font-size:50px;font-weight:500;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums;}
+  .price-card .calc{font-size:12.5px;color:var(--muted);margin-top:14px;padding-top:15px;border-top:1px solid var(--hair-2);}
+  .price-card .calc b{color:var(--accent);font-weight:500;}
+  .price-checks{margin-top:18px;text-align:left;display:grid;gap:9px;}
+  .price-checks div{font-size:12.5px;color:var(--ink-soft);padding-left:22px;position:relative;line-height:1.6;}
+  .price-checks div::before{content:'✓';position:absolute;left:0;top:0;color:var(--accent);font-weight:700;}
+  .price-fine{margin-top:16px;font-size:9px;color:#A89F95;line-height:1.7;}
+
+  /* 流れ */
+  .flow{display:flex;gap:16px;padding-bottom:18px;border-bottom:1px solid var(--hair-2);margin-top:18px;}
+  .flow:last-child{border-bottom:none;padding-bottom:0;}
+  .flow .n{font-size:26px;color:#CBB7A0;min-width:32px;line-height:1;}
+  .flow .t{font-size:14.5px;font-weight:500;}
+  .flow .d{font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:4px;}
+
+  /* ご相談者の声（横スクロール・意図的なので overflow 監視から除外される設計） */
+  .voices-scroller{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:22px -28px 0;padding:0 28px 6px;}
+  .voices-scroller::-webkit-scrollbar{display:none;}
+  .voices-row{display:flex;gap:16px;width:max-content;}
+  .voice-card{width:248px;background:#fff;border:1px solid var(--hair);border-radius:18px;padding:22px;flex-shrink:0;}
+  .voice-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .voice-avatar{width:46px;height:46px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1px solid var(--hair);background:#F1EADF;}
+  .voice-avatar img{width:100%;height:100%;object-fit:cover;}
+  .voice-who{font-size:11.5px;color:var(--muted);}
+  .voice-who b{display:block;font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px;}
+  .voice-card p{font-size:12.5px;line-height:1.85;color:var(--ink-soft);}
+  .voice-hint{text-align:center;font-size:11px;color:var(--muted);margin-top:12px;}
+  .voice-disclaim{text-align:center;font-size:10px;color:#A89F95;margin-top:8px;}
+
+  /* FAQ */
+  .faq{margin-top:8px;}
+  .faq details{border-bottom:1px solid var(--hair);}
+  .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 2px;font-size:14px;font-weight:500;}
+  .faq summary::-webkit-details-marker{display:none;}
+  .faq summary .mark{color:var(--accent);transition:transform .25s;font-size:13px;}
+  .faq details[open] summary .mark{transform:rotate(180deg);}
+  .faq p{font-size:13px;color:var(--ink-soft);line-height:1.85;padding:0 2px 18px;}
+
+  .final{text-align:center;background:#F1EADF;}
+  .final h2{color:var(--accent);}
+  .final p{font-size:13px;color:var(--ink-soft);line-height:1.9;margin:14px 0 26px;}
+
+  footer{font-size:11px;line-height:1.8;text-align:center;color:var(--muted);padding:30px 28px 110px;border-top:1px solid var(--hair);}
+  footer b{color:var(--ink-soft);display:block;margin-bottom:6px;}
+
+  .fixed-bar{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;background:rgba(247,243,236,.93);backdrop-filter:blur(8px);border-top:1px solid var(--hair);padding:12px 16px;display:flex;gap:10px;z-index:50;transform:translateY(120%);transition:transform .6s var(--ease);}
+  .fixed-bar.in{transform:none;}
+  .fixed-bar a{flex:1;text-align:center;font-size:13px;font-weight:500;padding:14px 6px;border-radius:999px;transition:transform .16s;}
+  .fixed-bar a:active{transform:translateY(2px);}
+  .fb-form{background:var(--accent);color:var(--bg);box-shadow:0 3px 0 var(--accent-edge);}
+  .fb-form:active{box-shadow:0 1px 0 var(--accent-edge);}
+  .fb-tel{display:flex;align-items:center;justify-content:center;gap:6px;background:transparent;color:var(--ink);border:1px solid #C9BCA9;}
+</style>
 </head>
-<body class="max-w-[480px] mx-auto shadow-2xl bg-white min-h-screen pb-40 text-center">
+<body>
+<div class="scroll-prog"><span id="prog"></span></div>
+<div class="device">
 
-    <!-- 1. ファーストビュー（白文字を下寄せ。背景の暗いオーバーレイで可読性を確保） -->
-    <section class="relative h-[90vh] flex flex-col justify-end p-8 hero-gradient text-white">
-        <div class="absolute top-10 left-8 right-8">
-            <div class="flex flex-wrap items-center gap-2 mb-4">
-                <span class="hash-tag">#ご相談無料</span>
-                <span class="hash-tag">#秘密厳守</span>
-                <span class="hash-tag">#専門カウンセラー</span>
-                <span class="hash-tag">#月々6,300円〜</span>
-            </div>
-            <p class="text-sm font-bold tracking-[0.15em] text-white uppercase">恋愛・復縁のご相談</p>
-        </div>
+  <!-- 1. HERO -->
+  <div class="hero scene">
+    <div class="kicker a-up">恋愛・復縁カウンセリング</div>
+    <div class="kicker-line a-line" style="--d:.15s"></div>
+    <h1 class="serif">
+      <span class="a-mask" style="--d:.12s"><span>もう一度、</span></span>
+      <span class="a-mask" style="--d:.26s"><span>自分の<em>気持ち</em>と</span></span>
+      <span class="a-mask" style="--d:.40s"><span>向き合うために。</span></span>
+    </h1>
+    <p class="a-blur" style="--d:.55s">別れの整理から、これからの選択まで。<br>専門のカウンセラーが、あなたの状況に<br>合わせて一緒に考えます。</p>
+    <a class="btn a-up" style="--d:.66s" href="../shared/contact.html">無料で相談する</a>
+    <span class="cta-note a-up" style="--d:.74s">ご相談無料・24時間受付・無理な勧誘はいたしません</span>
+    <a class="sub-link a-up" style="--d:.82s" href="../shared/diagnosis.html"><span class="u">3分の無料診断をする</span> <span class="arrow">→</span></a>
+    <div class="tags a-up" style="--d:.92s"><span>ご相談無料</span><i>/</i><span>秘密厳守</span><i>/</i><span>専門カウンセラー</span><i>/</i><span>月々6,300円〜</span></div>
+    <div class="hero-figure a-blur" style="--d:1s"><img src="../assets/img/fukuenyasan-top.png" alt="恋愛・復縁カウンセリング" loading="lazy" onerror="this.closest('.hero-figure').style.display='none'"></div>
+  </div>
 
-        <div class="mb-8 text-white text-left">
-            <h1 class="font-hannari font-bold leading-tight mb-5 drop-shadow-xl text-white">
-                <span class="text-xl block mb-2 opacity-95 font-medium tracking-wider">もう一度、</span>
-                <span class="text-[2.7rem] block leading-tight">
-                    自分の<span style="color: var(--highlight-red); text-shadow: 0 0 20px rgba(217, 74, 90, 0.6);">気持ち</span>と<br>向き合うために。
-                </span>
-            </h1>
-            <p class="text-sm leading-relaxed font-light opacity-95 tracking-wide drop-shadow-lg">
-                別れの整理から、これからの選択まで。<br>
-                恋愛専門のカウンセラーが、<br>
-                あなたの状況に合わせて一緒に考えます。<br>
-                まずはお気軽に、無料でご相談ください。
-            </p>
-        </div>
-    </section>
+  <!-- 2. 悩み共感 -->
+  <div class="hair-wrap"><div class="hair a-line"></div></div>
+  <section class="scene">
+    <div class="figure a-blur"><img src="../assets/img/fukuenyasan-nayami.jpg" alt="悩む人" loading="lazy" onerror="this.closest('.figure').style.display='none'"></div>
+    <h2 class="serif"><span class="a-mask"><span>こんなお気持ち、</span></span><span class="a-mask" style="--d:.12s"><span>ありませんか</span></span></h2>
+    <div class="pain-item a-up" style="--d:.18s">大切だった人と、もう一度きちんと話したい</div>
+    <div class="pain-item a-up" style="--d:.30s">別れたあと、どう過ごせばよいか分からない</div>
+    <div class="pain-item a-up" style="--d:.42s">気持ちの整理がつかず、一人で抱え込んでいる</div>
+    <p class="lead-soft a-up" style="--d:.52s">どんなお悩みでも大丈夫です。<br>まずはお話を聞かせてください。</p>
+  </section>
 
-    <!-- 2. ファーストCTA -->
-    <section class="px-6 pt-10 pb-4 bg-white text-center">
-        <div class="flex flex-col items-center">
-            <span class="cta-callout text-center">＼ 入力かんたん・1分で送信 ／</span>
-            <a href="../shared/contact.html" class="btn-premium-3d btn-yellow py-5 text-xl shadow-xl w-full floating-action">
-                <span class="cta-label text-center text-[#4A3200]">無料相談フォームへ</span>
-            </a>
-        </div>
-        <p class="text-[11px] text-gray-400 mt-3 font-bold">24時間受付・無理な勧誘はいたしません</p>
-    </section>
-
-    <!-- 3. 悩みへの共感（不安を煽らず寄り添う） -->
-    <section class="pain-section">
-        <div class="pain-bg-wrapper">
-            <img src="../assets/img/fukuenyasan-nayami.jpg" alt="悩む人" class="pain-bg-img" loading="lazy">
-            <div class="pain-overlay"></div>
-        </div>
-        <div class="pain-content">
-            <h2 class="pain-title">
-                こんなお気持ち、<br>
-                ありませんか？
-            </h2>
-            <div class="pain-card">
-                <div class="pain-item">
-                    <div class="pain-icon">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                    </div>
-                    <p>大切だった人と、<br><span class="marker-line">もう一度きちんと話したい</span></p>
-                </div>
-                <div class="pain-item">
-                    <div class="pain-icon">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                    </div>
-                    <p>別れたあと、<br><span class="marker-line">どう過ごせばよいか分からない</span></p>
-                </div>
-                <div class="pain-item">
-                    <div class="pain-icon">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                    </div>
-                    <p>気持ちの整理がつかず、<br><span class="marker-line">一人で抱え込んでいる</span></p>
-                </div>
-            </div>
-            <p class="text-center text-sm text-gray-600 mt-6 font-bold leading-relaxed">
-                どんなお悩みでも大丈夫です。<br>まずはお話を聞かせてください。
-            </p>
-        </div>
-    </section>
-
-    <!-- 3.5 選ばれる理由（差別化・断定なしの事実訴求） -->
-    <section class="px-6 py-14 bg-white fade-in">
-        <div class="text-center mb-9">
-            <span class="cta-callout text-center">＼ ご相談先に迷ったら ／</span>
-            <h2 class="font-hannari text-2xl font-bold leading-relaxed mt-1">
-                私たちが<span style="color: var(--primary-rose);">大切にしている</span>こと
-            </h2>
-        </div>
-        <div class="space-y-4 text-left">
-            <div class="rounded-2xl bg-rose-50/60 border border-rose-100 p-5 flex items-start gap-4">
-                <span class="text-2xl font-black shrink-0 leading-none mt-0.5" style="color: var(--primary-rose); font-family: 'Shippori Mincho', serif;">01</span>
-                <div><p class="font-black mb-0.5">恋愛・復縁のご相談に専念</p><p class="text-sm text-gray-600 leading-relaxed">別れや復縁のお悩みに向き合ってきたカウンセラーが、あなたの状況に合わせてお話を伺います。</p></div>
-            </div>
-            <div class="rounded-2xl bg-rose-50/60 border border-rose-100 p-5 flex items-start gap-4">
-                <span class="text-2xl font-black shrink-0 leading-none mt-0.5" style="color: var(--primary-rose); font-family: 'Shippori Mincho', serif;">02</span>
-                <div><p class="font-black mb-0.5">料金は事前にご提示・明朗会計</p><p class="text-sm text-gray-600 leading-relaxed">費用が発生する場合は必ず事前にご説明。後からの不当な追加費用はいただきません。</p></div>
-            </div>
-            <div class="rounded-2xl bg-rose-50/60 border border-rose-100 p-5 flex items-start gap-4">
-                <span class="text-2xl font-black shrink-0 leading-none mt-0.5" style="color: var(--primary-rose); font-family: 'Shippori Mincho', serif;">03</span>
-                <div><p class="font-black mb-0.5">続けるかどうかはご自由です</p><p class="text-sm text-gray-600 leading-relaxed">まずはご相談だけでも歓迎。無理な勧誘はいたしませんので、安心してお話しください。</p></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. 無料診断への誘導（doctor.png 使用） -->
-    <section class="px-6 py-14 fade-in" style="background: linear-gradient(135deg, #FFF5F8 0%, #F3E8FF 100%);">
-        <div class="text-center">
-            <img src="../assets/img/doctor.png" alt="復縁アプローチ診断" class="w-40 mx-auto mb-5 drop-shadow-lg" onerror="this.style.display='none'">
-            <span class="cta-callout text-center">＼ 無料・3分でカンタン ／</span>
-            <h2 class="font-hannari text-2xl font-bold leading-relaxed mt-1 mb-4">
-                まずは<span style="color: var(--primary-rose);">無料診断</span>で<br>
-                今の状況を整理しませんか？
-            </h2>
-            <p class="text-sm text-gray-600 leading-relaxed mb-8">
-                かんたんな質問に答えるだけ。<br>
-                今のあなたに合った向き合い方のヒントが見つかります。
-            </p>
-            <a href="../shared/diagnosis.html"
-               class="inline-flex items-center justify-center gap-2 w-full py-4 rounded-full text-white font-black text-lg floating-action"
-               style="background: linear-gradient(135deg, #FF8FB8 0%, #9F7AEA 100%); box-shadow: 0 8px 22px rgba(159,122,234,0.4);">
-                <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                無料で診断してみる
-            </a>
-            <p class="text-[11px] text-gray-400 mt-3 font-bold">登録不要・その場で結果が分かります</p>
-        </div>
-    </section>
-
-    <!-- 4.5 費用面でのご安心（前倒し配置・価格訴求／断定なし） -->
-    <!--
-      審査配慮メモ:
-       ・「業界最安値」「No.1」「必ず安く」等の最上級／断定表現は使わない
-       ・価格はすべて事実ベース（月々6,300円〜は自社分割の実数値、無料相談、明朗会計）
-       ・「1日あたり約210円」は 6,300円÷30日 の事実計算（割安感の訴求は事実換算のみ）
-       ・他社比較は「お見積もりがあればご相談OK」までに留め、安値保証はしない
-    -->
-    <section class="px-5 py-12 bg-white fade-in">
-        <div class="price-container">
-
-            <!-- バッジ -->
-            <div class="price-top-badge">費用面でもご相談しやすく</div>
-
-            <!-- 明るいエリア -->
-            <div class="price-light-content">
-                <h2 class="price-light-title">まとまった資金がなくても<br>ご相談いただけます</h2>
-
-                <!-- 一括 → 分割 の対比（自社内対比のみ・他社比較なし） -->
-                <p class="text-sm text-gray-500 leading-relaxed mb-3">
-                    一括でのご負担が心配な方も、<br>
-                    <span class="font-bold text-gray-700">自社分割なら月々のお支払いから</span>始められます。
-                </p>
-
-                <div class="price-num-box">
-                    <p class="price-num-sub">自社分割・各種ローン対応で</p>
-                    <div class="price-num-row">
-                        <span class="price-num-pre">月々</span>
-                        <span class="price-num-main">6,300</span>
-                        <span class="price-num-post">円〜</span>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-2 font-bold">＝ 1日あたり約 <span style="color: var(--primary-rose); font-size: 1.05em;">210円</span>。カフェ1杯分から。</p>
-                </div>
-
-                <p class="price-desc-text">
-                    「ご依頼を検討したいけれど、費用面が心配…」という方もご安心ください。<span class="marker-pink">自社分割・各種ローンに対応</span>しており、月々無理のない金額からスタートいただけます。
-                </p>
-
-                <div class="price-check-box">
-                    <div class="price-check-item">
-                        <div class="price-check-icon">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                        </div>
-                        <span class="price-check-text">ご相談・お見積りは完全無料</span>
-                    </div>
-                    <div class="price-check-item">
-                        <div class="price-check-icon">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                        </div>
-                        <span class="price-check-text">月々6,300円〜の分割払いに対応</span>
-                    </div>
-                    <div class="price-check-item">
-                        <div class="price-check-icon">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                        </div>
-                        <span class="price-check-text">明朗会計・後からの不当な追加費用なし</span>
-                    </div>
-                    <div class="price-check-item">
-                        <div class="price-check-icon">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                        </div>
-                        <span class="price-check-text">ご予算に合わせた組み方もご相談OK</span>
-                    </div>
-                </div>
-
-                <div class="mt-4 text-left text-[9px] text-gray-400 leading-loose space-y-1 opacity-70 font-light">
-                    <p>※分割ローンお支払いには別途手数料がかかります。</p>
-                    <p>※頭金として一部料金をお支払いいただいております。</p>
-                    <p>※「1日あたり約210円」は月々6,300円を30日で割った概算です。</p>
-                    <p>※ご相談内容・期間・体制により料金は変動します。詳細はお問い合わせください。</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- 5. ご相談の流れ -->
-    <section class="px-5 py-12 flow-section-bg flow-rose fade-in">
-        <div class="flow-section-title text-center mb-10">
-            <span class="en">Flow</span>
-            <h2 class="ja">ご相談の流れ</h2>
-        </div>
-
-        <div class="flow-timeline">
-            <!-- STEP 1 -->
-            <div class="flow-step step-1">
-                <div class="flow-number">01</div>
-                <div class="flow-icon-wrap">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                </div>
-                <div class="flow-text">
-                    <div class="flow-title"><span class="flow-step-label">STEP</span>無料相談フォームからお申込み</div>
-                    <p class="flow-desc">お名前・ご連絡先と、簡単なお悩みをご記入ください。</p>
-                    <span class="flow-badge">✓ 24時間受付・相談無料</span>
-                </div>
-            </div>
-
-            <div class="flow-arrow arrow-1">
-                <svg viewBox="0 0 32 34" fill="none" stroke="currentColor"><path d="M8 6 L16 12 L24 6 M8 14 L16 20 L24 14 M8 22 L16 28 L24 22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-
-            <!-- STEP 2 -->
-            <div class="flow-step step-2">
-                <div class="flow-number">02</div>
-                <div class="flow-icon-wrap">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                </div>
-                <div class="flow-text">
-                    <div class="flow-title"><span class="flow-step-label">STEP</span>カウンセラーがヒアリング</div>
-                    <p class="flow-desc">ご都合に合わせて、お話を丁寧に伺います。費用はかかりません。</p>
-                    <span class="flow-badge">✓ プライバシー厳守</span>
-                </div>
-            </div>
-
-            <div class="flow-arrow arrow-2">
-                <svg viewBox="0 0 32 34" fill="none" stroke="currentColor"><path d="M8 6 L16 12 L24 6 M8 14 L16 20 L24 14 M8 22 L16 28 L24 22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-
-            <!-- STEP 3 -->
-            <div class="flow-step step-3">
-                <div class="flow-number">03</div>
-                <div class="flow-icon-wrap">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                </div>
-                <div class="flow-text">
-                    <div class="flow-title"><span class="flow-step-label">STEP</span>これからの選択肢をご提案</div>
-                    <p class="flow-desc">ご状況に合わせた進め方をご案内します。続けるかどうかはご自由です。</p>
-                    <span class="flow-badge">✓ 無理な勧誘はいたしません</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 6. 安心ポイント -->
-    <section class="px-6 py-14 bg-white fade-in">
-        <h2 class="font-hannari text-2xl font-bold mb-8 leading-relaxed">安心してご相談<br>いただくために</h2>
-        <div class="space-y-4 text-left">
-            <div class="rounded-2xl bg-rose-50/60 border border-rose-100 p-5 flex items-start gap-4">
-                <svg class="w-7 h-7 shrink-0 mt-0.5" fill="none" stroke="#D81B60" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                <div><p class="font-black mb-0.5">相談は無料です</p><p class="text-sm text-gray-600 leading-relaxed">初回のご相談に費用はかかりません。</p></div>
-            </div>
-            <div class="rounded-2xl bg-rose-50/60 border border-rose-100 p-5 flex items-start gap-4">
-                <svg class="w-7 h-7 shrink-0 mt-0.5" fill="none" stroke="#D81B60" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                <div><p class="font-black mb-0.5">プライバシー厳守</p><p class="text-sm text-gray-600 leading-relaxed">ご相談内容・個人情報は厳重に取り扱います。</p></div>
-            </div>
-            <div class="rounded-2xl bg-rose-50/60 border border-rose-100 p-5 flex items-start gap-4">
-                <svg class="w-7 h-7 shrink-0 mt-0.5" fill="none" stroke="#D81B60" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                <div><p class="font-black mb-0.5">無理な勧誘はいたしません</p><p class="text-sm text-gray-600 leading-relaxed">ご相談だけのご利用も歓迎です。</p></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 8. FAQ -->
-    <section class="px-6 py-12 bg-rose-50/40 fade-in">
-        <h2 class="font-hannari text-2xl font-bold mb-6 text-center">よくあるご質問</h2>
-        <div class="space-y-3 text-left">
-            <details class="bg-white p-5 rounded-2xl shadow-sm group border border-gray-100">
-                <summary class="list-none font-bold text-sm cursor-pointer flex justify-between items-center text-gray-700">相談は本当に無料ですか？<span class="group-open:rotate-180 transition-transform font-bold" style="color: var(--primary-rose);">▼</span></summary>
-                <p class="text-sm text-gray-600 mt-3 leading-relaxed">はい。初回のご相談は無料です。費用が発生する場合は、事前に必ずご説明します。</p>
-            </details>
-            <details class="bg-white p-5 rounded-2xl shadow-sm group border border-gray-100">
-                <summary class="list-none font-bold text-sm cursor-pointer flex justify-between items-center text-gray-700">秘密は守られますか？<span class="group-open:rotate-180 transition-transform font-bold" style="color: var(--primary-rose);">▼</span></summary>
-                <p class="text-sm text-gray-600 mt-3 leading-relaxed">ご相談内容・個人情報は厳重に管理し、第三者に開示することはありません。</p>
-            </details>
-            <details class="bg-white p-5 rounded-2xl shadow-sm group border border-gray-100">
-                <summary class="list-none font-bold text-sm cursor-pointer flex justify-between items-center text-gray-700">必ず復縁できますか？<span class="group-open:rotate-180 transition-transform font-bold" style="color: var(--primary-rose);">▼</span></summary>
-                <p class="text-sm text-gray-600 mt-3 leading-relaxed">ご状況により異なり、結果をお約束することはできません。まずはお気持ちを整理するところから、一緒に始めましょう。</p>
-            </details>
-            <details class="bg-white p-5 rounded-2xl shadow-sm group border border-gray-100">
-                <summary class="list-none font-bold text-sm cursor-pointer flex justify-between items-center text-gray-700">費用はどれくらいかかりますか？<span class="group-open:rotate-180 transition-transform font-bold" style="color: var(--primary-rose);">▼</span></summary>
-                <p class="text-sm text-gray-600 mt-3 leading-relaxed">ご状況により異なりますが、自社分割・各種ローン対応で月々6,300円〜のお支払いプランをご案内しています。ご相談・お見積りは無料、お見積り後の不当な追加費用もいただきません。他社のお見積りをお持ちの方は、ご相談時にお気軽にご提示ください。</p>
-            </details>
-            <details class="bg-white p-5 rounded-2xl shadow-sm group border border-gray-100">
-                <summary class="list-none font-bold text-sm cursor-pointer flex justify-between items-center text-gray-700">相談だけでも大丈夫ですか？<span class="group-open:rotate-180 transition-transform font-bold" style="color: var(--primary-rose);">▼</span></summary>
-                <p class="text-sm text-gray-600 mt-3 leading-relaxed">もちろんです。お気持ちを話すだけのご利用も歓迎しています。無理な勧誘はいたしません。</p>
-            </details>
-        </div>
-    </section>
-
-    <!-- 9. 最終CTA -->
-    <section class="p-12 text-center fade-in" style="background: linear-gradient(to bottom, #FFF 0%, var(--cta-bg) 50%, #FFF 100%);">
-        <h2 class="font-hannari text-2xl mb-6 leading-relaxed font-bold text-center" style="color: var(--primary-rose);">
-            一人で抱え込まず、<br>
-            まずはお話しください。
-        </h2>
-        <p class="text-sm text-gray-600 mb-10 leading-loose text-center">
-            ご相談は無料・秘密厳守です。<br>
-            無理な勧誘はいたしません。
-        </p>
-        <div class="space-y-10 px-2 text-center">
-            <div class="flex flex-col items-center">
-                <span class="cta-callout text-center">＼ まずはお気軽にご相談ください ／</span>
-                <a href="../shared/contact.html" class="btn-premium-3d btn-yellow py-5 text-xl shadow-xl w-full floating-action">
-                    <span class="cta-label text-center text-[#4A3200]">無料相談フォームへ</span>
-                </a>
-            </div>
-            <div class="flex flex-col items-center">
-                <span class="cta-callout text-center">＼ お電話でのご相談はこちら ／</span>
-                <a href="tel:0353568550" class="btn-premium-3d btn-pink text-xl flex-row gap-3 shadow-xl py-5 w-full floating-action">
-                    <svg class="w-7 h-7 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
-                    <span class="cta-label text-center text-white">お電話で相談する</span>
-                </a>
-                <p class="text-[10px] text-gray-500 mt-2 leading-relaxed text-left bg-gray-50 px-3 py-2 rounded-lg border border-gray-100">
-                    <span class="font-bold text-gray-600">※ご案内</span><br>
-                    お電話に出られずオートアナウンスになる場合がございます。混雑時は速やかにカウンセラーを選定し折り返しご対応いたします。
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 固定下部CTA（全LP共通） -->
-    <div class="fixed bottom-0 left-0 right-0 max-w-[480px] mx-auto plain-header px-4 py-4 z-50">
-        <div class="flex gap-3 items-stretch h-16">
-            <a href="../shared/contact.html" class="flex-1 btn-premium-3d btn-yellow cta-fixed-btn floating-action shadow-lg">
-                <span class="text-[9px] mb-0.5 font-normal leading-none opacity-80 text-center">24時間受付中</span>
-                <span class="cta-label cta-fixed-main leading-none text-center text-[#4A3200]">無料相談フォーム</span>
-            </a>
-            <a href="tel:0353568550" class="flex-1 btn-premium-3d btn-pink cta-fixed-btn floating-action shadow-lg" title="お電話に出られない場合はオートアナウンスとなります。混雑時は速やかにカウンセラーを選定し折り返し対応いたします。">
-                <div class="flex items-center justify-center gap-1 text-left">
-                    <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
-                    <div class="text-left leading-tight min-w-0">
-                        <p class="text-[8px] font-normal opacity-90 text-left">タップで発信</p>
-                        <p class="cta-label cta-fixed-num text-left text-white">03-5356-8550</p>
-                    </div>
-                </div>
-            </a>
-        </div>
+  <!-- 3. 専門家の声（審査セーフ：結果保証なし・数値なし） -->
+  <div class="hair-wrap"><div class="hair a-line"></div></div>
+  <section class="scene">
+    <div class="k2 a-up">message</div>
+    <h2 class="serif"><span class="a-mask" style="--d:.08s"><span>専門家からの</span></span><span class="a-mask" style="--d:.20s"><span>メッセージ</span></span></h2>
+    <div class="expert a-up" style="--d:.28s">
+      <div class="expert-img"><img src="https://lh3.googleusercontent.com/d/1yVkCgFQ8zp2FRvclO7a4BPEm12G_7CUR" alt="カウンセラー" loading="lazy" onerror="this.onerror=null;this.src='../assets/img/doctor.png';"></div>
+      <div>
+        <div class="expert-name serif">三上 裕司</div>
+        <div class="expert-role">恋愛・復縁カウンセラー</div>
+      </div>
     </div>
+    <div class="expert-quote a-blur" style="--d:.36s">
+      復縁や恋愛のお悩みは、お一人で抱えるほど出口が見えなくなりがちです。私たちは答えを押し付けるのではなく、あなたのお気持ちとご状況を丁寧に伺い、これからの選択肢を一緒に整理していきます。まずは、話すことから始めてみませんか。
+    </div>
+  </section>
 
-    <footer class="p-8 text-center text-gray-400 text-[10px] mb-20 bg-white border-t border-gray-50 leading-relaxed">
-        <p class="mb-2 font-bold text-gray-500">株式会社Azucar</p>
-        <p class="mb-3">〒176-0025 東京都練馬区中村南2-21-15 / TEL: 03-5356-8550</p>
-        <p class="mb-3">当サービスは恋愛・復縁に関するご相談（カウンセリング）を提供するものであり、特定の結果を保証するものではありません。</p>
-        <p>© 2024 Fukuenyasan All Rights Reserved.</p>
-    </footer>
+  <!-- 4. 私たちが大切にしていること -->
+  <div class="hair-wrap"><div class="hair a-line"></div></div>
+  <section class="scene">
+    <div class="k2 a-up">about us</div>
+    <h2 class="serif"><span class="a-mask" style="--d:.08s"><span>私たちが大切に</span></span><span class="a-mask" style="--d:.20s"><span>していること</span></span></h2>
+    <div class="reason a-up" style="--d:.30s"><span class="n serif">01</span><div><b>恋愛・復縁のご相談に専念</b><p>別れや復縁のお悩みに向き合ってきたカウンセラーが、状況に合わせて丁寧に伺います。</p></div></div>
+    <div class="reason a-up" style="--d:.42s"><span class="n serif">02</span><div><b>料金は事前にご提示・明朗会計</b><p>費用が発生する場合は必ず事前にご説明。後からの不当な追加費用はいただきません。</p></div></div>
+    <div class="reason a-up" style="--d:.54s"><span class="n serif">03</span><div><b>続けるかどうかはご自由です</b><p>まずはご相談だけでも歓迎。無理な勧誘はいたしません。</p></div></div>
+  </section>
 
-    <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
-            });
-        }, { threshold: 0.08 });
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-    </script>
+  <!-- 5. 無料診断への誘導 -->
+  <div class="hair-wrap"><div class="hair a-line"></div></div>
+  <section class="scene">
+    <div class="diag a-blur">
+      <img src="../assets/img/doctor.png" alt="復縁アプローチ診断" loading="lazy" onerror="this.style.display='none'">
+      <div class="k2" style="margin-bottom:8px;">無料・3分でカンタン</div>
+      <h3 class="serif">まずは<span style="color:var(--accent);">無料診断</span>で<br>今の状況を整理しませんか？</h3>
+      <p>かんたんな質問に答えるだけ。<br>今のあなたに合った向き合い方のヒントが見つかります。</p>
+      <a class="btn" href="../shared/diagnosis.html">無料で診断してみる</a>
+      <span class="cta-note">登録不要・その場で結果が分かります</span>
+    </div>
+  </section>
+
+  <!-- 6. 費用面でのご安心 -->
+  <div class="hair-wrap"><div class="hair a-line"></div></div>
+  <section class="scene">
+    <div class="k2 a-up">price</div>
+    <h2 class="serif" style="margin-bottom:18px;"><span class="a-mask" style="--d:.08s"><span>まとまった資金が</span></span><span class="a-mask" style="--d:.20s"><span>なくてもご相談OK</span></span></h2>
+    <div class="price-card a-blur" style="--d:.28s">
+      <div class="lead">自社分割・各種ローン対応で</div>
+      <div class="price-num"><span class="pre">月々</span><span class="big serif" data-count="6300" data-comma="1">0</span><span class="post">円〜</span></div>
+      <div class="calc">＝ 1日あたり約 <b><span data-count="210">0</span>円</b>。カフェ1杯分から。</div>
+      <div class="price-checks">
+        <div>ご相談・お見積りは完全無料</div>
+        <div>月々6,300円〜の分割払いに対応</div>
+        <div>明朗会計・後からの不当な追加費用なし</div>
+        <div>ご予算に合わせた組み方もご相談OK</div>
+      </div>
+      <div class="price-fine">
+        ※分割ローンお支払いには別途手数料がかかります。<br>
+        ※頭金として一部料金をお支払いいただいております。<br>
+        ※「1日あたり約210円」は月々6,300円を30日で割った概算です。<br>
+        ※ご相談内容・期間・体制により料金は変動します。詳細はお問い合わせください。
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. ご相談の流れ -->
+  <div class="hair-wrap"><div class="hair a-line"></div></div>
+  <section class="scene">
+    <div class="k2 a-up">flow</div>
+    <h2 class="serif" style="margin-bottom:6px;"><span class="a-mask" style="--d:.08s"><span>ご相談の流れ</span></span></h2>
+    <div class="flow a-up" style="--d:.22s"><span class="n serif">01</span><div><div class="t">無料相談フォームからお申込み</div><div class="d">お名前・ご連絡先と簡単なお悩みをご記入。24時間受付・相談無料。</div></div></div>
+    <div class="flow a-up" style="--d:.34s"><span class="n serif">02</span><div><div class="t">カウンセラーがヒアリング</div><div class="d">ご都合に合わせて、お話を丁寧に伺います。費用はかかりません。</div></div></div>
+    <div class="flow a-up" style="--d:.46s"><span class="n serif">03</span><div><div class="t">これからの選択肢をご提案</div><div class="d">ご状況に合わせた進め方をご案内。続けるかどうかはご自由です。</div></div></div>
+  </section>
+
+  <!-- 8. ご相談者の声（審査セーフ：結果非保証・個人の感想） -->
+  <div class="hair-wrap"><div class="hair a-line"></div></div>
+  <section class="scene">
+    <div class="k2 a-up">voices</div>
+    <h2 class="serif"><span class="a-mask" style="--d:.08s"><span>ご相談者の声</span></span></h2>
+    <div class="voices-scroller a-up" style="--d:.22s">
+      <div class="voices-row">
+        <div class="voice-card">
+          <div class="voice-head">
+            <div class="voice-avatar"><img src="https://lh3.googleusercontent.com/d/1wgQPSwCgXZrWzISvNYirjhh-tl6YPA2t" alt="ご相談者" loading="lazy" onerror="this.closest('.voice-avatar').style.display='none'"></div>
+            <div class="voice-who"><b>20代・女性</b>会社員</div>
+          </div>
+          <p>一人では整理できなかった気持ちを、否定せず聞いてもらえました。少しずつ前を向けるようになったのが大きかったです。</p>
+        </div>
+        <div class="voice-card">
+          <div class="voice-head">
+            <div class="voice-avatar"><img src="https://lh3.googleusercontent.com/d/1YHYsHw9Lt12S-jYVfPjqrqNkcG3ndjki" alt="ご相談者" loading="lazy" onerror="this.closest('.voice-avatar').style.display='none'"></div>
+            <div class="voice-who"><b>30代・女性</b>公務員</div>
+          </div>
+          <p>どう動けばいいか分からず不安でしたが、今の状況に合わせて一緒に考えてもらえたのが心強かったです。</p>
+        </div>
+        <div class="voice-card">
+          <div class="voice-head">
+            <div class="voice-avatar"><img src="https://lh3.googleusercontent.com/d/1gnYux6dnpIYhjtTbhjr-kAgJEVv35K6F" alt="ご相談者" loading="lazy" onerror="this.closest('.voice-avatar').style.display='none'"></div>
+            <div class="voice-who"><b>20代・男性</b>自営業</div>
+          </div>
+          <p>相談するだけでも気持ちが軽くなりました。急かされることなく、自分のペースで進められたのが良かったです。</p>
+        </div>
+        <div class="voice-card">
+          <div class="voice-head">
+            <div class="voice-avatar"><img src="https://lh3.googleusercontent.com/d/1IpZQ3L0pvE9tshlN9I6dMCs8FR-depuq" alt="ご相談者" loading="lazy" onerror="this.closest('.voice-avatar').style.display='none'"></div>
+            <div class="voice-who"><b>40代・男性</b>会社員</div>
+          </div>
+          <p>費用面も正直に説明してもらえて安心でした。まずは話してみて良かったと思っています。</p>
+        </div>
+      </div>
+    </div>
+    <p class="voice-hint">← 横にスライドできます →</p>
+    <p class="voice-disclaim">※ご相談者の個人的な感想です。効果・結果を保証するものではありません。</p>
+  </section>
+
+  <!-- 9. FAQ -->
+  <div class="hair-wrap"><div class="hair a-line"></div></div>
+  <section class="scene">
+    <div class="k2 a-up">faq</div>
+    <h2 class="serif" style="margin-bottom:8px;"><span class="a-mask" style="--d:.08s"><span>よくあるご質問</span></span></h2>
+    <div class="faq a-up" style="--d:.2s">
+      <details><summary>相談は本当に無料ですか？<span class="mark">▼</span></summary><p>はい。初回のご相談は無料です。費用が発生する場合は、事前に必ずご説明します。</p></details>
+      <details><summary>秘密は守られますか？<span class="mark">▼</span></summary><p>ご相談内容・個人情報は厳重に管理し、第三者に開示することはありません。</p></details>
+      <details><summary>必ず復縁できますか？<span class="mark">▼</span></summary><p>ご状況により異なり、結果をお約束することはできません。まずはお気持ちを整理するところから、一緒に始めましょう。</p></details>
+      <details><summary>費用はどれくらいかかりますか？<span class="mark">▼</span></summary><p>ご状況により異なりますが、自社分割・各種ローン対応で月々6,300円〜のお支払いプランをご案内しています。ご相談・お見積りは無料、お見積り後の不当な追加費用もいただきません。</p></details>
+      <details><summary>相談だけでも大丈夫ですか？<span class="mark">▼</span></summary><p>もちろんです。お気持ちを話すだけのご利用も歓迎しています。無理な勧誘はいたしません。</p></details>
+    </div>
+  </section>
+
+  <!-- 10. 最終CTA -->
+  <section class="final scene">
+    <h2 class="serif"><span class="a-mask"><span>一人で抱え込まず、</span></span><span class="a-mask" style="--d:.12s"><span>まずはお話しください。</span></span></h2>
+    <p class="a-blur" style="--d:.22s">ご相談は無料・秘密厳守です。<br>無理な勧誘はいたしません。</p>
+    <a class="btn a-up" style="--d:.34s" href="../shared/contact.html">無料で相談する</a>
+    <a class="btn-ghost a-up" style="--d:.44s" href="tel:0353568550">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+      お電話で相談する
+    </a>
+    <span class="cta-note a-up" style="--d:.52s">お電話に出られずオートアナウンスとなる場合がございます。混雑時は折り返しご対応いたします。</span>
+  </section>
+
+  <footer>
+    <b>株式会社Azucar</b>
+    〒176-0025 東京都練馬区中村南2-21-15 / TEL: 03-5356-8550<br>
+    当サービスは恋愛・復縁に関するご相談（カウンセリング）を提供するものであり、特定の結果を保証するものではありません。<br>
+    © 2024 Fukuenyasan All Rights Reserved.
+  </footer>
+
+  <div class="fixed-bar" id="fixedBar">
+    <a class="fb-form" href="../shared/contact.html">無料相談フォーム</a>
+    <a class="fb-tel" href="tel:0353568550">
+      <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+      お電話する
+    </a>
+  </div>
+
+</div>
+
+<script>
+  (function(){
+    var bar=document.getElementById('fixedBar'), prog=document.getElementById('prog');
+    function fmt(v,c){ return c ? v.toLocaleString('ja-JP') : String(v); }
+    function startCount(scope){
+      scope.querySelectorAll('[data-count]').forEach(function(el){
+        if(el.dataset.done) return; el.dataset.done='1';
+        var target=parseInt(el.dataset.count,10), comma=el.dataset.comma, dur=1300, t0=Date.now();
+        var timer=setInterval(function(){
+          var p=Math.min((Date.now()-t0)/dur,1), eased=1-Math.pow(1-p,3);
+          el.textContent=fmt(Math.round(target*eased),comma);
+          if(p>=1){ el.textContent=fmt(target,comma); clearInterval(timer); }
+        },24);
+      });
+    }
+    function check(){
+      var vh=window.innerHeight||document.documentElement.clientHeight;
+      document.querySelectorAll('.scene:not(.in), .a-line:not(.in)').forEach(function(el){
+        if(el.getBoundingClientRect().top < vh*0.88){ el.classList.add('in'); if(el.querySelector) startCount(el); }
+      });
+      var max=document.documentElement.scrollHeight-vh;
+      if(prog) prog.style.setProperty('--p', (max>0?Math.min(window.scrollY/max*100,100):0)+'%');
+      if(window.scrollY>240) bar.classList.add('in'); else bar.classList.remove('in');
+    }
+    window.addEventListener('scroll',check,{passive:true});
+    window.addEventListener('resize',check);
+    window.addEventListener('load',check);
+    check();
+    setTimeout(function(){ document.querySelectorAll('.scene:not(.in)').forEach(function(el){
+      if(el.getBoundingClientRect().top < (window.innerHeight||0)){ el.classList.add('in'); startCount(el); }
+    }); }, 2600);
+  })();
+</script>
 </body>
 </html>
