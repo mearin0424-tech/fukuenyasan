@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>管理画面｜復縁屋さん</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Shippori+Mincho:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="./admin.css">
+</head>
+<body class="admin">
+
+<div class="adm-topbar">
+  <a class="brand" href="./index.html">復縁屋さん <span class="badge">ADMIN</span></a>
+  <div class="adm-conn"></div>
+  <nav>
+    <a href="./index.html" class="current">ホーム</a>
+    <a href="./post.html">コラム投稿</a>
+    <a href="./edit.html">サイト編集</a>
+    <a href="../index.html" target="_blank">サイトを見る ↗</a>
+  </nav>
+</div>
+
+<div class="adm-wrap">
+
+  <div class="adm-panel" style="margin-bottom:20px;">
+    <h2><span class="num">1</span>はじめに：サイトフォルダに接続</h2>
+    <p style="font-size:.88rem;color:var(--ink-soft);margin-bottom:10px;">
+      このページの機能（コラム投稿・文章や画像の編集・履歴の保存）は、お使いのパソコンにある
+      <strong>「fukuenyasan-hp」フォルダ</strong>へ直接書き込むことで動作します。
+      右上の「接続する」から、サイトのフォルダを一度選択してください（Chrome / Edge 対応）。
+    </p>
+    <div class="adm-note">
+      ・接続はこのブラウザにのみ記憶されます。第三者がこのページを開いても、フォルダを選択しない限り何も変更できません。<br>
+      ・保存した変更を本番サイト（fukuenyasan.jp）に反映するには、通常どおりフォルダの内容をアップロードしてください。<br>
+      ・フォルダ接続に対応していないブラウザでは、作成したページを<strong>HTMLファイルとしてダウンロード</strong>して手動で配置する方式になります。
+    </div>
+  </div>
+
+  <div class="adm-grid" style="margin-bottom:20px;">
+    <a class="adm-tool-card" href="./post.html">
+      <div class="icon">📝</div>
+      <h3>コラム投稿</h3>
+      <p>平文・リッチテキスト・HTML貼り付け・HTMLファイルアップロードの4方式で、新しいコラム記事を作成します。コラム一覧・トップページのお知らせにも自動掲載。</p>
+    </a>
+    <a class="adm-tool-card" href="./edit.html">
+      <div class="icon">🖋️</div>
+      <h3>サイト編集（文章・画像）</h3>
+      <p>公開中の各ページを読み込んで、文章の書き換え・画像の差し替え・画像の追加をその場で行い、ファイルに保存します。</p>
+    </a>
+  </div>
+
+  <div class="adm-panel">
+    <h2><span class="num">2</span>編集履歴</h2>
+    <p style="font-size:.85rem;color:var(--ink-soft);margin-bottom:14px;">
+      すべての投稿・編集は <code style="background:var(--bg-soft-pink);padding:2px 8px;border-radius:6px;">admin/history.json</code> にJSON形式で記録されます。
+    </p>
+    <div class="adm-actions" style="margin:0 0 16px;">
+      <button class="adm-btn plain sm" id="btn-reload">↺ 再読み込み</button>
+      <button class="adm-btn plain sm" id="btn-dl-json">⬇ JSONをダウンロード</button>
+      <select id="filter-action" style="padding:7px 12px;border:1px solid var(--hair-2);border-radius:8px;font-size:.8rem;font-family:inherit;">
+        <option value="">すべての種別</option>
+        <option value="column-create">コラム投稿</option>
+        <option value="page-edit">ページ編集</option>
+      </select>
+      <span id="hist-count" style="font-size:.78rem;color:var(--ink-mute);font-weight:700;"></span>
+    </div>
+    <div id="history-list"><p style="font-size:.85rem;color:var(--ink-mute);">読み込み中…</p></div>
+  </div>
+
+</div>
+
+<script src="./admin.js"></script>
+<script>
+(function(){
+  var listEl = document.getElementById('history-list');
+  var current = {entries:[]};
+
+  var ACTION_LABEL = {
+    'column-create': {label:'コラム投稿', cls:''},
+    'page-edit':     {label:'ページ編集', cls:'edit'},
+    'image':         {label:'画像',       cls:'image'}
+  };
+
+  function render(){
+    var filter = document.getElementById('filter-action').value;
+    var entries = current.entries.filter(function(e){ return !filter || e.action === filter; });
+    document.getElementById('hist-count').textContent = entries.length + ' 件';
+    if(!entries.length){
+      listEl.innerHTML = '<p style="font-size:.85rem;color:var(--ink-mute);">履歴はまだありません。コラム投稿やページ編集を行うと、ここに記録されます。</p>';
+      return;
+    }
+    listEl.innerHTML = entries.map(function(e){
+      var a = ACTION_LABEL[e.action] || {label:e.action, cls:'edit'};
+      var changes = (e.changes||[]).map(function(c){
+        var kind = c.type==='text' ? '文章' : c.type==='image-replace' ? '画像差替' : c.type==='image-add' ? '画像追加' : c.type==='image-alt' ? '代替文' : (c.type||'変更');
+        return '<div style="margin-bottom:10px;">' +
+          '<div style="font-weight:900;margin-bottom:4px;"><span class="adm-history-kind '+(c.type&&c.type.indexOf('image')===0?'image':'edit')+'" style="min-width:auto;">'+Admin.esc(kind)+'</span> <code style="font-size:.72rem;color:var(--ink-mute);">'+Admin.esc(c.target||'')+'</code></div>' +
+          '<div class="adm-diff">' +
+            '<div class="before"><span class="label">変更前</span>'+Admin.esc(c.before||'（なし）')+'</div>' +
+            '<div class="after"><span class="label">変更後</span>'+Admin.esc(c.after||'（なし）')+'</div>' +
+          '</div></div>';
+      }).join('');
+      return '<details class="adm-history-item">' +
+        '<summary>' +
+          '<span class="adm-history-kind '+a.cls+'">'+Admin.esc(a.label)+'</span>' +
+          '<span class="adm-history-date">'+Admin.fmtDateTime(e.timestamp)+'</span>' +
+          '<span class="adm-history-page">'+Admin.esc(e.page||'')+'</span>' +
+          '<span class="adm-history-sum">'+Admin.esc(e.summary||'')+(e.note?' <em style="color:#B0851E;">※'+Admin.esc(e.note)+'</em>':'')+'</span>' +
+        '</summary>' +
+        '<div class="adm-history-body">' + (changes || '<p style="color:var(--ink-mute);">詳細情報なし</p>') + '</div>' +
+      '</details>';
+    }).join('');
+  }
+
+  async function load(){
+    current = await Admin.loadHistory();
+    if(!Array.isArray(current.entries)) current = {entries:[]};
+    render();
+  }
+
+  document.getElementById('btn-reload').addEventListener('click', load);
+  document.getElementById('filter-action').addEventListener('change', render);
+  document.getElementById('btn-dl-json').addEventListener('click', function(){
+    Admin.download('history.json', JSON.stringify(current, null, 2), 'application/json');
+  });
+  document.addEventListener('adm:connected', load);
+  load();
+})();
+</script>
+</body>
+</html>

@@ -70,15 +70,21 @@ fukuenyasan-hp/
 ├── privacy/index.html      プライバシーポリシー
 ├── tokushoho/index.html    特定商取引法に基づく表示
 ├── sitemap/index.html      サイトマップ
+├── admin/                  管理画面（noindex。ナビ/フッタからはリンクしない。詳細は後述「管理画面」節）
+│   ├── index.html            ダッシュボード＋編集履歴ビューア
+│   ├── post.html             コラム投稿（平文/リッチテキスト/HTML貼り付け/HTMLファイルの4モード）
+│   ├── edit.html             サイト編集（全ページの文章編集・画像差し替え/追加）
+│   ├── admin.css / admin.js  管理UI共通スタイル・共通ロジック
+│   └── history.json          編集履歴（JSON。投稿・編集のたびに追記される）
 └── assets/
     ├── css/site.css          共通デザインシステム（ピンク基調・diagnosis LP系。旧 --bordeaux 系は後方互換エイリアスで残してある）
-    ├── js/site.js            ハンバーガー開閉 + fade-in IntersectionObserver
-    └── img/                  LPから複製したdoctor.png / fukuenyasan-top.png / fukuenyasan-nayami.jpg + results/*.png（16タイプ）
+    ├── js/site.js            ハンバーガー開閉 + fade-in（時間差表示）+ ヘッダscrolled + back-to-topボタン注入
+    └── img/                  LPから複製したdoctor.png / fukuenyasan-top.png / fukuenyasan-nayami.jpg + results/*.png（16タイプ）+ column/・uploads/（管理画面からの投稿画像）
 ```
 
 **HP編集時の注意**:
-- 全ページがヘッダ/フッタ/モバイル固定CTAを丸ごとコピペで持っている（静的サイト・ビルドなし）。ナビ項目・フッタリンクを変える場合は全ページに反映が必要。ナビは8項目固定：私たちについて / サービス / ケース別 / 場面別 / 地域別 / 料金 / コラム / FAQ。
-- ヘッダのCTAボタン文言は「▶ 無料相談」、固定下部CTAは「▶ 無料相談フォーム」と「📞 03-5356-8550」。
+- 全ページがヘッダ/フッタ/固定CTA帯を丸ごとコピペで持っている（静的サイト・ビルドなし）。ナビ項目・フッタリンクを変える場合は全ページに反映が必要。ナビは8項目固定：私たちについて / サービス / ケース別 / 場面別 / 地域別 / 料金 / コラム / FAQ。
+- ヘッダのCTAボタン文言は「▶ 無料相談」、固定下部CTA帯は「▶ 無料相談フォーム」と「📞 03-5356-8550」。**固定CTA帯（`.mobile-cta`）はモバイルだけでなく全画面幅で常時表示**（デスクトップは中央寄せ・ボタン最大340px。`body{padding-bottom:76px}` とセット。クラス名は歴史的経緯で mobile-cta のまま）。
 - フッタは4カラム：ブランド+所在地 / サービス・ケース / 地域・プロフィール別 / 会社情報・サポート。
 - 文言ポリシーはLPの`listing.html`と同等の「結果非保証・断定なし・最上級なし」を全ページ徹底。「必ず復縁できる」「業界最安」「100%」「成功率」等は一切使わない。「工作」「別れさせ」「心理戦略」「接触工作」も使わない（recreation/状況分析/お話を伺うで置き換え）。
 - お客様の声・体験談には必ず`<p class="voice-disclaimer">※個人の感想です。同様の結果を保証するものではありません。</p>`を付ける。
@@ -86,6 +92,16 @@ fukuenyasan-hp/
 - 16タイプ診断（type-card grid）は `../../fukuenyasan-lp/shared/diagnosis.html` へ誘導。HPはLPの診断ツールを再利用する設計。
 - お問い合わせフォームの`action`は`../../fukuenyasan-lp/api/mail.php`を相対指定。LP側のメーラーを再利用する形（HP単独で配信する場合は別途バックエンドが必要）。
 - CSS変数の `--bordeaux` / `--bordeaux-dark` / `--bordeaux-soft` は site.css 内で `--accent-rose` / `--primary-rose` / `--bg-soft-pink` へエイリアスしてある（旧デザイン時代のインラインstyleが残る箇所への安全装置）。
+
+### 管理画面（`fukuenyasan-hp/admin/`）
+
+サーバ不要・クライアントサイド完結の簡易CMS。**File System Access API（Chrome/Edge）でローカルの `fukuenyasan-hp/` フォルダに直接読み書きする**方式のため、本番に置いても第三者は書き込めない（フォルダを選択できるのは管理者本人のみ）。全ページ `noindex` で、サイト内ナビ/フッタ/サイトマップからはリンクしない。非対応ブラウザでは生成HTMLのダウンロードにフォールバック。
+
+- `admin/index.html` — ダッシュボード。フォルダ接続と**編集履歴ビューア**（種別フィルタ・変更前後の差分表示・JSONダウンロード）。
+- `admin/post.html` — コラム投稿。①リッチテキスト（ツールバー＋contenteditable）②平文（`##`見出し・`-`箇条書き等の簡易記法を自動変換）③HTML貼り付け（本文のみ or 完全ページ）④HTMLファイルアップロード（本文抽出 or そのまま保存）の4モード。テンプレート（標準8項目ナビ＋4カラムフッタ＋CTA帯）に流し込んで `column/<slug>.html` を生成し、**`column/index.html` のカード一覧とトップ `index.html` の news-list へ自動掲載**。プレビュー（スマホ/タブレット/PC幅）と**NGワード検査**（文言ポリシー違反の警告・非ブロック）つき。挿入画像は `assets/img/column/` へ保存。
+- `admin/edit.html` — サイト編集。対象ページを `sandbox`（スクリプト無効）iframe に読み込み、**文章はクリックでその場編集、画像はクリックで差し替え/alt編集/削除、「画像を追加」で任意位置に挿入**（画像は `assets/img/uploads/` へ保存）。保存時に管理用の注入物（base/style/contenteditable等）を除去してファイルへ書き戻す。
+- `admin/history.json` — 全投稿・編集の履歴。`{entries:[{id,timestamp,action,page,summary,changes:[{type,target,before,after}]}]}` 形式で先頭に追記。フォルダ未接続時は localStorage に記録（entry に note が付く）。
+- 編集対象ページの読み書きは admin.js の `Admin.readText/writeText/writeBlob/appendHistory` を使う。フォルダハンドルは IndexedDB に永続化。
 
 ### 「diagnosis」が2つある点に注意
 - `lp/diagnosis.html` — 診断を**宣伝する紹介LP**。独自のピンク/パープル系CSS（`btn-cta-main` 等）を `<style>` に内蔵し、`theme.css` は使っていない。
@@ -144,6 +160,7 @@ npx http-server fukuenyasan-lp -p 8123 -c-1
 
 - **PHP（`api/mail.php`・`avm_chatwork.php`）は本番 `fukuenyasan.jp` でのみ動作**。ローカルにPHP環境はなく、フォーム送信はローカルでは完結しない。
 - `shared/diagnosis.html` は `fetch('../data/*.csv')` で結果データを読むため、`file://` 直開きではCORSで失敗する。必ず静的サーバ経由で開く。
+- **HP（`fukuenyasan-hp/`）のプレビュー**: この開発機には Node / Python が無いため、PowerShell HttpListener 製の静的サーバ `fukuenyasan-hp/.claude/serve.ps1` を用意してある（`fukuenyasan-hp/.claude/launch.json` の `hp`、ポート8124、配信ルート＝`fukuenyasan-hp/`）。Claude Code のプレビューでは `preview_start("hp")` で起動できる。
 
 ## レスポンシブ崩れの自動チェック（スマホ表示テスト）
 
