@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>コラム投稿｜管理画面｜復縁屋さん</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Shippori+Mincho:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="./admin.css">
+</head>
+<body class="admin">
+
+<div class="adm-topbar">
+  <a class="brand" href="./index.html">復縁屋さん <span class="badge">ADMIN</span></a>
+  <div class="adm-conn"></div>
+  <nav>
+    <a href="./index.html">ホーム</a>
+    <a href="./post.html" class="current">コラム投稿</a>
+    <a href="./edit.html">サイト編集</a>
+  </nav>
+</div>
+
+<div class="adm-wrap">
+
+  <!-- ===== 記事情報 ===== -->
+  <div class="adm-panel" style="margin-bottom:20px;">
+    <h2><span class="num">1</span>記事情報</h2>
+    <div class="adm-2col">
+      <div class="adm-field">
+        <label>タイトル <small>ページの見出し・一覧に表示</small></label>
+        <input type="text" id="f-title" placeholder="例）連絡を再開するベストタイミングとは">
+      </div>
+      <div class="adm-field">
+        <label>サブタイトル <small>見出しの下に小さく表示（任意）</small></label>
+        <input type="text" id="f-subtitle" placeholder="例）焦らない、止まらない、3つの目安">
+      </div>
+    </div>
+    <div class="adm-2col">
+      <div class="adm-field">
+        <label>カテゴリ</label>
+        <input type="text" id="f-category" list="cat-list" placeholder="例）連絡のタイミング">
+        <datalist id="cat-list">
+          <option value="連絡のタイミング"><option value="別れたあと"><option value="元彼との復縁">
+          <option value="元彼女との復縁"><option value="夫婦・別居"><option value="手紙・伝え方">
+          <option value="自分を整える"><option value="気持ちのサイン"><option value="諦めるという選択">
+        </datalist>
+      </div>
+      <div class="adm-field">
+        <label>日付</label>
+        <input type="date" id="f-date">
+      </div>
+    </div>
+    <div class="adm-2col">
+      <div class="adm-field">
+        <label>ファイル名 <small>半角英数とハイフンのみ。URLになります → column/〇〇.html</small></label>
+        <input type="text" id="f-slug" placeholder="例）reconnect-timing">
+      </div>
+      <div class="adm-field">
+        <label>検索向け説明文（meta description）<small>90〜120文字目安</small></label>
+        <input type="text" id="f-desc" placeholder="検索結果に表示される説明文">
+      </div>
+    </div>
+    <div class="adm-field">
+      <label>一覧用の紹介文 <small>コラム一覧のカードに表示される2〜3行の文章</small></label>
+      <textarea id="f-excerpt" style="min-height:70px;" placeholder="記事の内容を2〜3行でご紹介ください。"></textarea>
+    </div>
+  </div>
+
+  <!-- ===== 本文 ===== -->
+  <div class="adm-panel" style="margin-bottom:20px;">
+    <h2><span class="num">2</span>本文の作成方法を選ぶ</h2>
+    <div class="adm-tabs">
+      <button class="adm-tab active" data-tab="rich">リッチテキスト</button>
+      <button class="adm-tab" data-tab="plain">平文（かんたん）</button>
+      <button class="adm-tab" data-tab="paste">HTML貼り付け</button>
+      <button class="adm-tab" data-tab="file">HTMLファイル</button>
+    </div>
+
+    <!-- リッチテキスト -->
+    <div class="adm-tabpane active" data-pane="rich">
+      <div class="adm-toolbar">
+        <button type="button" data-cmd="formatBlock" data-val="p">段落</button>
+        <button type="button" data-cmd="formatBlock" data-val="h2">見出し 大</button>
+        <button type="button" data-cmd="formatBlock" data-val="h3">見出し 小</button>
+        <span class="sep"></span>
+        <button type="button" data-cmd="bold"><b>太字</b></button>
+        <button type="button" data-marker>マーカー</button>
+        <button type="button" data-cmd="formatBlock" data-val="blockquote">引用</button>
+        <span class="sep"></span>
+        <button type="button" data-cmd="insertUnorderedList">・箇条書き</button>
+        <button type="button" data-cmd="insertOrderedList">1. 番号</button>
+        <span class="sep"></span>
+        <button type="button" data-link>リンク</button>
+        <button type="button" data-img>画像挿入</button>
+        <span class="sep"></span>
+        <button type="button" data-cmd="removeFormat">装飾解除</button>
+        <button type="button" data-cmd="undo">↺ 戻す</button>
+      </div>
+      <div class="adm-rich" id="rich-editor" contenteditable="true"></div>
+      <input type="file" id="rich-img-file" accept="image/*" hidden>
+    </div>
+
+    <!-- 平文 -->
+    <div class="adm-tabpane" data-pane="plain">
+      <div class="adm-note">
+        空行で段落が分かれます。行のはじめに <strong>## </strong>で大見出し、<strong>### </strong>で小見出し、
+        <strong>&gt; </strong>で引用、<strong>- </strong>または<strong>・</strong>で箇条書きになります。
+      </div>
+      <textarea id="plain-editor" style="min-height:380px;font-size:.92rem;line-height:2;" placeholder="ここに本文を入力します。
+
+## 大見出しの例
+
+段落の文章。空行を入れると次の段落になります。
+
+- 箇条書きの例
+- 箇条書きの例"></textarea>
+    </div>
+
+    <!-- HTML貼り付け -->
+    <div class="adm-tabpane" data-pane="paste">
+      <div class="adm-note">
+        記事本文のHTMLタグを貼り付けてください（&lt;p&gt;〜&lt;/p&gt; や &lt;h2&gt; など）。
+        &lt;html&gt; から始まる完全なページを貼り付けた場合は、下の「完全なHTMLページとして保存」を選べます。
+      </div>
+      <textarea id="paste-editor" style="min-height:380px;font-family:Consolas,monospace;font-size:.85rem;" placeholder="<p>本文の段落…</p>
+<h2>見出し</h2>
+<p>本文の段落…</p>"></textarea>
+      <label style="display:flex;align-items:center;gap:8px;font-size:.85rem;font-weight:700;margin-top:10px;">
+        <input type="checkbox" id="paste-full"> 完全なHTMLページとしてそのまま保存する（テンプレートを使わない）
+      </label>
+    </div>
+
+    <!-- HTMLファイル -->
+    <div class="adm-tabpane" data-pane="file">
+      <div class="adm-note">
+        HTMLファイルをアップロードすると内容を読み込みます。
+        「本文だけ抽出」はファイル内の &lt;article&gt; または &lt;body&gt; の中身をテンプレートに流し込みます。
+      </div>
+      <div class="adm-field">
+        <input type="file" id="file-input" accept=".html,.htm,text/html">
+      </div>
+      <div class="adm-mode-seg" style="max-width:520px;">
+        <button type="button" class="active" id="file-mode-extract">本文だけ抽出してテンプレに流し込む</button>
+        <button type="button" id="file-mode-full">完全なページとしてそのまま保存</button>
+      </div>
+      <textarea id="file-editor" style="min-height:280px;margin-top:12px;font-family:Consolas,monospace;font-size:.85rem;" placeholder="ファイルを選択すると内容が表示されます（必要なら直接修正できます）"></textarea>
+    </div>
+  </div>
+
+  <!-- ===== 確認と保存 ===== -->
+  <div class="adm-panel">
+    <h2><span class="num">3</span>確認して保存</h2>
+    <div id="policy-box"></div>
+    <div class="adm-actions" style="margin-top:0;">
+      <button class="adm-btn ghost" id="btn-preview">👁 プレビュー</button>
+      <button class="adm-btn primary" id="btn-save">💾 保存して公開準備</button>
+      <button class="adm-btn plain" id="btn-download">⬇ HTMLをダウンロード</button>
+      <label style="display:flex;align-items:center;gap:6px;font-size:.82rem;font-weight:700;">
+        <input type="checkbox" id="opt-listing" checked> コラム一覧とトップのお知らせに自動掲載
+      </label>
+    </div>
+    <div class="adm-preview-bar" style="margin-top:16px;display:none;" id="preview-bar">
+      <span class="size">プレビュー：</span>
+      <button class="adm-btn plain sm" data-pw="375">スマホ</button>
+      <button class="adm-btn plain sm" data-pw="768">タブレット</button>
+      <button class="adm-btn plain sm" data-pw="100%">PC</button>
+    </div>
+    <div style="display:flex;justify-content:center;background:#EAE2DE;border-radius:10px;padding:0;overflow:hidden;">
+      <iframe class="adm-preview" id="preview-frame" sandbox="allow-same-origin" style="display:none;max-width:100%;"></iframe>
+    </div>
+  </div>
+
+</div>
+
+<script src="./admin.js"></script>
+<script>
+(function(){
+  'use strict';
+  var $ = function(s){ return document.querySelector(s); };
+
+  /* ---------- 初期値 ---------- */
+  var today = new Date();
+  $('#f-date').value = today.toISOString().slice(0,10);
+  $('#f-slug').placeholder = '例）post-' + today.toISOString().slice(0,10).replace(/-/g,'');
+
+  /* ---------- タブ切替 ---------- */
+  var activeTab = 'rich';
+  document.querySelectorAll('.adm-tab').forEach(function(t){
+    t.addEventListener('click', function(){
+      activeTab = t.dataset.tab;
+      document.querySelectorAll('.adm-tab').forEach(function(x){ x.classList.toggle('active', x===t); });
+      document.querySelectorAll('.adm-tabpane').forEach(function(p){ p.classList.toggle('active', p.dataset.pane===activeTab); });
+    });
+  });
+
+  /* ---------- リッチテキスト ---------- */
+  var rich = $('#rich-editor');
+  document.querySelectorAll('.adm-toolbar [data-cmd]').forEach(function(b){
+    b.addEventListener('click', function(){
+      rich.focus();
+      document.execCommand(b.dataset.cmd, false, b.dataset.val || null);
+    });
+  });
+  $('[data-link]').addEventListener('click', function(){
+    rich.focus();
+    var url = prompt('リンク先URLを入力してください（例：../contact/index.html）');
+    if(url) document.execCommand('createLink', false, url);
+  });
+  $('[data-marker]').addEventListener('click', function(){
+    rich.focus();
+    var sel = window.getSelection();
+    if(!sel.rangeCount || sel.isCollapsed){ Admin.toast('マーカーを引く文字列を選択してください', false); return; }
+    var range = sel.getRangeAt(0);
+    try{
+      var span = document.createElement('span');
+      span.className = 'marker-pink';
+      range.surroundContents(span);
+      sel.removeAllRanges();
+    }catch(e){
+      Admin.toast('この範囲にはマーカーを適用できません（段落をまたいだ選択など）', false);
+    }
+  });
+  $('[data-img]').addEventListener('click', function(){ $('#rich-img-file').click(); });
+  $('#rich-img-file').addEventListener('change', async function(){
+    var file = this.files[0];
+    this.value = '';
+    if(!file) return;
+    if(!Admin.isConnected() || !(await Admin.ensureReady())){
+      Admin.toast('画像を保存するには先にサイトフォルダへ接続してください', false);
+      return;
+    }
+    var safe = file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+    var path = 'assets/img/column/' + Date.now().toString(36) + '-' + safe;
+    await Admin.writeBlob(path, file);
+    rich.focus();
+    document.execCommand('insertHTML', false,
+      '<img src="../' + path + '" alt="' + Admin.esc(file.name.replace(/\.[^.]+$/,'')) + '" loading="lazy">');
+    Admin.toast('画像を保存して挿入しました：' + path);
+  });
+
+  /* ---------- 平文 → HTML変換 ---------- */
+  function plainToHtml(text){
+    var esc = Admin.esc;
+    var blocks = text.replace(/\r\n/g,'\n').split(/\n{2,}/);
+    return blocks.map(function(b){
+      b = b.trim();
+      if(!b) return '';
+      if(/^##\s/.test(b))  return '<h2>' + esc(b.replace(/^##\s+/,'')) + '</h2>';
+      if(/^###\s/.test(b)) return '<h3>' + esc(b.replace(/^###\s+/,'')) + '</h3>';
+      if(/^■\s*/.test(b))  return '<h2>' + esc(b.replace(/^■\s*/,'')) + '</h2>';
+      if(/^>\s?/.test(b))  return '<blockquote><p>' + esc(b.replace(/^>\s?/gm,'').trim()).replace(/\n/g,'<br>') + '</p></blockquote>';
+      var lines = b.split('\n');
+      if(lines.every(function(l){ return /^(-|・)\s*/.test(l.trim()); })){
+        return '<ul>' + lines.map(function(l){ return '<li>' + esc(l.trim().replace(/^(-|・)\s*/,'')) + '</li>'; }).join('') + '</ul>';
+      }
+      return '<p>' + esc(b).replace(/\n/g,'<br>') + '</p>';
+    }).filter(Boolean).join('\n\n');
+  }
+
+  /* ---------- HTMLファイル読み込み ---------- */
+  var fileMode = 'extract';
+  $('#file-mode-extract').addEventListener('click', function(){ fileMode='extract'; segToggle(this); });
+  $('#file-mode-full').addEventListener('click', function(){ fileMode='full'; segToggle(this); });
+  function segToggle(btn){
+    btn.parentElement.querySelectorAll('button').forEach(function(b){ b.classList.toggle('active', b===btn); });
+  }
+  $('#file-input').addEventListener('change', function(){
+    var f = this.files[0];
+    if(!f) return;
+    var reader = new FileReader();
+    reader.onload = function(){
+      $('#file-editor').value = reader.result;
+      // タイトル等が空ならファイルから補完
+      try{
+        var doc = new DOMParser().parseFromString(reader.result, 'text/html');
+        if(!$('#f-title').value){
+          var t = (doc.querySelector('title') && doc.querySelector('title').textContent || '').split('｜')[0].trim()
+               || (doc.querySelector('h1') && doc.querySelector('h1').textContent.trim()) || '';
+          $('#f-title').value = t;
+        }
+        if(!$('#f-desc').value){
+          var m = doc.querySelector('meta[name="description"]');
+          if(m) $('#f-desc').value = m.getAttribute('content') || '';
+        }
+      }catch(e){}
+      Admin.toast('ファイルを読み込みました：' + f.name);
+    };
+    reader.readAsText(f);
+  });
+
+  /* ---------- 本文HTMLの取得（モード別） ---------- */
+  function extractBody(html){
+    var doc = new DOMParser().parseFromString(html, 'text/html');
+    var art = doc.querySelector('article') || doc.body;
+    var clone = art.cloneNode(true);
+    clone.querySelectorAll('script,link,style').forEach(function(n){ n.remove(); });
+    return clone.innerHTML.trim();
+  }
+  // 戻り値: {kind:'body'|'full', html}
+  function getContent(){
+    if(activeTab === 'rich')  return { kind:'body', html: rich.innerHTML.trim() };
+    if(activeTab === 'plain') return { kind:'body', html: plainToHtml($('#plain-editor').value) };
+    if(activeTab === 'paste'){
+      var v = $('#paste-editor').value.trim();
+      if($('#paste-full').checked) return { kind:'full', html: v };
+      if(/<html[\s>]/i.test(v)) return { kind:'body', html: extractBody(v) };
+      return { kind:'body', html: v };
+    }
+    // file
+    var fv = $('#file-editor').value.trim();
+    if(fileMode === 'full') return { kind:'full', html: fv };
+    return { kind:'body', html: /<html[\s>]/i.test(fv) ? extractBody(fv) : fv };
+  }
+
+  /* ---------- ページテンプレート ---------- */
+  function buildPage(meta, bodyHtml){
+    var esc = Admin.esc;
+    var dateDisp = Admin.fmtDate(meta.date);
+    return '<!DOCTYPE html>\n<html lang="ja">\n<head>\n' +
+'<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width,initial-scale=1.0">\n' +
+'<title>' + esc(meta.title) + '｜コラム｜復縁屋さん</title>\n' +
+'<meta name="description" content="' + esc(meta.desc || meta.excerpt || meta.title) + '">\n' +
+'<link rel="preconnect" href="https://fonts.googleapis.com">\n' +
+'<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n' +
+'<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@500;700;900&family=Playfair+Display:wght@700&family=Shippori+Mincho:wght@500;700;800;900&display=swap" rel="stylesheet">\n' +
+'<link rel="stylesheet" href="../assets/css/site.css">\n' +
+'</head>\n<body>\n\n' +
+'<header class="site-header"><div class="site-header-inner"><a href="../index.html" class="site-brand"><div class="site-brand-logo">復</div><div class="site-brand-text"><span class="site-brand-name">復縁屋さん</span><span class="site-brand-sub">FUKUEN-YA SAN OFFICIAL SITE</span></div></a><button class="nav-toggle" aria-label="メニュー" aria-expanded="false"><span></span><span></span><span></span></button><nav class="site-nav"><ul class="site-nav-list"><li><a href="../about/index.html">私たちについて</a></li><li><a href="../service/index.html">サービス</a></li><li><a href="../case/index.html">ケース別</a></li><li><a href="../situation/index.html">場面別</a></li><li><a href="../region/index.html">地域別</a></li><li><a href="../price/index.html">料金</a></li><li><a href="../column/index.html">コラム</a></li><li><a href="../faq/index.html">FAQ</a></li></ul><a href="../contact/index.html" class="site-nav-cta">▶ 無料相談</a></nav></div></header>\n\n' +
+'<nav class="breadcrumb"><ol class="breadcrumb-list"><li><a href="../index.html">トップ</a></li><li><a href="./index.html">コラム</a></li><li>' + esc(meta.title) + '</li></ol></nav>\n\n' +
+'<section class="page-hero">\n  <div class="container-narrow">\n    <h1>' + esc(meta.title) + '</h1>\n' +
+(meta.subtitle ? '    <p>' + esc(meta.subtitle) + '</p>\n' : '') +
+'  </div>\n</section>\n\n' +
+'<section class="section">\n  <div class="container-narrow">\n    <article class="article fade-in">\n' +
+'      <p class="article-meta"><span class="cat">' + esc(meta.category || 'コラム') + '</span><span>' + dateDisp + ' 更新</span></p>\n\n' +
+bodyHtml + '\n\n' +
+'    </article>\n  </div>\n</section>\n\n' +
+'<section class="cta-band">\n  <div class="container-narrow">\n    <h2 class="serif">まずは、お話を聞かせてください。</h2>\n    <p>ご相談は無料・秘密厳守。無理な勧誘はいたしません。</p>\n    <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:10px;">\n      <a href="../contact/index.html" class="btn btn-outline btn-lg">▶ 無料相談フォーム</a>\n    </div>\n    <div class="cta-band-tel"><small>TEL</small><a href="tel:0353568550">03-5356-8550</a></div>\n    <p style="font-size:.78rem;color:rgba(255,255,255,.85);margin-top:4px;font-weight:700;">10:00 - 22:00（年中無休）／フォームは24時間受付</p>\n  </div>\n</section>\n\n' +
+'<footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-block"><div class="footer-brand-name">復縁屋さん</div><p class="footer-meta">運営：株式会社Azucar<br>〒176-0025<br>東京都練馬区中村南2-21-15</p><p class="footer-tel"><a href="tel:0353568550">03-5356-8550</a></p><p class="footer-meta">受付：10:00 - 22:00／年中無休</p></div><div class="footer-block"><h4>サービス・ケース</h4><ul><li><a href="../service/index.html">サービス一覧</a></li><li><a href="../service/counseling.html">復縁カウンセリング</a></li><li><a href="../service/reconciliation.html">復縁サポートプラン</a></li><li><a href="../service/consulting.html">恋愛コンサルティング</a></li><li><a href="../service/investigation.html">事前状況確認</a></li><li><a href="../case/index.html">ケース別一覧</a></li><li><a href="../situation/index.html">場面別ページ</a></li></ul></div><div class="footer-block"><h4>地域・プロフィール別</h4><ul><li><a href="../region/index.html">地域別ページ</a></li><li><a href="../gender/index.html">性別ページ</a></li><li><a href="../occupation/index.html">職業別ページ</a></li><li><a href="../../fukuenyasan-lp/shared/diagnosis.html">無料復縁タイプ診断（16タイプ）</a></li></ul></div><div class="footer-block"><h4>会社情報・サポート</h4><ul><li><a href="../about/index.html">私たちについて</a></li><li><a href="../company/index.html">会社概要</a></li><li><a href="../recruit/index.html">採用情報</a></li><li><a href="../flow/index.html">ご相談の流れ</a></li><li><a href="../price/index.html">料金</a></li><li><a href="../voice/index.html">お客様の声</a></li><li><a href="../column/index.html">コラム</a></li><li><a href="../faq/index.html">よくある質問</a></li><li><a href="../contact/index.html">お問い合わせ</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 Fukuenyasan / Azucar Inc. All Rights Reserved.</span><ul><li><a href="../privacy/index.html">プライバシーポリシー</a></li><li><a href="../tokushoho/index.html">特定商取引法に基づく表示</a></li><li><a href="../sitemap/index.html">サイトマップ</a></li></ul></div></div></footer>\n\n' +
+'<div class="mobile-cta">\n  <a href="../contact/index.html" class="cta-form">▶ 無料相談フォーム</a>\n  <a href="tel:0353568550" class="cta-tel">📞 03-5356-8550</a>\n</div>\n\n' +
+'<script src="../assets/js/site.js"><\/script>\n</body>\n</html>\n';
+  }
+
+  /* ---------- メタ情報の収集と検証 ---------- */
+  function getMeta(){
+    var slug = $('#f-slug').value.trim() || ('post-' + new Date().toISOString().slice(0,10).replace(/-/g,''));
+    return {
+      title: $('#f-title').value.trim(),
+      subtitle: $('#f-subtitle').value.trim(),
+      category: $('#f-category').value.trim(),
+      date: $('#f-date').value || new Date().toISOString().slice(0,10),
+      slug: slug,
+      desc: $('#f-desc').value.trim(),
+      excerpt: $('#f-excerpt').value.trim()
+    };
+  }
+  function validate(meta, content){
+    if(!meta.title){ Admin.toast('タイトルを入力してください', false); return false; }
+    if(!/^[a-zA-Z0-9_-]+$/.test(meta.slug)){ Admin.toast('ファイル名は半角英数・ハイフン・アンダースコアのみ使えます', false); return false; }
+    if(!content.html){ Admin.toast('本文が空です', false); return false; }
+    return true;
+  }
+
+  /* ---------- 文言ポリシーチェック表示 ---------- */
+  function showPolicy(allText){
+    var found = Admin.checkPolicy(allText);
+    var box = $('#policy-box');
+    if(found.length){
+      box.innerHTML = '<div class="adm-note warn"><strong>⚠ 文言ポリシーの確認：</strong>次の表現が含まれています → <strong>' +
+        found.map(Admin.esc).join('　') +
+        '</strong><br>当サイトは「結果非保証・断定なし・最上級なし」を方針としています（保存は可能ですが、公開前にご確認ください）。</div>';
+    } else {
+      box.innerHTML = '';
+    }
+    return found;
+  }
+
+  /* ---------- プレビュー ---------- */
+  function makePreviewSrc(fullHtml){
+    // admin/ から見た相対パスを column/ 起点に読み替える base を注入し、
+    // スクリプト無効でも本文が見えるよう fade-in を解除する
+    var inject = '<base href="../column/"><style>.fade-in{opacity:1!important;transform:none!important}</style>';
+    if(/<head[^>]*>/i.test(fullHtml)) return fullHtml.replace(/<head[^>]*>/i, function(m){ return m + inject; });
+    return inject + fullHtml;
+  }
+  $('#btn-preview').addEventListener('click', function(){
+    var meta = getMeta(), content = getContent();
+    if(!validate(meta, content)) return;
+    var full = content.kind === 'full' ? content.html : buildPage(meta, content.html);
+    showPolicy(full);
+    var frame = $('#preview-frame');
+    frame.style.display = 'block';
+    $('#preview-bar').style.display = 'flex';
+    frame.srcdoc = makePreviewSrc(full);
+    frame.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+  document.querySelectorAll('#preview-bar [data-pw]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var w = b.dataset.pw;
+      $('#preview-frame').style.width = (w === '100%') ? '100%' : (w + 'px');
+    });
+  });
+
+  /* ---------- 掲載リストの更新 ---------- */
+  function buildCard(meta){
+    var esc = Admin.esc;
+    return '\n\n      <a href="./' + meta.slug + '.html" class="card fade-in" style="text-decoration:none;">\n' +
+      '        <p class="article-meta" style="margin-bottom:10px;"><span class="cat">' + esc(meta.category || 'コラム') + '</span><span>' + Admin.fmtDate(meta.date) + '</span></p>\n' +
+      '        <h3>' + esc(meta.title) + (meta.subtitle ? ' ─ ' + esc(meta.subtitle) : '') + '</h3>\n' +
+      '        <p>' + esc(meta.excerpt || meta.desc || '') + '</p>\n' +
+      '        <span class="card-link">続きを読む</span>\n' +
+      '      </a>\n';
+  }
+  function buildNewsLi(meta){
+    return '\n      <li class="news-item"><span class="news-date">' + Admin.fmtDate(meta.date) + '</span><span class="news-cat">コラム</span><a href="./column/' + meta.slug + '.html" class="news-title">' + Admin.esc(meta.title) + (meta.subtitle ? ' ─ ' + Admin.esc(meta.subtitle) : '') + '</a></li>';
+  }
+  async function updateListings(meta, changes){
+    // コラム一覧（column/index.html）：card-grid の先頭にカードを追加
+    try{
+      var idx = await Admin.readText('column/index.html');
+      if(idx.indexOf('./' + meta.slug + '.html') === -1){
+        var m = idx.match(/<div class="card-grid"[^>]*>/);
+        if(m){
+          var pos = idx.indexOf(m[0]) + m[0].length;
+          idx = idx.slice(0, pos) + buildCard(meta) + idx.slice(pos);
+          await Admin.writeText('column/index.html', idx);
+          changes.push({type:'listing', target:'column/index.html', before:'', after:'コラム一覧にカードを追加'});
+        }
+      }
+    }catch(e){ Admin.toast('コラム一覧の自動更新に失敗しました：' + e.message, false); }
+    // トップ（index.html）：news-list の先頭に追加
+    try{
+      var top = await Admin.readText('index.html');
+      if(top.indexOf('./column/' + meta.slug + '.html') === -1){
+        var m2 = top.match(/<ul class="news-list[^"]*"[^>]*>/);
+        if(m2){
+          var pos2 = top.indexOf(m2[0]) + m2[0].length;
+          top = top.slice(0, pos2) + buildNewsLi(meta) + top.slice(pos2);
+          await Admin.writeText('index.html', top);
+          changes.push({type:'listing', target:'index.html', before:'', after:'トップのお知らせ欄に追加'});
+        }
+      }
+    }catch(e){ Admin.toast('トップページの自動更新に失敗しました：' + e.message, false); }
+  }
+
+  /* ---------- 保存 ---------- */
+  $('#btn-save').addEventListener('click', async function(){
+    var meta = getMeta(), content = getContent();
+    if(!validate(meta, content)) return;
+    var full = content.kind === 'full' ? content.html : buildPage(meta, content.html);
+    showPolicy(full);
+
+    if(!Admin.isConnected() || !(await Admin.ensureReady())){
+      Admin.toast('サイトフォルダ未接続のため、ダウンロード保存に切り替えます', false);
+      Admin.download(meta.slug + '.html', full);
+      await Admin.appendHistory({
+        action:'column-create', page:'column/' + meta.slug + '.html',
+        summary:'（ダウンロード保存）' + meta.title,
+        changes:[{type:'create', target:'column/' + meta.slug + '.html', before:'', after:meta.title}]
+      });
+      return;
+    }
+
+    var path = 'column/' + meta.slug + '.html';
+    if(await Admin.exists(path)){
+      if(!confirm('column/' + meta.slug + '.html は既に存在します。上書きしますか？')) return;
+    }
+    var changes = [{type:'create', target:path, before:'', after:meta.title + '（' + (content.kind==='full'?'完全HTML':'テンプレート') + '／' + activeTab + 'モード）'}];
+    try{
+      await Admin.writeText(path, full);
+      if($('#opt-listing').checked){
+        await updateListings(meta, changes);
+      }
+      await Admin.appendHistory({ action:'column-create', page:path, summary:meta.title, changes:changes });
+      Admin.toast('保存しました：' + path + '（履歴にも記録済み）');
+    }catch(e){
+      Admin.toast('保存に失敗しました：' + e.message, false);
+    }
+  });
+
+  /* ---------- ダウンロード ---------- */
+  $('#btn-download').addEventListener('click', function(){
+    var meta = getMeta(), content = getContent();
+    if(!validate(meta, content)) return;
+    var full = content.kind === 'full' ? content.html : buildPage(meta, content.html);
+    showPolicy(full);
+    Admin.download(meta.slug + '.html', full);
+  });
+})();
+</script>
+</body>
+</html>

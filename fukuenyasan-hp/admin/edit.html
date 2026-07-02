@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>サイト編集｜管理画面｜復縁屋さん</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Shippori+Mincho:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="./admin.css">
+</head>
+<body class="admin">
+
+<div class="adm-topbar">
+  <a class="brand" href="./index.html">復縁屋さん <span class="badge">ADMIN</span></a>
+  <div class="adm-conn"></div>
+  <nav>
+    <a href="./index.html">ホーム</a>
+    <a href="./post.html">コラム投稿</a>
+    <a href="./edit.html" class="current">サイト編集</a>
+  </nav>
+</div>
+
+<div class="adm-wrap">
+
+  <div class="adm-panel" style="margin-bottom:18px;">
+    <h2><span class="num">1</span>編集するページを選ぶ</h2>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <select id="page-select" style="flex:1;min-width:240px;padding:10px 13px;border:1px solid var(--hair-2);border-radius:8px;font-size:.9rem;font-family:inherit;">
+        <option value="">（フォルダに接続するとページ一覧が表示されます）</option>
+      </select>
+      <button class="adm-btn primary" id="btn-load">📂 読み込む</button>
+    </div>
+    <div class="adm-note" style="margin-bottom:0;">
+      読み込んだページの<strong>文章はクリックでそのまま書き換え</strong>できます。<strong>画像はクリックすると差し替え</strong>できます。
+      変更は右側の一覧にたまり、「保存」を押した時点でファイルに書き込まれ、履歴（history.json）に記録されます。
+    </div>
+  </div>
+
+  <div class="adm-editor-layout" id="editor-area" style="display:none;">
+    <div>
+      <div class="adm-preview-bar">
+        <span class="size" id="cur-page" style="font-weight:900;color:var(--primary-rose);"></span>
+        <button class="adm-btn plain sm" data-pw="375">スマホ幅</button>
+        <button class="adm-btn plain sm" data-pw="100%">PC幅</button>
+      </div>
+      <div class="adm-editframe-wrap" style="display:flex;justify-content:center;background:#EAE2DE;">
+        <iframe class="adm-editframe" id="edit-frame" sandbox="allow-same-origin"></iframe>
+      </div>
+    </div>
+
+    <div class="adm-side">
+      <div class="adm-panel" style="padding:16px;">
+        <h2 style="font-size:.95rem;margin-bottom:10px;">編集モード</h2>
+        <div class="adm-mode-seg">
+          <button id="mode-text" class="active">✏️ 文章</button>
+          <button id="mode-image">🖼 画像</button>
+        </div>
+        <div id="mode-help" style="font-size:.75rem;color:var(--ink-soft);line-height:1.8;margin-top:10px;">
+          ページ内の文章をクリックすると、その場で書き換えできます。
+        </div>
+        <div id="image-tools" style="display:none;margin-top:10px;">
+          <button class="adm-btn ghost sm" id="btn-img-add" style="width:100%;">＋ 画像を追加（ファイルを選んで挿入位置をクリック）</button>
+        </div>
+        <input type="file" id="img-file" accept="image/*" hidden>
+      </div>
+
+      <div class="adm-panel" style="padding:16px;">
+        <h2 style="font-size:.95rem;margin-bottom:10px;">変更内容 <span id="change-count" style="font-size:.75rem;color:var(--ink-mute);"></span></h2>
+        <div class="adm-changes" id="change-list"><p style="color:var(--ink-mute);">まだ変更はありません</p></div>
+        <div class="adm-actions" style="margin-top:12px;">
+          <button class="adm-btn primary sm" id="btn-save" style="flex:1;">💾 保存</button>
+          <button class="adm-btn plain sm" id="btn-discard">破棄して再読込</button>
+        </div>
+        <div class="adm-actions" style="margin-top:8px;">
+          <button class="adm-btn plain sm" id="btn-dl" style="flex:1;">⬇ 編集後HTMLをダウンロード</button>
+        </div>
+        <p style="font-size:.7rem;color:var(--ink-mute);margin:10px 0 0;line-height:1.7;">
+          保存すると admin/history.json に変更前後がJSONで記録されます。<a href="./index.html">履歴を見る →</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="./admin.js"></script>
+<script>
+(function(){
+  'use strict';
+  var $ = function(s){ return document.querySelector(s); };
+  var frame = $('#edit-frame');
+
+  var state = {
+    path: null,          // 例 'about/index.html'
+    originalText: null,  // 読み込んだ生HTML
+    mode: 'text',
+    imageChanges: [],    // {type, target, before, after}
+    pendingImgFile: null // 「画像を追加」で選択済みのファイル
+  };
+
+  var EDITABLE = 'P,H1,H2,H3,H4,H5,LI,TD,TH,BLOCKQUOTE,FIGCAPTION,DT,DD,SUMMARY,SPAN,A,SMALL,STRONG,EM,DIV';
+  var BLOCK_PREF = ['P','H1','H2','H3','H4','LI','TD','TH','BLOCKQUOTE','SUMMARY','FIGCAPTION','DT','DD'];
+
+  /* ---------- ページ一覧 ---------- */
+  // フォルダ未接続時の既定一覧（接続すると実フォルダの全HTMLに置き換わる）
+  var DEFAULT_PAGES = ['index.html','about/index.html','company/index.html',
+    'service/index.html','service/counseling.html','service/reconciliation.html','service/consulting.html','service/investigation.html',
+    'case/index.html','situation/index.html','region/index.html','gender/index.html','occupation/index.html',
+    'flow/index.html','price/index.html','voice/index.html','faq/index.html','column/index.html',
+    'recruit/index.html','contact/index.html','privacy/index.html','tokushoho/index.html','sitemap/index.html'];
+  function fillDefault(){
+    $('#page-select').innerHTML = DEFAULT_PAGES.map(function(p){
+      return '<option value="'+p+'">'+p+'</option>';
+    }).join('');
+  }
+  fillDefault();
+  async function fillPages(){
+    var sel = $('#page-select');
+    if(!Admin.isConnected()){ return; }
+    try{
+      if(!(await Admin.ensureReady())) return;
+      var pages = await Admin.listPages();
+      sel.innerHTML = pages.map(function(p){ return '<option value="'+Admin.esc(p)+'">'+Admin.esc(p)+'</option>'; }).join('');
+    }catch(e){
+      Admin.toast('ページ一覧の取得に失敗：' + e.message, false);
+    }
+  }
+  document.addEventListener('adm:connected', fillPages);
+  if(Admin.isConnected()) fillPages();
+
+  /* ---------- 読み込み ---------- */
+  $('#btn-load').addEventListener('click', async function(){
+    var path = $('#page-select').value;
+    if(!path){ Admin.toast('ページを選択してください（先にフォルダへ接続）', false); return; }
+    if(hasPending() && !confirm('未保存の変更があります。破棄して読み込みますか？')) return;
+    try{
+      var text;
+      if(Admin.isConnected() && await Admin.ensureReady()){
+        text = await Admin.readText(path);
+      } else {
+        var r = await fetch('../' + path, {cache:'no-store'});
+        if(!r.ok) throw new Error('HTTP ' + r.status);
+        text = await r.text();
+      }
+      loadIntoFrame(path, text);
+    }catch(e){
+      Admin.toast('読み込みに失敗しました：' + e.message, false);
+    }
+  });
+
+  function baseFor(path){
+    var dir = path.indexOf('/') === -1 ? '' : path.slice(0, path.lastIndexOf('/') + 1);
+    return '../' + dir; // admin/ から見た対象ページのディレクトリ
+  }
+  function relPrefix(path){
+    var depth = path.split('/').length - 1;
+    return depth === 0 ? './' : Array(depth + 1).join('../');
+  }
+
+  function loadIntoFrame(path, text){
+    state.path = path;
+    state.originalText = text;
+    state.imageChanges = [];
+    state.pendingImgFile = null;
+    renderChanges();
+    var inject = '<base data-adm href="' + baseFor(path) + '">' +
+      '<style data-adm>' +
+      '.fade-in{opacity:1!important;transform:none!important;}' +
+      'html{scroll-behavior:auto!important;}' +
+      '*{animation:none!important;}' +
+      '.adm-hover{outline:2px dashed var(--pink-accent,#FF8FA3)!important;outline-offset:2px;cursor:pointer;}' +
+      '.adm-editing{outline:2px solid #C04851!important;outline-offset:2px;background:rgba(255,244,246,.6);}' +
+      '.adm-imghover{outline:3px solid #2E8A5C!important;outline-offset:2px;cursor:pointer;}' +
+      '</style>';
+    var doc = /<head[^>]*>/i.test(text)
+      ? text.replace(/<head[^>]*>/i, function(m){ return m + inject; })
+      : inject + text;
+    frame.onload = function(){ attachEditors(); };
+    frame.srcdoc = doc;
+    $('#editor-area').style.display = '';
+    $('#cur-page').textContent = path;
+  }
+
+  /* ---------- 編集イベント ---------- */
+  function fdoc(){ return frame.contentDocument; }
+
+  function editableBlockOf(el){
+    // クリック位置から編集対象のブロックを決める
+    var node = el;
+    while(node && node !== fdoc().body){
+      if(BLOCK_PREF.indexOf(node.tagName) !== -1) return node;
+      node = node.parentElement;
+    }
+    // ブロックが見つからなければ、テキストを直接持つ要素まで許容
+    node = el;
+    while(node && node !== fdoc().body){
+      if(node.matches && node.matches(EDITABLE) && node.children.length <= 3) return node;
+      node = node.parentElement;
+    }
+    return null;
+  }
+
+  function attachEditors(){
+    var d = fdoc();
+    if(!d) return;
+
+    d.addEventListener('click', function(e){
+      // リンク遷移・フォーム送信は常に無効化
+      e.preventDefault();
+      e.stopPropagation();
+
+      if(state.mode === 'image'){
+        if(state.pendingImgFile){ insertImageAfter(e.target); return; }
+        if(e.target.tagName === 'IMG'){ imageMenu(e.target); }
+        return;
+      }
+      // テキストモード
+      if(e.target.tagName === 'IMG') { Admin.toast('画像は「🖼 画像」モードで編集できます'); return; }
+      // FAQ等の <details> はクリックで自動的に開く（開いた印を残し、保存時に元へ戻す）
+      var det = e.target.closest && e.target.closest('details');
+      if(det && !det.open){ det.open = true; det.setAttribute('data-adm-opened',''); }
+      var block = editableBlockOf(e.target);
+      if(!block) return;
+      if(!block.hasAttribute('data-adm-orig')) block.setAttribute('data-adm-orig', block.innerHTML);
+      block.setAttribute('contenteditable', 'true');
+      block.classList.add('adm-editing');
+      block.focus();
+    }, true);
+
+    d.addEventListener('focusout', function(e){
+      var el = e.target;
+      if(el.nodeType === 1 && el.hasAttribute && el.hasAttribute('contenteditable')){
+        el.removeAttribute('contenteditable');
+        el.classList.remove('adm-editing');
+        renderChanges();
+      }
+    }, true);
+
+    // ホバーのハイライト
+    d.addEventListener('mouseover', function(e){
+      if(state.mode === 'image'){
+        if(e.target.tagName === 'IMG') e.target.classList.add('adm-imghover');
+        return;
+      }
+      var b = editableBlockOf(e.target);
+      if(b) b.classList.add('adm-hover');
+    }, true);
+    d.addEventListener('mouseout', function(e){
+      if(e.target.classList){ e.target.classList.remove('adm-imghover'); }
+      var b = e.target.nodeType===1 && editableBlockOf(e.target);
+      if(b) b.classList.remove('adm-hover');
+    }, true);
+  }
+
+  /* ---------- セレクタパス（履歴用の位置表現） ---------- */
+  function selectorPath(el){
+    var parts = [];
+    var node = el;
+    while(node && node.tagName !== 'BODY'){
+      var tag = node.tagName.toLowerCase();
+      var idx = 1, sib = node;
+      while((sib = sib.previousElementSibling)){ if(sib.tagName === node.tagName) idx++; }
+      parts.unshift(tag + ':nth-of-type(' + idx + ')');
+      node = node.parentElement;
+    }
+    return parts.join(' > ');
+  }
+  function plain(html){
+    var t = document.createElement('div'); t.innerHTML = html;
+    return t.textContent.replace(/\s+/g,' ').trim();
+  }
+
+  /* ---------- 変更の収集 ---------- */
+  function collectTextChanges(){
+    var out = [];
+    var d = fdoc();
+    if(!d) return out;
+    d.querySelectorAll('[data-adm-orig]').forEach(function(el){
+      var before = el.getAttribute('data-adm-orig');
+      if(el.innerHTML !== before){
+        out.push({ type:'text', target:selectorPath(el), before:plain(before), after:plain(el.innerHTML), el:el });
+      }
+    });
+    return out;
+  }
+  function allChanges(){ return collectTextChanges().concat(state.imageChanges); }
+  function hasPending(){ return allChanges().length > 0; }
+
+  function renderChanges(){
+    var list = allChanges();
+    $('#change-count').textContent = list.length ? list.length + ' 件' : '';
+    var el = $('#change-list');
+    if(!list.length){ el.innerHTML = '<p style="color:var(--ink-mute);">まだ変更はありません</p>'; return; }
+    el.innerHTML = list.map(function(c){
+      var kind = c.type === 'text' ? '文章' : c.type === 'image-replace' ? '画像差替' : c.type === 'image-add' ? '画像追加' : c.type === 'image-alt' ? '代替文' : c.type;
+      return '<div class="adm-change-item"><span class="kind">' + kind + '</span>' +
+        Admin.esc((c.after || '').slice(0, 60)) + '</div>';
+    }).join('');
+  }
+
+  /* ---------- 画像編集 ---------- */
+  var imgTarget = null;
+  function imageMenu(img){
+    imgTarget = img;
+    var act = prompt(
+      '画像の操作を選んでください：\n' +
+      ' 1 = 画像を差し替える\n' +
+      ' 2 = 代替テキスト（alt）を編集する\n' +
+      ' 3 = この画像を削除する\n' +
+      '（現在: ' + (img.getAttribute('src')||'') + '）', '1');
+    if(act === '1'){ $('#img-file').dataset.purpose = 'replace'; $('#img-file').click(); }
+    else if(act === '2'){
+      var before = img.getAttribute('alt') || '';
+      var alt = prompt('代替テキスト（画像の説明）', before);
+      if(alt !== null && alt !== before){
+        img.setAttribute('alt', alt);
+        state.imageChanges.push({type:'image-alt', target:selectorPath(img), before:before, after:alt});
+        renderChanges();
+      }
+    }
+    else if(act === '3'){
+      if(confirm('この画像を削除しますか？')){
+        state.imageChanges.push({type:'image-remove', target:selectorPath(img), before:img.getAttribute('src')||'', after:'（削除）'});
+        img.remove();
+        renderChanges();
+      }
+    }
+  }
+
+  $('#btn-img-add').addEventListener('click', function(){
+    $('#img-file').dataset.purpose = 'add';
+    $('#img-file').click();
+  });
+
+  $('#img-file').addEventListener('change', async function(){
+    var file = this.files[0];
+    var purpose = this.dataset.purpose;
+    this.value = '';
+    if(!file) return;
+    if(purpose === 'add'){
+      state.pendingImgFile = file;
+      Admin.toast('挿入したい場所（要素）をページ内でクリックしてください');
+      return;
+    }
+    // 差し替え
+    if(!imgTarget) return;
+    var src = await saveImage(file);
+    if(!src) return;
+    var before = imgTarget.getAttribute('src') || '';
+    imgTarget.setAttribute('src', src);
+    state.imageChanges.push({type:'image-replace', target:selectorPath(imgTarget), before:before, after:src});
+    renderChanges();
+    Admin.toast('画像を差し替えました（保存で確定）');
+  });
+
+  async function saveImage(file){
+    if(!Admin.isConnected() || !(await Admin.ensureReady())){
+      Admin.toast('画像の保存にはサイトフォルダへの接続が必要です', false);
+      return null;
+    }
+    var safe = file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+    var rel = 'assets/img/uploads/' + Date.now().toString(36) + '-' + safe;
+    await Admin.writeBlob(rel, file);
+    return relPrefix(state.path) + rel;
+  }
+
+  async function insertImageAfter(targetEl){
+    var file = state.pendingImgFile;
+    state.pendingImgFile = null;
+    var src = await saveImage(file);
+    if(!src) return;
+    var img = fdoc().createElement('img');
+    img.setAttribute('src', src);
+    img.setAttribute('alt', file.name.replace(/\.[^.]+$/,''));
+    img.setAttribute('loading', 'lazy');
+    img.style.borderRadius = '12px';
+    var block = editableBlockOf(targetEl) || targetEl;
+    block.insertAdjacentElement('afterend', img);
+    state.imageChanges.push({type:'image-add', target:selectorPath(block) + ' の直後', before:'', after:src});
+    renderChanges();
+    Admin.toast('画像を追加しました（保存で確定）');
+  }
+
+  /* ---------- モード切替 ---------- */
+  $('#mode-text').addEventListener('click', function(){ setMode('text'); });
+  $('#mode-image').addEventListener('click', function(){ setMode('image'); });
+  function setMode(m){
+    state.mode = m;
+    $('#mode-text').classList.toggle('active', m==='text');
+    $('#mode-image').classList.toggle('active', m==='image');
+    $('#image-tools').style.display = m==='image' ? '' : 'none';
+    $('#mode-help').textContent = m==='text'
+      ? 'ページ内の文章をクリックすると、その場で書き換えできます。'
+      : '画像をクリックすると差し替え・alt編集・削除ができます。「＋画像を追加」でファイルを選び、挿入位置をクリックしてください。';
+  }
+
+  /* ---------- 保存・シリアライズ ---------- */
+  function serialize(){
+    var d = fdoc();
+    var clone = d.documentElement.cloneNode(true);
+    // 管理用に注入した要素・属性を除去して元のHTMLに戻す
+    clone.querySelectorAll('[data-adm]').forEach(function(n){ n.remove(); });
+    clone.querySelectorAll('[data-adm-opened]').forEach(function(n){ n.removeAttribute('open'); n.removeAttribute('data-adm-opened'); });
+    clone.querySelectorAll('[contenteditable]').forEach(function(n){ n.removeAttribute('contenteditable'); });
+    clone.querySelectorAll('[data-adm-orig]').forEach(function(n){ n.removeAttribute('data-adm-orig'); });
+    clone.querySelectorAll('.adm-hover,.adm-editing,.adm-imghover').forEach(function(n){
+      n.classList.remove('adm-hover','adm-editing','adm-imghover');
+      if(!n.className) n.removeAttribute('class');
+    });
+    return '<!DOCTYPE html>\n' + clone.outerHTML + '\n';
+  }
+
+  $('#btn-save').addEventListener('click', async function(){
+    if(!state.path){ return; }
+    var changes = allChanges().map(function(c){
+      return {type:c.type, target:c.target, before:c.before, after:c.after};
+    });
+    if(!changes.length){ Admin.toast('変更がありません'); return; }
+    var html = serialize();
+    var ng = Admin.checkPolicy(html);
+    if(ng.length && !confirm('文言ポリシー上注意が必要な表現が含まれています：\n' + ng.join('、') + '\n\nこのまま保存しますか？')) return;
+
+    if(!Admin.isConnected() || !(await Admin.ensureReady())){
+      Admin.toast('フォルダ未接続のため、ダウンロード保存に切り替えます', false);
+      Admin.download(state.path.split('/').pop(), html);
+      await Admin.appendHistory({action:'page-edit', page:state.path, summary:'（ダウンロード保存）' + changes.length + '件の変更', changes:changes});
+      return;
+    }
+    try{
+      await Admin.writeText(state.path, html);
+      await Admin.appendHistory({
+        action:'page-edit', page:state.path,
+        summary: changes.length + '件の変更（文章' + changes.filter(function(c){return c.type==='text';}).length +
+                 '・画像' + changes.filter(function(c){return c.type.indexOf('image')===0;}).length + '）',
+        changes: changes
+      });
+      // 確定：現在の状態を基準にし直す
+      fdoc().querySelectorAll('[data-adm-orig]').forEach(function(n){ n.removeAttribute('data-adm-orig'); });
+      state.imageChanges = [];
+      state.originalText = html;
+      renderChanges();
+      Admin.toast('保存しました：' + state.path + '（履歴にも記録済み）');
+    }catch(e){
+      Admin.toast('保存に失敗しました：' + e.message, false);
+    }
+  });
+
+  $('#btn-discard').addEventListener('click', function(){
+    if(!state.path) return;
+    if(hasPending() && !confirm('未保存の変更を破棄しますか？')) return;
+    loadIntoFrame(state.path, state.originalText);
+  });
+
+  $('#btn-dl').addEventListener('click', function(){
+    if(!state.path) return;
+    Admin.download(state.path.split('/').pop(), serialize());
+  });
+
+  /* ---------- 幅切替 ---------- */
+  document.querySelectorAll('.adm-preview-bar [data-pw]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var w = b.dataset.pw;
+      frame.style.width = (w === '100%') ? '100%' : (w + 'px');
+    });
+  });
+
+  /* ---------- 離脱ガード ---------- */
+  window.addEventListener('beforeunload', function(e){
+    if(hasPending()){ e.preventDefault(); e.returnValue = ''; }
+  });
+})();
+</script>
+</body>
+</html>
