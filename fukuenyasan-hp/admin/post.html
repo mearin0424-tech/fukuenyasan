@@ -27,19 +27,31 @@
 
   <!-- ===== 記事情報 ===== -->
   <div class="adm-panel" style="margin-bottom:20px;">
-    <h2><span class="num">1</span>記事情報</h2>
-    <div class="adm-2col">
-      <div class="adm-field">
-        <label>タイトル <small>ページの見出し・一覧に表示</small></label>
-        <input type="text" id="f-title" placeholder="例）連絡を再開するベストタイミングとは">
-      </div>
-      <div class="adm-field">
-        <label>サブタイトル <small>見出しの下に小さく表示（任意）</small></label>
-        <input type="text" id="f-subtitle" placeholder="例）焦らない、止まらない、3つの目安">
-      </div>
+    <h2><span class="num">1</span>投稿の種類と基本情報</h2>
+    <div class="adm-mode-seg" style="max-width:480px;margin-bottom:18px;">
+      <button type="button" id="type-column" class="active">📝 コラム記事</button>
+      <button type="button" id="type-case">💬 事例（ご相談者の声）</button>
+    </div>
+    <div class="adm-note" id="case-note" style="display:none;">
+      事例は <strong>voice/index.html（ご相談者の声）の先頭</strong>にカードとして追加されます。Case番号は自動採番、
+      「※個人の感想です」の免責文も自動で付きます。
     </div>
     <div class="adm-2col">
       <div class="adm-field">
+        <label id="title-label">タイトル <small>ページの見出し・一覧に表示</small></label>
+        <input type="text" id="f-title" placeholder="例）連絡を再開するベストタイミングとは">
+      </div>
+      <div class="adm-field only-column">
+        <label>サブタイトル <small>見出しの下に小さく表示（任意）</small></label>
+        <input type="text" id="f-subtitle" placeholder="例）焦らない、止まらない、3つの目安">
+      </div>
+      <div class="adm-field only-case" style="display:none;">
+        <label>ご相談者の属性 <small>年代・性別・ご相談の種類</small></label>
+        <input type="text" id="f-attr" placeholder="例）30代女性／元交際相手との復縁ご相談">
+      </div>
+    </div>
+    <div class="adm-2col">
+      <div class="adm-field only-column">
         <label>カテゴリ</label>
         <input type="text" id="f-category" list="cat-list" placeholder="例）連絡のタイミング">
         <datalist id="cat-list">
@@ -53,7 +65,7 @@
         <input type="date" id="f-date">
       </div>
     </div>
-    <div class="adm-2col">
+    <div class="adm-2col only-column">
       <div class="adm-field">
         <label>ファイル名 <small>半角英数とハイフンのみ。URLになります → column/〇〇.html</small></label>
         <input type="text" id="f-slug" placeholder="例）reconnect-timing">
@@ -63,7 +75,7 @@
         <input type="text" id="f-desc" placeholder="検索結果に表示される説明文">
       </div>
     </div>
-    <div class="adm-field">
+    <div class="adm-field only-column">
       <label>一覧用の紹介文 <small>コラム一覧のカードに表示される2〜3行の文章</small></label>
       <textarea id="f-excerpt" style="min-height:70px;" placeholder="記事の内容を2〜3行でご紹介ください。"></textarea>
     </div>
@@ -159,7 +171,7 @@
       <button class="adm-btn primary" id="btn-save">💾 保存して公開準備</button>
       <button class="adm-btn plain" id="btn-download">⬇ HTMLをダウンロード</button>
       <label style="display:flex;align-items:center;gap:6px;font-size:.82rem;font-weight:700;">
-        <input type="checkbox" id="opt-listing" checked> コラム一覧とトップのお知らせに自動掲載
+        <input type="checkbox" id="opt-listing" checked> <span id="opt-listing-text">コラム一覧とトップのお知らせに自動掲載</span>
       </label>
     </div>
     <div class="adm-preview-bar" style="margin-top:16px;display:none;" id="preview-bar">
@@ -185,6 +197,26 @@
   var today = new Date();
   $('#f-date').value = today.toISOString().slice(0,10);
   $('#f-slug').placeholder = '例）post-' + today.toISOString().slice(0,10).replace(/-/g,'');
+
+  /* ---------- 投稿タイプ（コラム／事例） ---------- */
+  var postType = 'column';
+  function setType(t){
+    postType = t;
+    $('#type-column').classList.toggle('active', t === 'column');
+    $('#type-case').classList.toggle('active', t === 'case');
+    document.querySelectorAll('.only-column').forEach(function(el){ el.style.display = t === 'column' ? '' : 'none'; });
+    document.querySelectorAll('.only-case').forEach(function(el){ el.style.display = t === 'case' ? '' : 'none'; });
+    $('#case-note').style.display = t === 'case' ? '' : 'none';
+    $('#title-label').innerHTML = t === 'case'
+      ? '見出し <small>事例カードに大きく表示される一言</small>'
+      : 'タイトル <small>ページの見出し・一覧に表示</small>';
+    $('#opt-listing-text').textContent = t === 'case'
+      ? 'トップのお知らせに自動掲載'
+      : 'コラム一覧とトップのお知らせに自動掲載';
+    $('#btn-save').textContent = t === 'case' ? '💾 保存（声のページへ追加）' : '💾 保存して公開準備';
+  }
+  $('#type-column').addEventListener('click', function(){ setType('column'); });
+  $('#type-case').addEventListener('click', function(){ setType('case'); });
 
   /* ---------- タブ切替 ---------- */
   var activeTab = 'rich';
@@ -353,14 +385,19 @@ bodyHtml + '\n\n' +
       date: $('#f-date').value || new Date().toISOString().slice(0,10),
       slug: slug,
       desc: $('#f-desc').value.trim(),
-      excerpt: $('#f-excerpt').value.trim()
+      excerpt: $('#f-excerpt').value.trim(),
+      attr: $('#f-attr').value.trim()
     };
   }
   function validate(meta, content){
-    if(!meta.title){ Admin.toast('タイトルを入力してください', false); return false; }
-    if(!/^[a-zA-Z0-9_-]+$/.test(meta.slug)){ Admin.toast('ファイル名は半角英数・ハイフン・アンダースコアのみ使えます', false); return false; }
+    if(!meta.title){ Admin.toast(postType === 'case' ? '見出しを入力してください' : 'タイトルを入力してください', false); return false; }
+    if(postType === 'column' && !/^[a-zA-Z0-9_-]+$/.test(meta.slug)){ Admin.toast('ファイル名は半角英数・ハイフン・アンダースコアのみ使えます', false); return false; }
     if(!content.html){ Admin.toast('本文が空です', false); return false; }
     return true;
+  }
+  // 本文が <p> を含まない場合に段落で包む（事例カード用）
+  function ensureParagraphs(html){
+    return /<(p|h2|h3|ul|ol|blockquote)[\s>]/i.test(html) ? html : '<p>' + html + '</p>';
   }
 
   /* ---------- 文言ポリシーチェック表示 ---------- */
@@ -377,6 +414,30 @@ bodyHtml + '\n\n' +
     return found;
   }
 
+  /* ---------- 事例（ご相談者の声）カード ---------- */
+  function buildVoiceCard(meta, bodyHtml, caseNo){
+    var esc = Admin.esc;
+    var no = String(caseNo).padStart(2, '0');
+    return '<div class="voice-card fade-in" id="case-' + no + '">\n' +
+      '  <div class="voice-meta"><span class="voice-meta-badge">Case ' + no + '</span><span>' + esc(meta.attr || 'ご相談者') + '</span></div>\n' +
+      '  <h3>' + esc(meta.title) + '</h3>\n' +
+      '  ' + bodyHtml + '\n' +
+      '  <p class="voice-disclaimer">※個人の感想です。結果や効果を保証するものではありません。</p>\n' +
+      '</div>\n\n';
+  }
+  function nextCaseNo(voiceHtml){
+    var max = 0, re = /Case\s*(\d+)/g, m;
+    while((m = re.exec(voiceHtml))){ max = Math.max(max, parseInt(m[1], 10)); }
+    return max + 1;
+  }
+  function buildCasePreview(card){
+    return '<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8">' +
+      '<base href="../voice/">' +
+      '<link rel="stylesheet" href="../assets/css/site.css">' +
+      '<style>.fade-in{opacity:1!important;transform:none!important}body{padding:32px 18px;background:var(--bg-cream);max-width:800px;margin:0 auto;}</style>' +
+      '</head><body>' + card + '</body></html>';
+  }
+
   /* ---------- プレビュー ---------- */
   function makePreviewSrc(fullHtml){
     // admin/ から見た相対パスを column/ 起点に読み替える base を注入し、
@@ -388,13 +449,25 @@ bodyHtml + '\n\n' +
   $('#btn-preview').addEventListener('click', function(){
     var meta = getMeta(), content = getContent();
     if(!validate(meta, content)) return;
-    var full = content.kind === 'full' ? content.html : buildPage(meta, content.html);
-    showPolicy(full);
     var frame = $('#preview-frame');
     frame.style.display = 'block';
     $('#preview-bar').style.display = 'flex';
-    frame.srcdoc = makePreviewSrc(full);
+    if(postType === 'case'){
+      var card = buildVoiceCard(meta, ensureParagraphs(content.html), nextPreviewNo());
+      showPolicy(card);
+      frame.srcdoc = buildCasePreview(card);
+    } else {
+      var full = content.kind === 'full' ? content.html : buildPage(meta, content.html);
+      showPolicy(full);
+      frame.srcdoc = makePreviewSrc(full);
+    }
     frame.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+  // プレビュー時のCase番号（接続時は実データから採番、未接続は仮番号）
+  var previewNo = 10;
+  function nextPreviewNo(){ return previewNo; }
+  document.addEventListener('adm:connected', function(){
+    Admin.readText('voice/index.html').then(function(t){ previewNo = nextCaseNo(t); }).catch(function(){});
   });
   document.querySelectorAll('#preview-bar [data-pw]').forEach(function(b){
     b.addEventListener('click', function(){
@@ -445,10 +518,61 @@ bodyHtml + '\n\n' +
     }catch(e){ Admin.toast('トップページの自動更新に失敗しました：' + e.message, false); }
   }
 
+  /* ---------- 保存（事例） ---------- */
+  function pad2(n){ return String(n).padStart(2, '0'); }
+  async function saveCase(meta, content){
+    var body = ensureParagraphs(content.html);
+    showPolicy(body);
+    if(!Admin.isConnected() || !(await Admin.ensureReady())){
+      var card0 = buildVoiceCard(meta, body, nextPreviewNo());
+      Admin.toast('フォルダ未接続のため、カードHTMLをダウンロードします（voice/index.html の先頭カードの前に貼り付けてください）', false);
+      Admin.download('voice-card.html', card0);
+      await Admin.appendHistory({
+        action:'case-create', page:'voice/index.html',
+        summary:'（ダウンロード保存）事例：' + meta.title,
+        changes:[{type:'create', target:'voice/index.html', before:'', after:meta.title}]
+      });
+      return;
+    }
+    try{
+      var vhtml = await Admin.readText('voice/index.html');
+      var no = nextCaseNo(vhtml);
+      var card = buildVoiceCard(meta, body, no);
+      var anchor = vhtml.indexOf('<div class="voice-card');
+      if(anchor === -1) throw new Error('voice/index.html に挿入位置（voice-card）が見つかりません');
+      vhtml = vhtml.slice(0, anchor) + card + vhtml.slice(anchor);
+      await Admin.writeText('voice/index.html', vhtml);
+      var changes = [{type:'create', target:'voice/index.html #case-' + pad2(no), before:'', after:meta.title + (meta.attr ? '（' + meta.attr + '）' : '')}];
+      if($('#opt-listing').checked){
+        try{
+          var top = await Admin.readText('index.html');
+          var m2 = top.match(/<ul class="news-list[^"]*"[^>]*>/);
+          if(m2){
+            var pos2 = top.indexOf(m2[0]) + m2[0].length;
+            var li = '\n      <li class="news-item"><span class="news-date">' + Admin.fmtDate(meta.date) + '</span><span class="news-cat">事例</span><a href="./voice/index.html#case-' + pad2(no) + '" class="news-title">' + Admin.esc('ご相談者の声を掲載しました：' + meta.title) + '</a></li>';
+            top = top.slice(0, pos2) + li + top.slice(pos2);
+            await Admin.writeText('index.html', top);
+            changes.push({type:'listing', target:'index.html', before:'', after:'トップのお知らせ欄に追加'});
+          }
+        }catch(e){ Admin.toast('トップページの自動更新に失敗：' + e.message, false); }
+      }
+      await Admin.appendHistory({
+        action:'case-create', page:'voice/index.html',
+        summary:'事例 Case ' + pad2(no) + '：' + meta.title,
+        changes:changes
+      });
+      previewNo = no + 1;
+      Admin.toast('保存しました：voice/index.html に Case ' + pad2(no) + ' を追加（履歴にも記録済み）');
+    }catch(e){
+      Admin.toast('保存に失敗しました：' + e.message, false);
+    }
+  }
+
   /* ---------- 保存 ---------- */
   $('#btn-save').addEventListener('click', async function(){
     var meta = getMeta(), content = getContent();
     if(!validate(meta, content)) return;
+    if(postType === 'case'){ return saveCase(meta, content); }
     var full = content.kind === 'full' ? content.html : buildPage(meta, content.html);
     showPolicy(full);
 
@@ -484,6 +608,12 @@ bodyHtml + '\n\n' +
   $('#btn-download').addEventListener('click', function(){
     var meta = getMeta(), content = getContent();
     if(!validate(meta, content)) return;
+    if(postType === 'case'){
+      var card = buildVoiceCard(meta, ensureParagraphs(content.html), nextPreviewNo());
+      showPolicy(card);
+      Admin.download('voice-card.html', card);
+      return;
+    }
     var full = content.kind === 'full' ? content.html : buildPage(meta, content.html);
     showPolicy(full);
     Admin.download(meta.slug + '.html', full);

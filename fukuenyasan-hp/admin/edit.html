@@ -57,6 +57,7 @@
         <div class="adm-mode-seg">
           <button id="mode-text" class="active">✏️ 文章</button>
           <button id="mode-image">🖼 画像</button>
+          <button id="mode-preview">👁 プレビュー</button>
         </div>
         <div id="mode-help" style="font-size:.75rem;color:var(--ink-soft);line-height:1.8;margin-top:10px;">
           ページ内の文章をクリックすると、その場で書き換えできます。
@@ -132,15 +133,14 @@
   if(Admin.isConnected()) fillPages();
 
   /* ---------- 読み込み ---------- */
-  $('#btn-load').addEventListener('click', async function(){
-    var path = $('#page-select').value;
-    if(!path){ Admin.toast('ページを選択してください（先にフォルダへ接続）', false); return; }
-    if(hasPending() && !confirm('未保存の変更があります。破棄して読み込みますか？')) return;
+  async function openPage(path){
     try{
-      var text;
-      if(Admin.isConnected() && await Admin.ensureReady()){
-        text = await Admin.readText(path);
-      } else {
+      var text = null;
+      if(Admin.isConnected()){
+        try{ if(await Admin.ensureReady()) text = await Admin.readText(path); }
+        catch(e){ /* 権限が取れない場合は fetch にフォールバック */ }
+      }
+      if(text === null){
         var r = await fetch('../' + path, {cache:'no-store'});
         if(!r.ok) throw new Error('HTTP ' + r.status);
         text = await r.text();
@@ -149,7 +149,30 @@
     }catch(e){
       Admin.toast('読み込みに失敗しました：' + e.message, false);
     }
+  }
+  $('#btn-load').addEventListener('click', function(){
+    var path = $('#page-select').value;
+    if(!path){ Admin.toast('ページを選択してください（先にフォルダへ接続）', false); return; }
+    if(hasPending() && !confirm('未保存の変更があります。破棄して読み込みますか？')) return;
+    openPage(path);
   });
+
+  // ?page=xxx.html 付きで開かれたら自動読み込み（site.js の「✏️このページを編集」から）
+  (function(){
+    try{
+      var qp = new URLSearchParams(location.search).get('page');
+      if(!qp) return;
+      qp = qp.replace(/^\/+/, '');
+      var sel = $('#page-select');
+      if(![].some.call(sel.options, function(o){ return o.value === qp; })){
+        var o = document.createElement('option');
+        o.value = o.textContent = qp;
+        sel.appendChild(o);
+      }
+      sel.value = qp;
+      openPage(qp);
+    }catch(e){}
+  })();
 
   function baseFor(path){
     var dir = path.indexOf('/') === -1 ? '' : path.slice(0, path.lastIndexOf('/') + 1);
@@ -207,10 +230,38 @@
     var d = fdoc();
     if(!d) return;
 
+    // 元から open だった details に印を付けておく（プレビューでの開閉を保存に波及させない）
+    d.querySelectorAll('details[open]').forEach(function(det){ det.setAttribute('data-adm-had-open',''); });
+
     d.addEventListener('click', function(e){
       // リンク遷移・フォーム送信は常に無効化
       e.preventDefault();
       e.stopPropagation();
+
+      if(state.mode === 'preview'){
+        // FAQ等の開閉は許可
+        var sum = e.target.closest && e.target.closest('summary');
+        if(sum){
+          var pd = sum.parentElement;
+          if(pd && pd.tagName === 'DETAILS'){
+            pd.open = !pd.open;
+            if(pd.open && !pd.hasAttribute('data-adm-had-open')) pd.setAttribute('data-adm-opened','');
+            if(!pd.open) pd.removeAttribute('data-adm-opened');
+          }
+          return;
+        }
+        // サイト内リンクならそのページを開く
+        var a = e.target.closest && e.target.closest('a');
+        if(a){
+          var p = resolveHref(a.getAttribute('href'));
+          if(!p) return;
+          if(p.indexOf('fukuenyasan-lp') === 0){ Admin.toast('LP側のページはこの画面の編集対象外です'); return; }
+          if(hasPending() && !confirm('未保存の変更があります。破棄して移動しますか？')) return;
+          $('#page-select').value = p;
+          openPage(p);
+        }
+        return;
+      }
 
       if(state.mode === 'image'){
         if(state.pendingImgFile){ insertImageAfter(e.target); return; }
@@ -241,6 +292,7 @@
 
     // ホバーのハイライト
     d.addEventListener('mouseover', function(e){
+      if(state.mode === 'preview') return;
       if(state.mode === 'image'){
         if(e.target.tagName === 'IMG') e.target.classList.add('adm-imghover');
         return;
@@ -253,6 +305,18 @@
       var b = e.target.nodeType===1 && editableBlockOf(e.target);
       if(b) b.classList.remove('adm-hover');
     }, true);
+  }
+
+  /* ---------- リンク解決（プレビューモードのページ間移動） ---------- */
+  function resolveHref(href){
+    if(!href || /^(https?:|mailto:|tel:|javascript:|#)/i.test(href)) return null;
+    try{
+      var u = new URL(href, 'http://x/' + state.path);
+      var p = u.pathname.replace(/^\/+/, '');
+      if(!p) return null;
+      if(!/\.html?$/i.test(p)) p = p.replace(/\/?$/, '/') + 'index.html';
+      return p;
+    }catch(e){ return null; }
   }
 
   /* ---------- セレクタパス（履歴用の位置表現） ---------- */
@@ -387,14 +451,18 @@
   /* ---------- モード切替 ---------- */
   $('#mode-text').addEventListener('click', function(){ setMode('text'); });
   $('#mode-image').addEventListener('click', function(){ setMode('image'); });
+  $('#mode-preview').addEventListener('click', function(){ setMode('preview'); });
   function setMode(m){
     state.mode = m;
     $('#mode-text').classList.toggle('active', m==='text');
     $('#mode-image').classList.toggle('active', m==='image');
+    $('#mode-preview').classList.toggle('active', m==='preview');
     $('#image-tools').style.display = m==='image' ? '' : 'none';
     $('#mode-help').textContent = m==='text'
       ? 'ページ内の文章をクリックすると、その場で書き換えできます。'
-      : '画像をクリックすると差し替え・alt編集・削除ができます。「＋画像を追加」でファイルを選び、挿入位置をクリックしてください。';
+      : m==='image'
+      ? '画像をクリックすると差し替え・alt編集・削除ができます。「＋画像を追加」でファイルを選び、挿入位置をクリックしてください。'
+      : '編集枠なしで仕上がりを確認できます。ページ内のリンクをクリックすると、そのページに移動して続けて確認・編集できます。';
   }
 
   /* ---------- 保存・シリアライズ ---------- */
@@ -404,6 +472,7 @@
     // 管理用に注入した要素・属性を除去して元のHTMLに戻す
     clone.querySelectorAll('[data-adm]').forEach(function(n){ n.remove(); });
     clone.querySelectorAll('[data-adm-opened]').forEach(function(n){ n.removeAttribute('open'); n.removeAttribute('data-adm-opened'); });
+    clone.querySelectorAll('[data-adm-had-open]').forEach(function(n){ n.setAttribute('open',''); n.removeAttribute('data-adm-had-open'); });
     clone.querySelectorAll('[contenteditable]').forEach(function(n){ n.removeAttribute('contenteditable'); });
     clone.querySelectorAll('[data-adm-orig]').forEach(function(n){ n.removeAttribute('data-adm-orig'); });
     clone.querySelectorAll('.adm-hover,.adm-editing,.adm-imghover').forEach(function(n){

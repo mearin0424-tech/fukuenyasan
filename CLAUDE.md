@@ -78,7 +78,7 @@ fukuenyasan-hp/
 │   └── history.json          編集履歴（JSON。投稿・編集のたびに追記される）
 └── assets/
     ├── css/site.css          共通デザインシステム（ピンク基調・diagnosis LP系。旧 --bordeaux 系は後方互換エイリアスで残してある）
-    ├── js/site.js            ハンバーガー開閉 + fade-in（時間差表示）+ ヘッダscrolled + back-to-topボタン注入
+    ├── js/site.js            ハンバーガー開閉 + fade-in（時間差表示）+ ヘッダscrolled + back-to-top/進捗バー/桜の花びら注入 + 統計カウントアップ + ?edit=1 編集ボタン
     └── img/                  LPから複製したdoctor.png / fukuenyasan-top.png / fukuenyasan-nayami.jpg + results/*.png（16タイプ）+ column/・uploads/（管理画面からの投稿画像）
 ```
 
@@ -98,8 +98,9 @@ fukuenyasan-hp/
 サーバ不要・クライアントサイド完結の簡易CMS。**File System Access API（Chrome/Edge）でローカルの `fukuenyasan-hp/` フォルダに直接読み書きする**方式のため、本番に置いても第三者は書き込めない（フォルダを選択できるのは管理者本人のみ）。全ページ `noindex` で、サイト内ナビ/フッタ/サイトマップからはリンクしない。非対応ブラウザでは生成HTMLのダウンロードにフォールバック。
 
 - `admin/index.html` — ダッシュボード。フォルダ接続と**編集履歴ビューア**（種別フィルタ・変更前後の差分表示・JSONダウンロード）。
-- `admin/post.html` — コラム投稿。①リッチテキスト（ツールバー＋contenteditable）②平文（`##`見出し・`-`箇条書き等の簡易記法を自動変換）③HTML貼り付け（本文のみ or 完全ページ）④HTMLファイルアップロード（本文抽出 or そのまま保存）の4モード。テンプレート（標準8項目ナビ＋4カラムフッタ＋CTA帯）に流し込んで `column/<slug>.html` を生成し、**`column/index.html` のカード一覧とトップ `index.html` の news-list へ自動掲載**。プレビュー（スマホ/タブレット/PC幅）と**NGワード検査**（文言ポリシー違反の警告・非ブロック）つき。挿入画像は `assets/img/column/` へ保存。
-- `admin/edit.html` — サイト編集。対象ページを `sandbox`（スクリプト無効）iframe に読み込み、**文章はクリックでその場編集、画像はクリックで差し替え/alt編集/削除、「画像を追加」で任意位置に挿入**（画像は `assets/img/uploads/` へ保存）。保存時に管理用の注入物（base/style/contenteditable等）を除去してファイルへ書き戻す。
+- `admin/post.html` — コラム・事例の投稿。**投稿タイプ切替**：「コラム記事」と「事例（ご相談者の声）」。本文は①リッチテキスト（ツールバー＋contenteditable）②平文（`##`見出し・`-`箇条書き等の簡易記法を自動変換）③HTML貼り付け（本文のみ or 完全ページ）④HTMLファイルアップロード（本文抽出 or そのまま保存）の4モード。コラムはテンプレート（標準8項目ナビ＋4カラムフッタ＋CTA帯）に流し込んで `column/<slug>.html` を生成し、**`column/index.html` のカード一覧とトップ `index.html` の news-list へ自動掲載**。事例は **`voice/index.html` の先頭に voice-card として挿入（Case番号自動採番・`voice-disclaimer` 自動付与・`id="case-NN"`）**、トップ news-list にも任意掲載。プレビュー（スマホ/タブレット/PC幅）と**NGワード検査**（文言ポリシー違反の警告・非ブロック）つき。挿入画像は `assets/img/column/` へ保存。
+- `admin/edit.html` — サイト編集。対象ページを `sandbox`（スクリプト無効）iframe に読み込み、**文章はクリックでその場編集、画像はクリックで差し替え/alt編集/削除、「画像を追加」で任意位置に挿入**（画像は `assets/img/uploads/` へ保存）。**プレビューモード**では編集枠なしで確認でき、サイト内リンククリックでページ間を移動できる。`?page=<パス>` 付きで開くと自動読込。保存時に管理用の注入物（base/style/contenteditable/details開閉マーカー等）を除去してファイルへ書き戻す。
+- **閲覧者向け編集導線**: サイトの任意ページに `?edit=1` を付けて開くと「✏️ このページを編集」ボタンが出現し（localStorage で維持・`?edit=0` で解除）、`admin/edit.html?page=…` に飛ぶ。開発者以外に一時的に編集させたい時は「`?edit=1` 付きURL＋フォルダ接続手順」を渡す。
 - `admin/history.json` — 全投稿・編集の履歴。`{entries:[{id,timestamp,action,page,summary,changes:[{type,target,before,after}]}]}` 形式で先頭に追記。フォルダ未接続時は localStorage に記録（entry に note が付く）。
 - 編集対象ページの読み書きは admin.js の `Admin.readText/writeText/writeBlob/appendHistory` を使う。フォルダハンドルは IndexedDB に永続化。
 
