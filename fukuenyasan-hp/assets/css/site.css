@@ -847,9 +847,112 @@ body{padding-bottom:76px;}
 /* ===== fade-in（控えめ）===== */
 .fade-in{opacity:0;transform:translateY(18px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
 .fade-in.visible{opacity:1;transform:none;}
+
+/* ===== モーション強化パック ===== */
+@keyframes rise-in{
+  from{opacity:0;transform:translateY(22px);}
+  to{opacity:1;transform:none;}
+}
+@keyframes bar-grow{
+  from{transform:scaleX(0);}
+  to{transform:scaleX(1);}
+}
+@keyframes petal-fall{
+  0%{transform:translate3d(0,-40px,0) rotate(0deg);opacity:0;}
+  8%{opacity:var(--petal-op,.65);}
+  85%{opacity:var(--petal-op,.65);}
+  100%{transform:translate3d(var(--sway,40px),var(--fall,620px),0) rotate(var(--spin,280deg));opacity:0;}
+}
+
+/* ヒーローの登場アニメ（初回ロード時） */
+.hero .hero-badge{animation:rise-in .7s var(--ease) both .05s;}
+.hero .hero-kicker{animation:rise-in .7s var(--ease) both .15s;}
+.hero .hero-title{animation:rise-in .8s var(--ease) both .25s;}
+.hero .hero-sub{animation:rise-in .8s var(--ease) both .4s;}
+.hero .hero-img{animation:rise-in .9s var(--ease) both .5s;}
+.hero .hero-img.float-anim{animation:rise-in .9s var(--ease) both .5s,float-y 3.5s ease-in-out 1.5s infinite;}
+.hero .hero-actions{animation:rise-in .8s var(--ease) both .65s;}
+.hero .hero-tags{animation:rise-in .8s var(--ease) both .8s;}
+.page-hero .kicker{animation:rise-in .6s var(--ease) both;}
+.page-hero h1{animation:rise-in .7s var(--ease) both .08s;}
+.page-hero p{animation:rise-in .7s var(--ease) both .22s;}
+
+/* セクション見出しの下線が伸びる演出 */
+.section-head::after{transform-origin:center;}
+.fade-in.visible .section-head::after,
+.section-head.fade-in.visible::after{animation:bar-grow .9s var(--ease) both .15s;}
+
+/* グリッドの時間差ポップイン（親が .fade-in.visible になった時）
+   ※子自身が .fade-in の場合は site.js の時間差表示に任せるため除外 */
+.fade-in.visible .card-grid>*:not(.fade-in),.card-grid.fade-in.visible>*:not(.fade-in),
+.fade-in.visible .type-grid>*:not(.fade-in),.type-grid.fade-in.visible>*:not(.fade-in),
+.fade-in.visible .big-card-grid>*:not(.fade-in),.big-card-grid.fade-in.visible>*:not(.fade-in),
+.fade-in.visible .promise-grid>*:not(.fade-in),.promise-grid.fade-in.visible>*:not(.fade-in),
+.fade-in.visible .stat-grid>*:not(.fade-in),.stat-grid.fade-in.visible>*:not(.fade-in){
+  animation:rise-in .6s var(--ease) both;
+}
+.fade-in.visible :is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid)>*:nth-child(1),
+:is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid).fade-in.visible>*:nth-child(1){animation-delay:.05s;}
+.fade-in.visible :is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid)>*:nth-child(2),
+:is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid).fade-in.visible>*:nth-child(2){animation-delay:.12s;}
+.fade-in.visible :is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid)>*:nth-child(3),
+:is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid).fade-in.visible>*:nth-child(3){animation-delay:.19s;}
+.fade-in.visible :is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid)>*:nth-child(4),
+:is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid).fade-in.visible>*:nth-child(4){animation-delay:.26s;}
+.fade-in.visible :is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid)>*:nth-child(5),
+:is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid).fade-in.visible>*:nth-child(5){animation-delay:.33s;}
+.fade-in.visible :is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid)>*:nth-child(6),
+:is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid).fade-in.visible>*:nth-child(6){animation-delay:.4s;}
+.fade-in.visible :is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid)>*:nth-child(7),
+:is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid).fade-in.visible>*:nth-child(7){animation-delay:.47s;}
+.fade-in.visible :is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid)>*:nth-child(8),
+:is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid).fade-in.visible>*:nth-child(8){animation-delay:.54s;}
+.fade-in.visible :is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid)>*:nth-child(n+9),
+:is(.card-grid,.type-grid,.big-card-grid,.promise-grid,.stat-grid).fade-in.visible>*:nth-child(n+9){animation-delay:.6s;}
+
+/* 桜の花びら（site.js が .hero / .page-hero に注入） */
+.petals{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
+.petals span{
+  position:absolute;top:-36px;display:block;line-height:1;
+  font-size:var(--size,14px);
+  animation:petal-fall var(--dur,11s) linear var(--delay,0s) infinite;
+  will-change:transform,opacity;
+}
+
+/* スクロール進捗バー（site.js が注入） */
+.scroll-progress{
+  position:fixed;top:0;left:0;width:100%;height:3px;z-index:70;
+  background:linear-gradient(90deg,var(--pink-accent),var(--accent-rose) 60%,var(--gold));
+  transform:scaleX(0);transform-origin:left;pointer-events:none;
+}
+
+/* 画像ユーティリティ（コンテンツ画像を上品に見せる） */
+.img-soft{border-radius:var(--radius-lg);box-shadow:var(--shadow-strong);}
+.media-split{display:grid;gap:28px;grid-template-columns:1fr 1.6fr;align-items:center;}
+@media(max-width:760px){.media-split{grid-template-columns:1fr;}}
+.cta-doctor{
+  position:absolute;right:3%;bottom:-8px;width:130px;pointer-events:none;
+  filter:drop-shadow(0 10px 20px rgba(99,43,50,.35));
+  animation:float-y 4s ease-in-out infinite;
+}
+@media(max-width:900px){.cta-doctor{display:none;}}
+
+/* 閲覧者向け編集ボタン（?edit=1 で有効化。site.js が注入） */
+.edit-fab{
+  position:fixed;left:16px;bottom:88px;z-index:61;
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.95);border:2px solid var(--accent-rose);color:var(--accent-rose);
+  font-weight:900;font-size:.78rem;padding:10px 16px;border-radius:24px;
+  box-shadow:var(--shadow);text-decoration:none!important;
+  transition:background .2s,color .2s,transform .2s var(--ease);
+}
+.edit-fab:hover{background:var(--accent-rose);color:#fff;transform:translateY(-2px);}
+
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
-  .fade-in,.fade-in.visible,.float-anim,.pulse-glow,.blink-arrow{opacity:1!important;transform:none!important;transition:none!important;animation:none!important;}
+  *,*::before,*::after{animation:none!important;transition:none!important;}
+  .fade-in,.fade-in.visible{opacity:1!important;transform:none!important;}
+  .petals,.scroll-progress{display:none!important;}
   .btn::after{display:none;}
 }
 

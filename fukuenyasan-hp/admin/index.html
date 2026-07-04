@@ -43,8 +43,8 @@
   <div class="adm-grid" style="margin-bottom:20px;">
     <a class="adm-tool-card" href="./post.html">
       <div class="icon">📝</div>
-      <h3>コラム投稿</h3>
-      <p>平文・リッチテキスト・HTML貼り付け・HTMLファイルアップロードの4方式で、新しいコラム記事を作成します。コラム一覧・トップページのお知らせにも自動掲載。</p>
+      <h3>コラム・事例の投稿</h3>
+      <p>平文・リッチテキスト・HTML貼り付け・HTMLファイルアップロードの4方式で、コラム記事や事例（ご相談者の声）を作成します。一覧・トップページのお知らせにも自動掲載。</p>
     </a>
     <a class="adm-tool-card" href="./edit.html">
       <div class="icon">🖋️</div>
@@ -64,6 +64,7 @@
       <select id="filter-action" style="padding:7px 12px;border:1px solid var(--hair-2);border-radius:8px;font-size:.8rem;font-family:inherit;">
         <option value="">すべての種別</option>
         <option value="column-create">コラム投稿</option>
+        <option value="case-create">事例投稿</option>
         <option value="page-edit">ページ編集</option>
       </select>
       <span id="hist-count" style="font-size:.78rem;color:var(--ink-mute);font-weight:700;"></span>
@@ -81,6 +82,7 @@
 
   var ACTION_LABEL = {
     'column-create': {label:'コラム投稿', cls:''},
+    'case-create':   {label:'事例投稿',   cls:'image'},
     'page-edit':     {label:'ページ編集', cls:'edit'},
     'image':         {label:'画像',       cls:'image'}
   };
