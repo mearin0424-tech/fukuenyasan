@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>復縁屋さん | 心理学とデータに基づく復縁・関係修復サポート</title>
+<meta name="description" content="復縁屋さんは、心理学・行動科学の知見と6,000件以上のご相談データをもとに、復縁とあなたの自己成長に誠実に伴走する専門サービスです。無料相談・秘密厳守・全国対応。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;600;700&family=EB+Garamond:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/site.css">
+</head>
+<body>
+
+<!-- ヘッダー -->
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="#" class="brand" aria-label="復縁屋さん トップへ">
+      <span class="brand-en">Rework</span>
+      <span class="brand-ja">復縁屋さん</span>
+    </a>
+    <nav class="gnav" id="gnav" aria-label="グローバルナビゲーション">
+      <ul>
+        <li><a href="#service">サービス</a></li>
+        <li><a href="./case/">事例</a></li>
+        <li><a href="./region/">地域別</a></li>
+        <li><a href="./situation/">場面別</a></li>
+        <li><a href="./column/">コラム</a></li>
+        <li><a href="../fukuenyasan-lp/diagnosis.html">無料診断</a></li>
+      </ul>
+    </nav>
+    <div class="header-cta">
+      <div class="header-tel">
+        <a href="tel:0353568550" class="header-tel-num">03-5356-8550</a>
+        <span class="header-tel-note">受付 24時間 / 秘密厳守</span>
+      </div>
+      <a href="../fukuenyasan-lp/contact.html" class="btn-header">無料相談はこちら</a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="gnav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ヒーロー -->
+  <section class="hero" aria-label="メインビジュアル">
+    <div class="container hero-grid">
+      <div>
+        <p class="kicker">Science-based Relationship Support</p>
+        <h1 class="hero-title">あなたの「もう一度」を、<br><em>心理学</em>と<em>データ</em>で<br>誠実に支える。</h1>
+        <p class="hero-lead">復縁屋さんは、心理学・行動科学の知見と6,000件以上のご相談データをもとに、復縁とあなたの自己成長に伴走する専門サービスです。根拠のない断定や、無理な勧誘は一切いたしません。</p>
+        <div class="hero-actions">
+          <a href="../fukuenyasan-lp/contact.html" class="btn btn-primary">まずは無料相談してみる <span class="arrow">→</span></a>
+          <a href="#service" class="btn btn-outline">サービスを見る</a>
+        </div>
+        <ul class="hero-trust">
+          <li>累計ご相談実績 6,000件以上<sup>※</sup></li>
+          <li>探偵業届出 第30210334号</li>
+          <li>秘密厳守・匿名でのご相談可</li>
+          <li>全国・オンライン対応</li>
+        </ul>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-photo">
+          <!-- TODO: 実際のカウンセリング風景写真に差し替え（Unsplashは暫定） -->
+          <img src="https://images.unsplash.com/photo-1573497491208-6b1acb260507?auto=format&fit=crop&w=1200&q=80"
+               alt="カウンセラーがご相談者の話を丁寧に伺っている様子"
+               onerror="this.onerror=null;this.src='./assets/img/fukuenyasan-top.png';"
+               loading="eager">
+        </div>
+        <div class="hero-badge">
+          <span class="hero-badge-num">6,000<small>件+</small></span>
+          <span class="hero-badge-label">累計ご相談実績<sup>※</sup></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 実績バンド -->
+  <div class="stats-band">
+    <div class="container">
+      <div class="stats-grid fade-in">
+        <div class="stat">
+          <div class="stat-num">6,000<small>件+</small></div>
+          <div class="stat-label">累計ご相談実績<sup>※</sup></div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">月々6,300<small>円〜</small></div>
+          <div class="stat-label">分割払いに対応</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">全国対応</div>
+          <div class="stat-label">オンライン相談無料</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">秘密厳守</div>
+          <div class="stat-label">匿名でのご相談可</div>
+        </div>
+      </div>
+      <p class="stats-note">※グループ会社連結での累計ご相談件数</p>
+    </div>
+  </div>
+
+  <!-- 専門フレームワーク（濃紺） -->
+  <section class="section-dark" id="approach">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="kicker kicker--center">Our Framework</p>
+        <h2 class="h-section">感情論に頼らない、<br>3つの専門フレームワーク</h2>
+        <p class="section-lead">「なんとなくのアドバイス」ではなく、学術的な知見と過去の実例データを土台に、お一人おひとりの状況を構造的に整理してご提案します。</p>
+      </div>
+      <div class="framework-grid">
+        <div class="framework-card fade-in">
+          <p class="framework-num">01</p>
+          <div class="framework-diagram" aria-hidden="true">
+            <svg viewBox="0 0 240 120" fill="none">
+              <circle cx="60" cy="60" r="26" stroke="#CBB484" stroke-width="1.2"/>
+              <circle cx="180" cy="60" r="26" stroke="#8E9BB5" stroke-width="1.2"/>
+              <path d="M86 60 C 110 30, 130 30, 154 60" stroke="#CBB484" stroke-width="1.2" stroke-dasharray="4 4"/>
+              <path d="M86 60 C 110 90, 130 90, 154 60" stroke="#8E9BB5" stroke-width="1.2"/>
+              <circle cx="120" cy="38" r="3" fill="#CBB484"/>
+              <circle cx="120" cy="82" r="3" fill="#8E9BB5"/>
+              <text x="60" y="64" text-anchor="middle" fill="#C9D0DD" font-size="10" font-family="sans-serif">自分</text>
+              <text x="180" y="64" text-anchor="middle" fill="#C9D0DD" font-size="10" font-family="sans-serif">相手</text>
+            </svg>
+          </div>
+          <h3 class="framework-title">感情と愛着の心理学</h3>
+          <p class="framework-text">愛着理論をはじめとする関係心理学の知見を参考に、別れに至った背景と、おふたりの関係性の構造を丁寧に読み解きます。</p>
+        </div>
+        <div class="framework-card fade-in">
+          <p class="framework-num">02</p>
+          <div class="framework-diagram" aria-hidden="true">
+            <svg viewBox="0 0 240 120" fill="none">
+              <path d="M30 100 L 210 100" stroke="#3A4763" stroke-width="1"/>
+              <path d="M30 100 L 30 15" stroke="#3A4763" stroke-width="1"/>
+              <path d="M30 92 C 80 90, 100 70, 130 55 C 160 40, 185 32, 210 28" stroke="#CBB484" stroke-width="1.4"/>
+              <circle cx="80" cy="84" r="3" fill="#CBB484"/>
+              <circle cx="130" cy="55" r="3" fill="#CBB484"/>
+              <circle cx="180" cy="34" r="3" fill="#CBB484"/>
+              <path d="M30 92 C 80 94, 140 88, 210 84" stroke="#5A6B8C" stroke-width="1" stroke-dasharray="3 4"/>
+            </svg>
+          </div>
+          <h3 class="framework-title">行動変容のロジック</h3>
+          <p class="framework-text">思いつきの連絡や場当たり的な行動ではなく、行動科学に基づいた小さな積み重ねを設計し、無理のないペースで関係の再構築を目指します。</p>
+        </div>
+        <div class="framework-card fade-in">
+          <p class="framework-num">03</p>
+          <div class="framework-diagram" aria-hidden="true">
+            <svg viewBox="0 0 240 120" fill="none">
+              <rect x="40" y="70" width="18" height="30" stroke="#5A6B8C" stroke-width="1"/>
+              <rect x="66" y="52" width="18" height="48" stroke="#8E9BB5" stroke-width="1"/>
+              <rect x="92" y="34" width="18" height="66" stroke="#CBB484" stroke-width="1.2"/>
+              <path d="M140 40 L 170 40 M170 40 L 170 26 L 200 26 M170 40 L 170 54 L 200 54" stroke="#8E9BB5" stroke-width="1"/>
+              <rect x="126" y="32" width="14" height="16" stroke="#CBB484" stroke-width="1.2"/>
+              <rect x="200" y="19" width="14" height="14" stroke="#5A6B8C" stroke-width="1"/>
+              <rect x="200" y="47" width="14" height="14" stroke="#5A6B8C" stroke-width="1"/>
+              <path d="M40 108 L 214 108" stroke="#3A4763" stroke-width="1"/>
+            </svg>
+          </div>
+          <h3 class="framework-title">データに基づく状況分析</h3>
+          <p class="framework-text">6,000件以上のご相談データから、状況の近い実例を参照。いま何をすべきか・すべきでないかを、客観的な判断材料とともにお伝えします。</p>
+        </div>
+      </div>
+      <p class="disclaimer" style="margin-top:34px; text-align:center;">※学術知見・実例データはご提案の参考とするものであり、結果を保証するものではありません。</p>
+    </div>
+  </section>
+
+  <!-- サービス -->
+  <section id="service">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="kicker kicker--center">Our Services</p>
+        <h2 class="h-section">サービス一覧</h2>
+        <p class="section-lead">状況やご希望に合わせて、必要なサポートだけをお選びいただけます。どのサービスも入口は無料相談からです。</p>
+      </div>
+      <div class="service-grid">
+        <div class="service-card fade-in">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5 L13.5 13.5 L8.5 15.5 L10.5 10.5 Z"/></svg>
+          </div>
+          <h3 class="service-title">復縁コンサルティング</h3>
+          <p class="service-text">状況分析から行動計画づくり、日々のご相談まで。復縁を目指す道のりに、専門カウンセラーが継続的に伴走します。</p>
+        </div>
+        <div class="service-card fade-in">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5c0 4.1-4 7.5-9 7.5-1 0-2-.13-2.9-.38L4 20l1.3-3.1C3.9 15.6 3 13.6 3 11.5 3 7.4 7 4 12 4s9 3.4 9 7.5z"/></svg>
+          </div>
+          <h3 class="service-title">恋愛・関係修復アドバイス</h3>
+          <p class="service-text">連絡の再開、会う約束、関係の深め方。場面ごとの迷いに対して、根拠のある選択肢を一緒に整理します。</p>
+        </div>
+        <div class="service-card fade-in">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.3-9-8.5C1.5 8 3.5 5 6.7 5c2 0 3.6 1.2 5.3 3 1.7-1.8 3.3-3 5.3-3 3.2 0 5.2 3 3.7 6.5-2 4.2-9 8.5-9 8.5z"/></svg>
+          </div>
+          <h3 class="service-title">心のカウンセリング</h3>
+          <p class="service-text">別れの直後の混乱や不安を、まず落ち着いて受け止めるための時間。傾聴を軸に、心の整理をお手伝いします。</p>
+        </div>
+        <div class="service-card fade-in">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg>
+          </div>
+          <h3 class="service-title">状況分析・戦略立案</h3>
+          <p class="service-text">いま動くべきか、待つべきか。お相手との現在の関係性を客観的に分析し、判断材料と今後の進め方をご提案します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 無料診断プロモ -->
+  <section class="diag-promo" id="diagnosis" aria-label="無料復縁診断">
+    <div class="container diag-promo-inner">
+      <div>
+        <p class="kicker">Free Diagnosis</p>
+        <h2 class="h-section">まずは、あなたの<br>「復縁タイプ」を知る。</h2>
+        <p class="diag-promo-lead">12問の質問に答えるだけで、あなたとお相手の関係性の傾向を16タイプに分類。心理学の枠組みをもとに、いま取るべき関わり方のヒントをお伝えします。会員登録も費用も不要です。</p>
+        <div class="diag-facts">
+          <div class="diag-fact"><span class="n">12<small>問</small></span><span class="l">かんたん設問</span></div>
+          <div class="diag-fact"><span class="n">約3<small>分</small></span><span class="l">スマホで完結</span></div>
+          <div class="diag-fact"><span class="n">16<small>タイプ</small></span><span class="l">に分類して診断</span></div>
+        </div>
+        <div class="hero-actions">
+          <a href="../fukuenyasan-lp/diagnosis.html" class="btn btn-primary">無料で復縁診断を始める <span class="arrow">→</span></a>
+          <a href="./case/" class="btn btn-outline">診断タイプ別の事例を見る</a>
+        </div>
+        <p class="diag-promo-note">※診断結果は関係性を理解するための参考であり、結果を保証するものではありません。</p>
+      </div>
+      <div class="diag-visual" aria-hidden="true">
+        <p class="diag-visual-head">Reconciliation Type</p>
+        <div class="type-chip-grid">
+          <span class="type-chip">SA</span><span class="type-chip on">SW</span><span class="type-chip">PA</span><span class="type-chip">PW</span>
+          <span class="type-chip">ED</span><span class="type-chip">ER</span><span class="type-chip on">LD</span><span class="type-chip">LR</span>
+          <span class="type-chip on">SE</span><span class="type-chip">SL</span><span class="type-chip">PE</span><span class="type-chip on">PL</span>
+          <span class="type-chip">AD</span><span class="type-chip on">AR</span><span class="type-chip">WD</span><span class="type-chip">WR</span>
+        </div>
+        <p class="diag-visual-cap">あなたはどのタイプ？ 診断で確かめる</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 選ばれる理由 -->
+  <section id="reason" style="padding-top:0;">
+    <div class="container">
+      <div class="section-head">
+        <p class="kicker">Why Choose Us</p>
+        <h2 class="h-section">選ばれる3つの理由</h2>
+      </div>
+      <div class="reason-list">
+        <div class="reason-item fade-in">
+          <div class="reason-no">Reason<strong>01</strong></div>
+          <div>
+            <h3 class="reason-title">誠実な見立て ── 難しいときは、難しいと言う</h3>
+            <p class="reason-text">無料相談の段階で状況を丁寧に伺い、見込みが極めて低いと判断した場合は、その旨を正直にお伝えします。期待だけを持たせてご契約いただくことはありません。</p>
+          </div>
+        </div>
+        <div class="reason-item fade-in">
+          <div class="reason-no">Reason<strong>02</strong></div>
+          <div>
+            <h3 class="reason-title">明朗会計 ── 月々6,300円からの分割に対応</h3>
+            <p class="reason-text">費用はご契約前にすべて提示し、ご説明のない追加請求はいたしません。月々6,300円〜の自社分割にも対応しており、無理のない範囲で始めていただけます。</p>
+          </div>
+        </div>
+        <div class="reason-item fade-in">
+          <div class="reason-no">Reason<strong>03</strong></div>
+          <div>
+            <h3 class="reason-title">秘密厳守 ── 探偵業法に基づく適正な運営</h3>
+            <p class="reason-text">探偵業届出（第30210334号）に基づき適正に運営しています。ご相談内容の秘密保持を徹底し、初回のご相談は匿名でも承ります。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 専門体制 -->
+  <section id="experts" style="padding-top:0;">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="kicker kicker--center">Expertise</p>
+        <h2 class="h-section">専門領域とサポート体制</h2>
+        <p class="section-lead">ひとつのご相談を、複数の専門的な視点から検討する体制を整えています。</p>
+      </div>
+      <div class="expert-grid">
+        <div class="expert-card fade-in">
+          <div class="expert-emblem" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-4-8.4-8C2.2 9.9 4 7 7 7c1.8 0 3.4 1.1 5 2.8C13.6 8.1 15.2 7 17 7c3 0 4.8 2.9 3.4 6-1.9 4-8.4 8-8.4 8z"/></svg>
+          </div>
+          <h3 class="expert-field">恋愛心理<br>カウンセリング</h3>
+          <p class="expert-desc">傾聴を軸に、感情の整理と関係性の理解を支える、ご相談の中心となる領域です。</p>
+        </div>
+        <div class="expert-card fade-in">
+          <div class="expert-emblem" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/><path d="M12 3c3 2.5 3 15.5 0 18M12 3c-3 2.5-3 15.5 0 18"/></svg>
+          </div>
+          <h3 class="expert-field">行動科学・<br>コミュニケーション</h3>
+          <p class="expert-desc">連絡や対話の進め方を、行動科学の観点から無理のない形で設計します。</p>
+        </div>
+        <div class="expert-card fade-in">
+          <div class="expert-emblem" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V12M12 20V6M19 20v-5M2 20h20"/></svg>
+          </div>
+          <h3 class="expert-field">データ分析・<br>ケース研究</h3>
+          <p class="expert-desc">6,000件以上のご相談データを整理し、状況の近い実例をご提案の参考にします。</p>
+        </div>
+        <div class="expert-card fade-in">
+          <div class="expert-emblem" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <h3 class="expert-field">法令遵守・<br>品質管理</h3>
+          <p class="expert-desc">探偵業法をはじめとする関連法令を遵守し、公序良俗に反するご依頼はお受けしません。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 料金 -->
+  <section id="price" style="background:#EFEBE3;">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="kicker kicker--center">Pricing</p>
+        <h2 class="h-section">料金体系</h2>
+        <p class="section-lead">費用はご契約前にすべてご提示します。ご説明のない追加請求はいたしません。</p>
+      </div>
+      <div class="price-grid">
+        <div class="price-card fade-in">
+          <h3 class="price-name">無料相談</h3>
+          <p class="price-en">Consultation</p>
+          <div class="price-value">
+            <span class="num">0<span class="unit">円</span></span>
+          </div>
+          <ul class="price-desc">
+            <li>お電話・オンラインで対応</li>
+            <li>状況の整理と見立てをお伝え</li>
+            <li>匿名でのご相談も可能</li>
+            <li>無理な勧誘は一切ありません</li>
+          </ul>
+          <a href="../fukuenyasan-lp/contact.html" class="btn btn-outline">無料相談を申し込む</a>
+        </div>
+        <div class="price-card price-card--feature fade-in">
+          <span class="price-tag">基本プラン</span>
+          <h3 class="price-name">復縁サポート</h3>
+          <p class="price-en">Support Program</p>
+          <div class="price-value">
+            <span class="prefix">分割払いの場合</span>
+            <span class="num">月々6,300<span class="unit">円〜</span></span>
+          </div>
+          <ul class="price-desc">
+            <li>状況分析と行動計画のご提案</li>
+            <li>専任カウンセラーが継続伴走</li>
+            <li>自社分割払いに対応</li>
+            <li>総額・内訳はご契約前に提示</li>
+          </ul>
+          <a href="../fukuenyasan-lp/contact.html" class="btn btn-primary">まず無料相談から</a>
+        </div>
+        <div class="price-card fade-in">
+          <h3 class="price-name">個別プラン</h3>
+          <p class="price-en">Custom</p>
+          <div class="price-value">
+            <span class="prefix">状況に応じて</span>
+            <span class="num" style="font-size:26px;">個別お見積り</span>
+          </div>
+          <ul class="price-desc">
+            <li>複雑なご事情・長期のご支援向け</li>
+            <li>内容・期間・費用を明示して設計</li>
+            <li>ご予算に応じた調整も可能</li>
+          </ul>
+          <a href="../fukuenyasan-lp/contact.html" class="btn btn-outline">相談して見積もる</a>
+        </div>
+      </div>
+      <p class="price-note">※料金はご状況・サポート内容・期間により異なります。分割払いの場合、頭金として一部料金をお支払いいただく場合があります。詳細は無料相談の際に必ず書面でご確認いただけます。</p>
+    </div>
+  </section>
+
+  <!-- ご相談の流れ -->
+  <section id="flow">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="kicker kicker--center">Process</p>
+        <h2 class="h-section">ご相談の流れ</h2>
+      </div>
+      <div class="flow-grid">
+        <div class="flow-card fade-in">
+          <p class="flow-step">Step<strong>01</strong></p>
+          <h3 class="flow-title">無料相談</h3>
+          <p class="flow-text">フォームまたはお電話でご連絡ください。匿名でも構いません。まずはお話をゆっくり伺います。</p>
+        </div>
+        <div class="flow-card fade-in">
+          <p class="flow-step">Step<strong>02</strong></p>
+          <h3 class="flow-title">状況の整理・分析</h3>
+          <p class="flow-text">別れの経緯や現在の関係性を、心理学の知見と過去の実例データに照らして整理します。</p>
+        </div>
+        <div class="flow-card fade-in">
+          <p class="flow-step">Step<strong>03</strong></p>
+          <h3 class="flow-title">ご提案・お見積り</h3>
+          <p class="flow-text">進め方の選択肢と費用の総額・内訳をご提示します。その場でのご契約は不要です。</p>
+        </div>
+        <div class="flow-card fade-in">
+          <p class="flow-step">Step<strong>04</strong></p>
+          <h3 class="flow-title">サポート開始</h3>
+          <p class="flow-text">ご納得いただけた場合のみ開始。専任カウンセラーが計画に沿って継続的に伴走します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ご相談者の声 -->
+  <section id="voice" style="padding-top:0;">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="kicker kicker--center">Voices</p>
+        <h2 class="h-section">ご相談者の声</h2>
+      </div>
+      <div class="voice-grid">
+        <div class="voice-card fade-in">
+          <p class="voice-quote">感情的になっていた自分を、一度落ち着かせてもらえました。</p>
+          <p class="voice-body">別れた直後で、すぐに連絡したい気持ちでいっぱいでした。相談の中で「いま動かない」という選択肢を初めて理由付きで説明してもらい、焦らず段階を踏めたことが良かったと感じています。</p>
+          <p class="voice-meta">30代女性・会社員（ご相談期間 約4ヶ月）</p>
+          <p class="voice-disclaimer">※個人の感想です。同様の結果を保証するものではありません。</p>
+        </div>
+        <div class="voice-card fade-in">
+          <p class="voice-quote">何をすべきか・すべきでないかが明確で、迷いが減りました。</p>
+          <p class="voice-body">毎回の相談で「次に何をするか」を一緒に決めてもらえたので、一人で抱え込んでいた頃より気持ちがずっと楽になりました。費用も最初に総額を提示してもらえたので、安心して続けられました。</p>
+          <p class="voice-meta">40代男性・自営業（ご相談期間 約3ヶ月）</p>
+          <p class="voice-disclaimer">※個人の感想です。同様の結果を保証するものではありません。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- コンテンツ / 事例で探す -->
+  <section id="contents" style="padding-top:0;">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="kicker kicker--center">Explore</p>
+        <h2 class="h-section">あなたに近いケースから探す</h2>
+        <p class="section-lead">性別・地域・状況・お相手のタイプ別に、ご相談事例と読み物をまとめています。似た状況のページから、進め方の参考にご覧ください。</p>
+      </div>
+      <div class="card-grid">
+        <a class="entry-card fade-in" href="./case/">
+          <div class="entry-body">
+            <div class="tag-row"><span class="tag cat">Case Studies</span></div>
+            <h3 class="entry-title">復縁のご相談事例</h3>
+            <p class="entry-excerpt">実際のご相談がどう進んだのか。状況別・タイプ別に18件の事例を紹介しています。</p>
+            <span class="entry-more">事例一覧を見る <span class="arrow">→</span></span>
+          </div>
+        </a>
+        <a class="entry-card fade-in" href="./situation/">
+          <div class="entry-body">
+            <div class="tag-row"><span class="tag">場面別</span></div>
+            <h3 class="entry-title">状況・場面から探す</h3>
+            <p class="entry-excerpt">突然の別れ、浮気、遠距離、喧嘩別れ、倦怠期など、別れの場面ごとに整理しています。</p>
+            <span class="entry-more">場面別に見る <span class="arrow">→</span></span>
+          </div>
+        </a>
+        <a class="entry-card fade-in" href="./region/">
+          <div class="entry-body">
+            <div class="tag-row"><span class="tag">地域別</span></div>
+            <h3 class="entry-title">お住まいの地域から探す</h3>
+            <p class="entry-excerpt">東京・大阪・名古屋・福岡など、全国12エリアのご相談に対応しています。</p>
+            <span class="entry-more">地域別に見る <span class="arrow">→</span></span>
+          </div>
+        </a>
+        <a class="entry-card fade-in" href="./partner/">
+          <div class="entry-body">
+            <div class="tag-row"><span class="tag">相手のタイプ別</span></div>
+            <h3 class="entry-title">お相手のタイプから探す</h3>
+            <p class="entry-excerpt">多忙・プライドが高い・冷めやすい・繊細など、相手のタイプごとの向き合い方を解説します。</p>
+            <span class="entry-more">タイプ別に見る <span class="arrow">→</span></span>
+          </div>
+        </a>
+        <a class="entry-card fade-in" href="./gender/">
+          <div class="entry-body">
+            <div class="tag-row"><span class="tag">ご相談者別</span></div>
+            <h3 class="entry-title">性別・年代から探す</h3>
+            <p class="entry-excerpt">女性・男性・50代以上など、ご相談者ごとに起きやすいお悩みを整理しています。</p>
+            <span class="entry-more">相談者別に見る <span class="arrow">→</span></span>
+          </div>
+        </a>
+        <a class="entry-card fade-in" href="./column/">
+          <div class="entry-body">
+            <div class="tag-row"><span class="tag cat">Column</span></div>
+            <h3 class="entry-title">復縁・恋愛心理コラム</h3>
+            <p class="entry-excerpt">冷却期間、最初の連絡、愛着理論など、心理学をふまえた読み物を掲載しています。</p>
+            <span class="entry-more">コラムを読む <span class="arrow">→</span></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="padding-top:0;">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="kicker kicker--center">FAQ</p>
+        <h2 class="h-section">よくあるご質問</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item fade-in">
+          <summary>相談だけでも大丈夫でしょうか？</summary>
+          <p class="faq-a">もちろんです。ご相談だけでお悩みが整理され、解決に向かうケースもございます。無理な勧誘は一切いたしませんので、お気軽にご連絡ください。</p>
+        </details>
+        <details class="faq-item fade-in">
+          <summary>必ず復縁できますか？</summary>
+          <p class="faq-a">結果をお約束することはできません。ご状況により見通しは大きく異なります。そのため無料相談の段階で丁寧に状況を伺い、見込みが極めて低い場合は正直にその旨をお伝えしています。</p>
+        </details>
+        <details class="faq-item fade-in">
+          <summary>全国どこでも対応してもらえますか？</summary>
+          <p class="faq-a">はい、全国対応です。各地域の事情に通じたスタッフがおりますので、地方にお住まいの方や、お相手が遠方にいらっしゃる場合もご相談ください。</p>
+        </details>
+        <details class="faq-item fade-in">
+          <summary>オンラインでの相談も可能ですか？</summary>
+          <p class="faq-a">はい、ZoomやLINE通話などを利用したオンライン相談を無料で承っております。「まずは気軽に話を聞いてほしい」という段階でもご利用いただけます。</p>
+        </details>
+        <details class="faq-item fade-in">
+          <summary>サポートの期間はどのくらいかかりますか？</summary>
+          <p class="faq-a">ご状況によりますが、平均的には2〜4ヶ月程度の期間をいただくケースが多くなっています。お相手との関係性に合わせ、無理のないペースで進めます。</p>
+        </details>
+        <details class="faq-item fade-in">
+          <summary>匿名で相談することはできますか？</summary>
+          <p class="faq-a">はい、初回の無料相談はニックネームなど匿名で構いません。ご契約時にはご本人確認が必要となりますが、秘密保持は徹底しております。</p>
+        </details>
+        <details class="faq-item fade-in">
+          <summary>違法な調査などをお願いされることはありませんか？</summary>
+          <p class="faq-a">当社は探偵業法に基づき適正に運営しており、法令や公序良俗に反する行為は一切お受けしておりません。安心してご相談ください。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 最終CTA -->
+  <section class="cta-section" id="contact">
+    <div class="container">
+      <p class="kicker kicker--center" style="color:var(--gold-light);">Free Consultation</p>
+      <h2 class="cta-title">ひとりで抱え込む前に、<br>まずは状況の整理から始めませんか。</h2>
+      <p class="cta-lead">ご相談は無料・秘密厳守。匿名でも構いません。お話を伺ったうえで、誠実な見立てをお伝えします。</p>
+      <div class="cta-actions">
+        <a href="../fukuenyasan-lp/contact.html" class="btn btn-primary">無料相談フォームへ <span class="arrow">→</span></a>
+        <a href="../fukuenyasan-lp/diagnosis.html" class="btn btn-outline--light btn">12問の復縁診断を試す</a>
+      </div>
+      <div class="cta-tel-block">
+        <a href="tel:0353568550" class="cta-tel-num">03-5356-8550</a>
+        <p class="cta-tel-note">受付 24時間 ／ お電話に出られない場合は、カウンセラー選定のうえ折り返しいたします</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 会社情報 -->
+  <section id="company">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="kicker kicker--center">Company</p>
+        <h2 class="h-section">会社情報</h2>
+      </div>
+      <div class="company-table fade-in">
+        <dl>
+          <dt>サービス名</dt><dd>復縁屋さん</dd>
+          <dt>商号</dt><dd>株式会社Azucar</dd>
+          <dt>法人番号</dt><dd>7011601025568</dd>
+          <dt>所在地</dt><dd>〒176-0025 東京都練馬区中村南2丁目21番15号</dd>
+          <dt>連絡先</dt><dd>0120-972-119</dd>
+          <dt>資本金</dt><dd>5,000,000円</dd>
+          <dt>探偵業届出</dt><dd>第30210334号</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- フッター -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="brand-en">Rework</span>
+        <p class="brand-ja" style="font-size:22px;">復縁屋さん</p>
+        <p>心理学とデータに基づく復縁・関係修復サポート<br>〒176-0025 東京都練馬区中村南2丁目21番15号<br>株式会社Azucar（探偵業届出 第30210334号）</p>
+      </div>
+      <div class="footer-col">
+        <h3>CONTENTS</h3>
+        <ul>
+          <li><a href="./case/">復縁事例</a></li>
+          <li><a href="./region/">地域別の相談</a></li>
+          <li><a href="./situation/">場面別の相談</a></li>
+          <li><a href="./partner/">相手のタイプ別</a></li>
+          <li><a href="./gender/">ご相談者別</a></li>
+          <li><a href="./column/">コラム</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>CONTACT</h3>
+        <ul>
+          <li><a href="../fukuenyasan-lp/contact.html">無料相談フォーム</a></li>
+          <li><a href="../fukuenyasan-lp/diagnosis.html">12問の復縁診断</a></li>
+          <li><a href="tel:0353568550">03-5356-8550（24時間受付）</a></li>
+          <li><a href="#price">料金について</a></li>
+          <li><a href="#faq">よくあるご質問</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>当社は探偵業法に基づき適正に運営しております。法令・公序良俗に反するご依頼はお受けできません。</p>
+      <p>© 2026 Azucar Inc. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- モバイル固定CTA -->
+<div class="cta-fixed" role="navigation" aria-label="お問い合わせ">
+  <a href="../fukuenyasan-lp/contact.html" class="cta-fixed-form">
+    <span class="cta-fixed-main">無料相談フォーム</span>
+    <span class="cta-fixed-sub">24時間受付・秘密厳守</span>
+  </a>
+  <a href="tel:0353568550" class="cta-fixed-tel">
+    <span class="cta-fixed-main">03-5356-8550</span>
+    <span class="cta-fixed-sub">タップで発信</span>
+  </a>
+</div>
+
+<script src="./assets/js/site.js"></script>
+</body>
+</html>
