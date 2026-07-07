@@ -3,9 +3,9 @@
   "configurations": [
     {
       "name": "hp",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["http-server", "..", "-p", "8125", "-c-1"],
-      "port": 8125
+      "runtimeExecutable": "powershell.exe",
+      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ".claude\\serve.ps1", "-Port", "8124"],
+      "port": 8124
     }
   ]
 }

@@ -2,397 +2,135 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
-<title>コンテンツ管理｜復縁屋さん HP</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --base:#F6F3EE; --paper:#fff; --ink:#20242C; --text:#3B4048; --muted:#767C86;
-    --navy:#1C2432; --rose:#8E3E49; --rose-deep:#6F2E39; --line:#E6E1D7; --gold:#A98B54;
-    --ok:#2E7D5B; --warn:#B4632B; --err:#B23A48;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Noto Sans JP',sans-serif;background:var(--base);color:var(--text);font-size:14px;line-height:1.7}
-  a{color:var(--rose)}
-  .topbar{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-  .topbar h1{font-size:16px;font-weight:700;letter-spacing:.04em}
-  .topbar .sp{flex:1}
-  .btn{border:1px solid transparent;border-radius:6px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s}
-  .btn-primary{background:var(--rose);color:#fff}
-  .btn-primary:hover{background:var(--rose-deep)}
-  .btn-pub{background:var(--gold);color:#fff}
-  .btn-pub:hover{filter:brightness(.94)}
-  .btn-ghost{background:transparent;border-color:rgba(255,255,255,.4);color:#fff}
-  .btn-ghost:hover{background:rgba(255,255,255,.1)}
-  .btn-sm{padding:5px 12px;font-size:12px;border:1px solid var(--line);background:#fff;color:var(--text);border-radius:5px}
-  .btn-sm:hover{border-color:var(--rose);color:var(--rose)}
-  .btn-del{color:var(--err)}
-  .btn-del:hover{border-color:var(--err);background:#fbeaec}
-  .wrap{max-width:1000px;margin:0 auto;padding:26px 24px 80px}
-  .status{font-size:12.5px;padding:10px 16px;border-radius:6px;margin-bottom:20px;background:#fff;border:1px solid var(--line)}
-  .status.ok{border-color:var(--ok);color:var(--ok);background:#eef7f2}
-  .status.err{border-color:var(--err);color:var(--err);background:#fbeaec}
-  .status.warn{border-color:var(--warn);color:var(--warn);background:#fdf3ea}
-  .tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
-  .tab{padding:9px 20px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:13px;font-weight:700;color:var(--muted)}
-  .tab.on{background:var(--navy);color:#fff;border-color:var(--navy)}
-  .list-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-  .list-head h2{font-size:16px;color:var(--ink)}
-  .count{font-size:12px;color:var(--muted);font-weight:400}
-  .row{background:#fff;border:1px solid var(--line);border-radius:8px;padding:14px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px}
-  .row .meta{flex:1;min-width:0}
-  .row .rtitle{font-weight:700;color:var(--ink);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .row .rtags{font-size:11.5px;color:var(--muted);margin-top:3px}
-  .row .acts{display:flex;gap:8px;flex-shrink:0}
-  .empty{color:var(--muted);text-align:center;padding:40px;background:#fff;border:1px dashed var(--line);border-radius:8px}
-  /* editor */
-  .editor{background:#fff;border:1px solid var(--line);border-radius:10px;padding:24px}
-  .editor h2{font-size:16px;color:var(--ink);margin-bottom:18px}
-  .field{margin-bottom:16px}
-  .field label{display:block;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:6px;letter-spacing:.03em}
-  .field .hint{font-weight:400;color:var(--muted);font-size:11px}
-  input[type=text],select,textarea{width:100%;font-family:inherit;font-size:13.5px;padding:9px 12px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--text)}
-  textarea{resize:vertical;line-height:1.7}
-  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--rose)}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
-  .blocks{border:1px solid var(--line);border-radius:8px;padding:12px;background:var(--base)}
-  .block{background:#fff;border:1px solid var(--line);border-radius:6px;padding:10px 12px;margin-bottom:8px}
-  .block-top{display:flex;gap:8px;align-items:center;margin-bottom:8px}
-  .block-top select{width:auto;flex-shrink:0}
-  .block-top .bsp{flex:1}
-  .icon-btn{border:1px solid var(--line);background:#fff;border-radius:5px;width:28px;height:28px;cursor:pointer;color:var(--muted);font-size:14px;line-height:1}
-  .icon-btn:hover{border-color:var(--rose);color:var(--rose)}
-  .editor-foot{display:flex;gap:10px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
-  .editor-foot .sp{flex:1}
-  .rawnote{font-size:12px;color:var(--muted);margin-bottom:10px}
-  code{background:var(--base);padding:2px 6px;border-radius:4px;font-size:12px}
-  .hidden{display:none}
-  @media(max-width:640px){.grid2,.grid3{grid-template-columns:1fr}}
-</style>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>管理画面｜復縁屋さん</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Shippori+Mincho:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="./admin.css">
 </head>
-<body>
+<body class="admin">
 
-<div class="topbar">
-  <h1>復縁屋さん HP ｜ コンテンツ管理</h1>
-  <div class="sp"></div>
-  <button class="btn btn-ghost" id="btn-open">📂 サイトフォルダを開く</button>
-  <button class="btn btn-pub hidden" id="btn-publish">🚀 公開（全ページ再生成）</button>
+<div class="adm-topbar">
+  <a class="brand" href="./index.html">復縁屋さん <span class="badge">ADMIN</span></a>
+  <div class="adm-conn"></div>
+  <nav>
+    <a href="./index.html" class="current">ホーム</a>
+    <a href="./post.html">コラム投稿</a>
+    <a href="./edit.html">サイト編集</a>
+    <a href="../index.html" target="_blank">サイトを見る ↗</a>
+  </nav>
 </div>
 
-<div class="wrap">
-  <div id="status" class="status">
-    はじめに <b>「サイトフォルダを開く」</b> を押し、<code>fukuenyasan-hp</code> フォルダを選択してください。
-    データ（<code>data/site-data.json</code>）を読み込み、この画面で事例・コラムを追加/編集できます。
-    編集後 <b>「公開」</b> を押すと、全ページのHTMLが自動で再生成されます。
-  </div>
+<div class="adm-wrap">
 
-  <div id="app" class="hidden">
-    <div class="tabs">
-      <button class="tab on" data-tab="cases">事例</button>
-      <button class="tab" data-tab="columns">コラム</button>
-      <button class="tab" data-tab="taxo">カテゴリ設定</button>
-    </div>
-
-    <!-- 一覧 -->
-    <div id="view-list">
-      <div class="list-head">
-        <h2 id="list-title">事例</h2>
-        <button class="btn btn-primary" id="btn-new">＋ 新規追加</button>
-      </div>
-      <div id="list"></div>
-    </div>
-
-    <!-- エディタ -->
-    <div id="view-edit" class="hidden"></div>
-
-    <!-- タクソノミ -->
-    <div id="view-taxo" class="hidden">
-      <div class="rawnote">
-        性別・地域・状況・相手タイプ・コラムカテゴリの一覧です。項目を増やすと、事例/コラムの入力欄の選択肢にも反映されます。
-        JSON形式で直接編集し、<b>「反映」</b>を押してください（<code>slug</code>は英数字、重複しない値にします）。
-      </div>
-      <textarea id="taxo-json" rows="22" style="font-family:ui-monospace,monospace;font-size:12px"></textarea>
-      <div class="editor-foot">
-        <button class="btn btn-primary" id="btn-taxo-apply">反映</button>
-        <span id="taxo-msg" style="align-self:center;font-size:12px"></span>
-      </div>
+  <div class="adm-panel" style="margin-bottom:20px;">
+    <h2><span class="num">1</span>はじめに：サイトフォルダに接続</h2>
+    <p style="font-size:.88rem;color:var(--ink-soft);margin-bottom:10px;">
+      このページの機能（コラム投稿・文章や画像の編集・履歴の保存）は、お使いのパソコンにある
+      <strong>「fukuenyasan-hp」フォルダ</strong>へ直接書き込むことで動作します。
+      右上の「接続する」から、サイトのフォルダを一度選択してください（Chrome / Edge 対応）。
+    </p>
+    <div class="adm-note">
+      ・接続はこのブラウザにのみ記憶されます。第三者がこのページを開いても、フォルダを選択しない限り何も変更できません。<br>
+      ・保存した変更を本番サイト（fukuenyasan.jp）に反映するには、通常どおりフォルダの内容をアップロードしてください。<br>
+      ・フォルダ接続に対応していないブラウザでは、作成したページを<strong>HTMLファイルとしてダウンロード</strong>して手動で配置する方式になります。
     </div>
   </div>
+
+  <div class="adm-grid" style="margin-bottom:20px;">
+    <a class="adm-tool-card" href="./post.html">
+      <div class="icon">📝</div>
+      <h3>コラム・事例の投稿</h3>
+      <p>平文・リッチテキスト・HTML貼り付け・HTMLファイルアップロードの4方式で、コラム記事や事例（ご相談者の声）を作成します。一覧・トップページのお知らせにも自動掲載。</p>
+    </a>
+    <a class="adm-tool-card" href="./edit.html">
+      <div class="icon">🖋️</div>
+      <h3>サイト編集（文章・画像）</h3>
+      <p>公開中の各ページを読み込んで、文章の書き換え・画像の差し替え・画像の追加をその場で行い、ファイルに保存します。</p>
+    </a>
+  </div>
+
+  <div class="adm-panel">
+    <h2><span class="num">2</span>編集履歴</h2>
+    <p style="font-size:.85rem;color:var(--ink-soft);margin-bottom:14px;">
+      すべての投稿・編集は <code style="background:var(--bg-soft-pink);padding:2px 8px;border-radius:6px;">admin/history.json</code> にJSON形式で記録されます。
+    </p>
+    <div class="adm-actions" style="margin:0 0 16px;">
+      <button class="adm-btn plain sm" id="btn-reload">↺ 再読み込み</button>
+      <button class="adm-btn plain sm" id="btn-dl-json">⬇ JSONをダウンロード</button>
+      <select id="filter-action" style="padding:7px 12px;border:1px solid var(--hair-2);border-radius:8px;font-size:.8rem;font-family:inherit;">
+        <option value="">すべての種別</option>
+        <option value="column-create">コラム投稿</option>
+        <option value="case-create">事例投稿</option>
+        <option value="page-edit">ページ編集</option>
+      </select>
+      <span id="hist-count" style="font-size:.78rem;color:var(--ink-mute);font-weight:700;"></span>
+    </div>
+    <div id="history-list"><p style="font-size:.85rem;color:var(--ink-mute);">読み込み中…</p></div>
+  </div>
+
 </div>
 
-<!-- 共通レンダラ（生成スクリプトと共有） -->
-<script src="../assets/js/render.js"></script>
+<script src="./admin.js"></script>
 <script>
 (function(){
-  'use strict';
-  var R = window.FukuenRender;
-  var dirHandle = null;
-  var data = null;
-  var tab = 'cases';           // cases | columns | taxo
-  var editing = null;          // {kind, index|null}
+  var listEl = document.getElementById('history-list');
+  var current = {entries:[]};
 
-  var $ = function(id){ return document.getElementById(id); };
-  function setStatus(msg, cls){ var s=$('status'); s.className='status'+(cls?(' '+cls):''); s.innerHTML=msg; }
-  function esc(s){ return R.esc(s); }
+  var ACTION_LABEL = {
+    'column-create': {label:'コラム投稿', cls:''},
+    'case-create':   {label:'事例投稿',   cls:'image'},
+    'page-edit':     {label:'ページ編集', cls:'edit'},
+    'image':         {label:'画像',       cls:'image'}
+  };
 
-  var BLOCK_TYPES = [
-    ['lead','リード（導入・強調）'],['h2','見出し(H2)'],['h3','小見出し(H3)'],
-    ['p','本文'],['quote','引用・囲み'],['ul','箇条書き(・)'],['ol','番号リスト'],['advice','カウンセラーから']
-  ];
-
-  /* ---------- フォルダを開く ---------- */
-  $('btn-open').addEventListener('click', async function(){
-    if(!window.showDirectoryPicker){
-      setStatus('お使いのブラウザはフォルダ書き込みに対応していません。<b>Google Chrome / Microsoft Edge</b> でこのページを開いてください。（データのダウンロード編集も可能です）','warn');
-      return fallbackLoad();
-    }
-    try{
-      dirHandle = await window.showDirectoryPicker({ mode:'readwrite' });
-      var dataDir = await dirHandle.getDirectoryHandle('data');
-      var fh = await dataDir.getFileHandle('site-data.json');
-      var file = await fh.getFile();
-      data = JSON.parse(await file.text());
-      $('app').classList.remove('hidden');
-      $('btn-publish').classList.remove('hidden');
-      setStatus('読み込み完了：事例 '+data.cases.length+' 件 / コラム '+data.columns.length+' 件。編集後は「公開」で反映します。','ok');
-      renderList();
-    }catch(e){
-      if(e && e.name==='AbortError') return;
-      setStatus('読み込みに失敗しました：'+esc(e.message)+'<br><small>フォルダは <code>fukuenyasan-hp</code>（<code>data/site-data.json</code> を含む階層）を選択してください。</small>','err');
-    }
-  });
-
-  async function fallbackLoad(){
-    try{
-      var res = await fetch('../data/site-data.json',{cache:'no-store'});
-      data = await res.json();
-      $('app').classList.remove('hidden');
-      renderList();
-    }catch(e){ setStatus('データの取得に失敗しました：'+esc(e.message),'err'); }
-  }
-
-  /* ---------- タブ ---------- */
-  document.querySelectorAll('.tab').forEach(function(t){
-    t.addEventListener('click', function(){
-      document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});
-      t.classList.add('on'); tab=t.dataset.tab; showTab();
-    });
-  });
-  function showTab(){
-    $('view-edit').classList.add('hidden');
-    if(tab==='taxo'){
-      $('view-list').classList.add('hidden'); $('view-taxo').classList.remove('hidden');
-      $('taxo-json').value = JSON.stringify(data.taxonomies, null, 2); $('taxo-msg').textContent='';
-    }else{
-      $('view-taxo').classList.add('hidden'); $('view-list').classList.remove('hidden');
-      renderList();
-    }
-  }
-
-  /* ---------- 一覧 ---------- */
-  function renderList(){
-    var items = data[tab]; // cases | columns
-    $('list-title').textContent = tab==='cases' ? '事例' : 'コラム';
-    var box=$('list'); box.innerHTML='';
-    if(!items.length){ box.innerHTML='<div class="empty">まだありません。「＋ 新規追加」から作成してください。</div>'; return; }
-    items.forEach(function(it, i){
-      var tags = tab==='cases'
-        ? [tlabel('genders',it.gender), tlabel('regions',it.region), tlabel('situations',it.situation), tlabel('partnerTypes',it.partnerType)].join(' ・ ')
-        : (it.category+' ・ '+it.date);
-      var row=document.createElement('div'); row.className='row';
-      row.innerHTML='<div class="meta"><div class="rtitle">'+esc(it.title||'(無題)')+'</div><div class="rtags">'+esc(tags)+' ／ <code>'+esc(it.slug)+'</code></div></div>'+
-        '<div class="acts"><button class="btn-sm" data-edit="'+i+'">編集</button><button class="btn-sm btn-del" data-del="'+i+'">削除</button></div>';
-      box.appendChild(row);
-    });
-    box.querySelectorAll('[data-edit]').forEach(function(b){ b.onclick=function(){ openEditor(+b.dataset.edit); }; });
-    box.querySelectorAll('[data-del]').forEach(function(b){ b.onclick=function(){
-      var i=+b.dataset.del;
-      if(confirm('「'+(data[tab][i].title||'')+'」を削除します。よろしいですか？\n（公開するとページも次回再生成時に反映されます）')){
-        data[tab].splice(i,1); renderList();
-      }
-    }; });
-  }
-  function tlabel(tkey,slug){ var a=data.taxonomies[tkey]||[]; for(var i=0;i<a.length;i++) if(a[i].slug===slug) return a[i].short||a[i].label; return slug||'-'; }
-  function opts(tkey,val){ return (data.taxonomies[tkey]||[]).map(function(t){ return '<option value="'+esc(t.slug)+'"'+(t.slug===val?' selected':'')+'>'+esc(t.label)+'</option>'; }).join(''); }
-
-  $('btn-new').addEventListener('click', function(){ openEditor(null); });
-
-  /* ---------- エディタ ---------- */
-  function blankCase(){ return {slug:'',title:'',gender:'female',age:'30代',region:'tokyo',situation:'sudden',partnerType:'busy',duration:'約3ヶ月',excerpt:'',body:[{t:'lead',x:''},{t:'h2',x:'ご相談時の状況'},{t:'p',x:''}]}; }
-  function blankColumn(){ return {slug:'',title:'',category:(data.taxonomies.columnCategories||['コラム'])[0],date:'2026-07-07',excerpt:'',body:[{t:'p',x:''},{t:'h2',x:''},{t:'p',x:''}]}; }
-
-  function openEditor(index){
-    editing = { kind:tab, index:index };
-    var it = index==null ? (tab==='cases'?blankCase():blankColumn()) : JSON.parse(JSON.stringify(data[tab][index]));
-    editing.draft = it;
-    $('view-list').classList.add('hidden'); $('view-edit').classList.remove('hidden');
-    $('view-edit').innerHTML = tab==='cases' ? caseForm(it) : columnForm(it);
-    wireEditor();
-  }
-
-  function metaField(id,label,val,hint){ return '<div class="field"><label>'+label+(hint?' <span class="hint">'+hint+'</span>':'')+'</label><input type="text" id="'+id+'" value="'+esc(val||'')+'"></div>'; }
-
-  function caseForm(it){
-    return '<div class="editor"><h2>'+(editing.index==null?'事例を新規作成':'事例を編集')+'</h2>'+
-      '<div class="grid2">'+
-        metaField('f-title','タイトル',it.title)+
-        metaField('f-slug','スラッグ（URL）',it.slug,'半角英数字・ハイフン。例 tokyo-sudden-30f')+
-      '</div>'+
-      '<div class="grid3">'+
-        selField('f-gender','性別・年代区分','genders',it.gender)+
-        selField('f-region','地域','regions',it.region)+
-        selField('f-situation','状況','situations',it.situation)+
-      '</div>'+
-      '<div class="grid3">'+
-        selField('f-partner','相手のタイプ','partnerTypes',it.partnerType)+
-        metaField('f-age','年代表記',it.age,'例 30代')+
-        metaField('f-duration','ご相談期間の目安',it.duration,'例 約4ヶ月')+
-      '</div>'+
-      '<div class="field"><label>一覧・検索用の要約（excerpt）</label><textarea id="f-excerpt" rows="2">'+esc(it.excerpt)+'</textarea></div>'+
-      bodyEditor(it.body)+
-      editorFoot();
-  }
-  function columnForm(it){
-    var catOpts=(data.taxonomies.columnCategories||[]).map(function(c){return '<option'+(c===it.category?' selected':'')+'>'+esc(c)+'</option>';}).join('');
-    return '<div class="editor"><h2>'+(editing.index==null?'コラムを新規作成':'コラムを編集')+'</h2>'+
-      '<div class="grid2">'+
-        metaField('f-title','タイトル',it.title)+
-        metaField('f-slug','スラッグ（URL）',it.slug,'半角英数字・ハイフン')+
-      '</div>'+
-      '<div class="grid2">'+
-        '<div class="field"><label>カテゴリ</label><select id="f-category">'+catOpts+'</select></div>'+
-        metaField('f-date','公開日',it.date,'例 2026-07-07')+
-      '</div>'+
-      '<div class="field"><label>一覧・検索用の要約（excerpt）</label><textarea id="f-excerpt" rows="2">'+esc(it.excerpt)+'</textarea></div>'+
-      bodyEditor(it.body)+
-      editorFoot();
-  }
-  function selField(id,label,tkey,val){ return '<div class="field"><label>'+label+'</label><select id="'+id+'">'+opts(tkey,val)+'</select></div>'; }
-  function editorFoot(){ return '<div class="editor-foot"><button class="btn btn-primary" id="e-save">保存する</button><button class="btn btn-sm" id="e-cancel">キャンセル</button><span class="sp"></span><span class="hint" style="align-self:center">保存後、上部の「公開」で全ページに反映</span></div></div>'; }
-
-  function bodyEditor(body){
-    return '<div class="field"><label>本文（ブロックを積み重ねて構成）</label><div class="blocks" id="blocks">'+
-      body.map(blockRow).join('')+
-      '</div><button class="btn-sm" id="b-add" style="margin-top:8px">＋ ブロックを追加</button></div>';
-  }
-  function blockRow(b){
-    var sel='<select class="b-type">'+BLOCK_TYPES.map(function(t){return '<option value="'+t[0]+'"'+(t[0]===b.t?' selected':'')+'>'+t[1]+'</option>';}).join('')+'</select>';
-    var isList=(b.t==='ul'||b.t==='ol');
-    var val = isList ? (b.items||[]).join('\n') : (b.x||'');
-    var ph = isList ? '1行に1項目' : '';
-    return '<div class="block">'+
-      '<div class="block-top">'+sel+'<span class="bsp"></span>'+
-        '<button class="icon-btn b-up" title="上へ">↑</button>'+
-        '<button class="icon-btn b-down" title="下へ">↓</button>'+
-        '<button class="icon-btn b-del" title="削除">×</button>'+
-      '</div>'+
-      '<textarea class="b-text" rows="'+(b.t==='p'||b.t==='lead'?3:2)+'" placeholder="'+ph+'">'+esc(val)+'</textarea>'+
-    '</div>';
-  }
-
-  function wireEditor(){
-    $('e-cancel').onclick=function(){ $('view-edit').classList.add('hidden'); $('view-list').classList.remove('hidden'); };
-    $('e-save').onclick=saveDraft;
-    $('b-add').onclick=function(){ var d=document.createElement('div'); d.innerHTML=blockRow({t:'p',x:''}); $('blocks').appendChild(d.firstChild); wireBlocks(); };
-    wireBlocks();
-  }
-  function wireBlocks(){
-    var box=$('blocks');
-    box.querySelectorAll('.block').forEach(function(bl){
-      bl.querySelector('.b-del').onclick=function(){ bl.remove(); };
-      bl.querySelector('.b-up').onclick=function(){ var p=bl.previousElementSibling; if(p) box.insertBefore(bl,p); };
-      bl.querySelector('.b-down').onclick=function(){ var n=bl.nextElementSibling; if(n) box.insertBefore(n,bl); };
-      bl.querySelector('.b-type').onchange=function(){}; // 型は保存時に反映
-    });
-  }
-  function collectBlocks(){
-    var out=[];
-    $('blocks').querySelectorAll('.block').forEach(function(bl){
-      var t=bl.querySelector('.b-type').value;
-      var raw=bl.querySelector('.b-text').value;
-      if(t==='ul'||t==='ol'){ var items=raw.split('\n').map(function(s){return s.trim();}).filter(Boolean); out.push({t:t,items:items}); }
-      else{ out.push({t:t,x:raw.trim()}); }
-    });
-    return out;
-  }
-  function val(id){ var e=$(id); return e?e.value.trim():''; }
-
-  function saveDraft(){
-    var it = editing.draft;
-    it.title=val('f-title'); it.slug=val('f-slug'); it.excerpt=val('f-excerpt'); it.body=collectBlocks();
-    if(tab==='cases'){
-      it.gender=val('f-gender'); it.region=val('f-region'); it.situation=val('f-situation');
-      it.partnerType=val('f-partner'); it.age=val('f-age'); it.duration=val('f-duration');
-    }else{
-      it.category=val('f-category'); it.date=val('f-date');
-    }
-    if(!it.title){ alert('タイトルを入力してください。'); return; }
-    if(!/^[a-z0-9-]+$/.test(it.slug)){ alert('スラッグは半角英数字とハイフンで入力してください。'); return; }
-    // 重複slugチェック
-    var dup = data[tab].some(function(o,i){ return o.slug===it.slug && i!==editing.index; });
-    if(dup){ alert('同じスラッグが既に存在します。別の値にしてください。'); return; }
-
-    if(editing.index==null) data[tab].push(it);
-    else data[tab][editing.index]=it;
-    $('view-edit').classList.add('hidden'); $('view-list').classList.remove('hidden');
-    renderList();
-  }
-
-  /* ---------- タクソノミ反映 ---------- */
-  $('btn-taxo-apply').addEventListener('click', function(){
-    try{
-      var parsed=JSON.parse($('taxo-json').value);
-      data.taxonomies=parsed;
-      $('taxo-msg').textContent='反映しました。「公開」で保存されます。'; $('taxo-msg').style.color='var(--ok)';
-    }catch(e){ $('taxo-msg').textContent='JSONの形式に誤りがあります：'+e.message; $('taxo-msg').style.color='var(--err)'; }
-  });
-
-  /* ---------- 公開（全ページ再生成） ---------- */
-  $('btn-publish').addEventListener('click', async function(){
-    if(!dirHandle){
-      // フォールバック：JSONダウンロード
-      downloadJson();
-      setStatus('このブラウザでは自動書き込みができないため、<b>site-data.json をダウンロード</b>しました。<br>これを <code>fukuenyasan-hp/data/</code> に上書き保存し、ターミナルで <code>node tools/generate.cjs</code> を実行してください。','warn');
+  function render(){
+    var filter = document.getElementById('filter-action').value;
+    var entries = current.entries.filter(function(e){ return !filter || e.action === filter; });
+    document.getElementById('hist-count').textContent = entries.length + ' 件';
+    if(!entries.length){
+      listEl.innerHTML = '<p style="font-size:.85rem;color:var(--ink-mute);">履歴はまだありません。コラム投稿やページ編集を行うと、ここに記録されます。</p>';
       return;
     }
-    if(!confirm('現在の内容で全ページ（事例・コラム・カテゴリ）を再生成します。よろしいですか？')) return;
-    setStatus('公開中… ページを生成しています。','warn');
-    try{
-      // 1) data/site-data.json を保存
-      await writeFile(['data','site-data.json'], JSON.stringify(data,null,2));
-      // 2) 全ページ生成
-      var pages = R.buildAll(data);
-      for(var i=0;i<pages.length;i++){
-        var parts = pages[i].path.split('/');
-        await writeFile(parts, pages[i].html);
-      }
-      // 3) sitemap.xml / robots.txt
-      var SITE_URL='https://fukuenyasan.jp/';
-      var urls=['index.html'].concat(pages.map(function(p){return p.path;}));
-      var sm='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+
-        urls.map(function(u){return '  <url><loc>'+SITE_URL+u.replace(/index\.html$/,'')+'</loc></url>';}).join('\n')+
-        '\n</urlset>\n';
-      await writeFile(['sitemap.xml'], sm);
-      await writeFile(['robots.txt'], 'User-agent: *\nAllow: /\nSitemap: '+SITE_URL+'sitemap.xml\n');
+    listEl.innerHTML = entries.map(function(e){
+      var a = ACTION_LABEL[e.action] || {label:e.action, cls:'edit'};
+      var changes = (e.changes||[]).map(function(c){
+        var kind = c.type==='text' ? '文章' : c.type==='image-replace' ? '画像差替' : c.type==='image-add' ? '画像追加' : c.type==='image-alt' ? '代替文' : (c.type||'変更');
+        return '<div style="margin-bottom:10px;">' +
+          '<div style="font-weight:900;margin-bottom:4px;"><span class="adm-history-kind '+(c.type&&c.type.indexOf('image')===0?'image':'edit')+'" style="min-width:auto;">'+Admin.esc(kind)+'</span> <code style="font-size:.72rem;color:var(--ink-mute);">'+Admin.esc(c.target||'')+'</code></div>' +
+          '<div class="adm-diff">' +
+            '<div class="before"><span class="label">変更前</span>'+Admin.esc(c.before||'（なし）')+'</div>' +
+            '<div class="after"><span class="label">変更後</span>'+Admin.esc(c.after||'（なし）')+'</div>' +
+          '</div></div>';
+      }).join('');
+      return '<details class="adm-history-item">' +
+        '<summary>' +
+          '<span class="adm-history-kind '+a.cls+'">'+Admin.esc(a.label)+'</span>' +
+          '<span class="adm-history-date">'+Admin.fmtDateTime(e.timestamp)+'</span>' +
+          '<span class="adm-history-page">'+Admin.esc(e.page||'')+'</span>' +
+          '<span class="adm-history-sum">'+Admin.esc(e.summary||'')+(e.note?' <em style="color:#B0851E;">※'+Admin.esc(e.note)+'</em>':'')+'</span>' +
+        '</summary>' +
+        '<div class="adm-history-body">' + (changes || '<p style="color:var(--ink-mute);">詳細情報なし</p>') + '</div>' +
+      '</details>';
+    }).join('');
+  }
 
-      setStatus('✅ 公開完了：'+pages.length+' ページ ＋ sitemap.xml を再生成しました。ブラウザで各ページを再読み込みして確認できます。','ok');
-    }catch(e){
-      setStatus('公開中にエラーが発生しました：'+esc(e.message),'err');
-    }
+  async function load(){
+    current = await Admin.loadHistory();
+    if(!Array.isArray(current.entries)) current = {entries:[]};
+    render();
+  }
+
+  document.getElementById('btn-reload').addEventListener('click', load);
+  document.getElementById('filter-action').addEventListener('change', render);
+  document.getElementById('btn-dl-json').addEventListener('click', function(){
+    Admin.download('history.json', JSON.stringify(current, null, 2), 'application/json');
   });
-
-  async function writeFile(parts, content){
-    var dir=dirHandle;
-    for(var i=0;i<parts.length-1;i++){ dir=await dir.getDirectoryHandle(parts[i],{create:true}); }
-    var fh=await dir.getFileHandle(parts[parts.length-1],{create:true});
-    var w=await fh.createWritable(); await w.write(content); await w.close();
-  }
-  function downloadJson(){
-    var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-    var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='site-data.json'; a.click();
-  }
+  document.addEventListener('adm:connected', load);
+  load();
 })();
 </script>
 </body>
