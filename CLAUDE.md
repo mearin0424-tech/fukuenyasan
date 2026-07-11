@@ -82,10 +82,16 @@ fukuenyasan-hp/
     └── img/                  LPから複製したdoctor.png / fukuenyasan-top.png / fukuenyasan-nayami.jpg + results/*.png（16タイプ）+ column/・uploads/（管理画面からの投稿画像）
 ```
 
+**HPの生成アーキテクチャ（重要）**:
+- **トップ `index.html` 以外の全81ページは `node tools/generate.cjs` で生成される**。共通部品（プレヘッダー/ヘッダー/フッター/固定CTA/レイアウト）は `assets/js/render.js`、コンテンツデータは `data/site-data.json`。**ヘッダー等を変えるときは render.js を編集→`node tools/generate.cjs` で全ページ再生成**（sitemap.xml / robots.txt も再生成される）。手で生成済みHTMLを直接編集しても次回生成で消える。
+- **トップ `index.html` だけは手書き**。render.js のヘッダー/フッターを変えたらトップにも手動で同期すること（ばらつきの温床）。
+- この開発機には **Node v24 が入っている**（generate.cjs 実行可）。
+
 **HP編集時の注意**:
-- 全ページがヘッダ/フッタ/固定CTA帯を丸ごとコピペで持っている（静的サイト・ビルドなし）。ナビ項目・フッタリンクを変える場合は全ページに反映が必要。ナビは8項目固定：私たちについて / サービス / ケース別 / 場面別 / 地域別 / 料金 / コラム / FAQ。
-- ヘッダのCTAボタン文言は「▶ 無料相談」、固定下部CTA帯は「▶ 無料相談フォーム」と「📞 03-5356-8550」。**固定CTA帯（`.mobile-cta`）はモバイルだけでなく全画面幅で常時表示**（デスクトップは中央寄せ・ボタン最大340px。`body{padding-bottom:76px}` とセット。クラス名は歴史的経緯で mobile-cta のまま）。
-- フッタは4カラム：ブランド+所在地 / サービス・ケース / 地域・プロフィール別 / 会社情報・サポート。
+- デザインは**アイボリー(#F6F3EE)×濃紺(--navy)×ボルドー(--rose #8E3E49)×金ヘアライン(--gold)**の誠実・専門系。明朝（Shippori Mincho）見出し+EB Garamond英字キッカー。
+- ヘッダー構成: **プレヘッダー**（濃紺バー: 探偵業届出番号・24時間受付 + ご相談者の声/FAQ/「管理画面ログイン」チップ）→ 白ヘッダー（ブランド / ナビ6項目: サービス・事例・場面別・地域別・料金・コラム / 電話番号 + **「無料診断」アウトラインボタン + 「無料相談はこちら」塗りボタン**）。レスポンシブ: ≤1240pxで電話非表示 → ≤1024pxでナビがハンバーガー化（メニュー末尾に診断/相談CTA行 `.gnav-cta`）→ ≤720pxで診断ボタン非表示・プレヘッダーは管理リンクのみ。
+- 管理画面への導線はプレヘッダー右端とフッター最下段の「🔒管理画面ログイン」チップ（`rel="nofollow"`・admin側はnoindex維持）。
+- フッタは4カラム：ブランド+所在地 / CONTENTS / ABOUT / SUPPORT。モバイル固定CTA帯（`.cta-fixed`）は≤720pxのみ表示（フォーム+電話）。
 - 文言ポリシーはLPの`listing.html`と同等の「結果非保証・断定なし・最上級なし」を全ページ徹底。「必ず復縁できる」「業界最安」「100%」「成功率」等は一切使わない。「工作」「別れさせ」「心理戦略」「接触工作」も使わない（recreation/状況分析/お話を伺うで置き換え）。
 - お客様の声・体験談には必ず`<p class="voice-disclaimer">※個人の感想です。同様の結果を保証するものではありません。</p>`を付ける。
 - 価格訴求は事実ベース（月々6,300円〜、自社分割、明朗会計）のみ。
@@ -161,7 +167,8 @@ npx http-server fukuenyasan-lp -p 8123 -c-1
 
 - **PHP（`api/mail.php`・`avm_chatwork.php`）は本番 `fukuenyasan.jp` でのみ動作**。ローカルにPHP環境はなく、フォーム送信はローカルでは完結しない。
 - `shared/diagnosis.html` は `fetch('../data/*.csv')` で結果データを読むため、`file://` 直開きではCORSで失敗する。必ず静的サーバ経由で開く。
-- **HP（`fukuenyasan-hp/`）のプレビュー**: この開発機には Node / Python が無いため、PowerShell HttpListener 製の静的サーバ `fukuenyasan-hp/.claude/serve.ps1` を用意してある（`fukuenyasan-hp/.claude/launch.json` の `hp`、ポート8124、配信ルート＝`fukuenyasan-hp/`）。Claude Code のプレビューでは `preview_start("hp")` で起動できる。
+- **HP（`fukuenyasan-hp/`）のプレビュー**: PowerShell HttpListener 製の静的サーバ `fukuenyasan-hp/.claude/serve.ps1`（ポート8124、配信ルート＝`fukuenyasan-hp/`）。起動定義は `fukuenyasan-hp/.claude/launch.json` と **`fukuenyasan-lp/.claude/launch.json` の両方に `hp` がある**（Claude Code の作業ディレクトリがLP側でも `preview_start("hp")` できるように）。HPページ内の `../fukuenyasan-lp/...` リンク（フォーム/診断）はこのサーバの配信ルート外なので404になる—仕様。
+- HPページの再生成: `node tools/generate.cjs`（Node v24 導入済み。トップ index.html は生成対象外＝手書き）。
 
 ## レスポンシブ崩れの自動チェック（スマホ表示テスト）
 
