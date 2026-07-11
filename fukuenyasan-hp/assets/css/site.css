@@ -181,9 +181,59 @@ section { padding: 96px 0; }
   letter-spacing: .1em;
   padding: 12px 26px;
   border-radius: 999px;
-  transition: background .25s ease;
+  border: 1px solid var(--rose);
+  transition: background .25s ease, color .25s ease;
+  white-space: nowrap;
 }
-.btn-header:hover { background: var(--rose-deep); }
+.btn-header:hover { background: var(--rose-deep); border-color: var(--rose-deep); }
+/* 無料診断（アウトライン版） */
+.btn-header--ghost {
+  background: transparent;
+  color: var(--rose);
+}
+.btn-header--ghost:hover { background: var(--rose-soft); color: var(--rose-deep); }
+
+/* ---------- プレヘッダー（信頼情報バー） ---------- */
+.pre-header {
+  background: var(--navy);
+  color: var(--navy-text);
+  font-size: 11.5px;
+  letter-spacing: .05em;
+}
+.pre-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  height: 34px;
+}
+.pre-header-note {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.pre-header-links { display: flex; align-items: center; gap: 18px; flex-shrink: 0; }
+.pre-header-links a { color: var(--navy-text); transition: color .2s ease; white-space: nowrap; }
+.pre-header-links a:hover { color: #fff; }
+.pre-header-admin {
+  border: 1px solid var(--navy-line);
+  border-radius: 999px;
+  padding: 3px 12px;
+  font-size: 10.5px;
+  letter-spacing: .08em;
+}
+.pre-header-admin:hover { border-color: var(--gold-light); color: var(--gold-light) !important; }
+
+/* モバイルメニュー内のCTA行（デスクトップでは非表示） */
+.gnav-cta { display: none; }
+
+/* キーボード操作時のフォーカス可視化（アクセシビリティ） */
+a:focus-visible, button:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--rose);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
 
 /* ハンバーガー */
 .menu-toggle {
@@ -372,6 +422,7 @@ section { padding: 96px 0; }
 .service-card {
   background: var(--paper);
   border: 1px solid var(--line);
+  border-top: 2px solid var(--gold-light);
   border-radius: 6px;
   padding: 34px 26px;
   transition: transform .3s ease, box-shadow .3s ease;
@@ -446,10 +497,13 @@ section { padding: 96px 0; }
 .expert-card {
   background: var(--paper);
   border: 1px solid var(--line);
+  border-top: 2px solid var(--gold-light);
   border-radius: 6px;
   padding: 36px 24px;
   text-align: center;
+  transition: transform .3s ease, box-shadow .3s ease;
 }
+.expert-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
 .expert-emblem {
   width: 74px; height: 74px;
   margin: 0 auto 20px;
@@ -768,6 +822,17 @@ section { padding: 96px 0; }
 }
 .footer-bottom a { color: #A7AEBC; transition: color .2s ease; }
 .footer-bottom a:hover { color: #fff; }
+/* 管理画面ログイン（施錠アイコン付きチップ） */
+.footer-admin {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid #2A3346;
+  border-radius: 999px;
+  padding: 3px 12px;
+}
+.footer-admin:hover { border-color: var(--gold-light); color: var(--gold-light) !important; }
+.footer-admin svg { flex-shrink: 0; }
 
 /* ---------- モバイル固定CTA ---------- */
 .cta-fixed {
@@ -814,10 +879,15 @@ section { padding: 96px 0; }
 /* =====================================================
    レスポンシブ
    ===================================================== */
+/* ヘッダーが窮屈になる帯域では電話表記を先に畳む（ボタン2つを優先） */
+@media (max-width: 1240px) {
+  .header-tel { display: none; }
+}
+
 @media (max-width: 1024px) {
   .gnav { display: none; }
   .menu-toggle { display: block; }
-  .header-tel { display: none; }
+  .pre-header-links li:not(:last-child) { display: none; } /* モバイル近傍は管理リンクのみ残す */
 
   .gnav.is-open {
     display: block;
@@ -830,6 +900,14 @@ section { padding: 96px 0; }
   }
   .gnav.is-open ul { flex-direction: column; gap: 0; }
   .gnav.is-open a { display: block; padding: 14px 28px; font-size: 14.5px; }
+  /* メニュー内CTA（無料診断・無料相談） */
+  .gnav.is-open .gnav-cta {
+    display: block;
+    border-top: 1px solid var(--line);
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+  .gnav.is-open .gnav-cta a { color: var(--rose); font-weight: 700; }
 
   .framework-grid, .price-grid { grid-template-columns: 1fr; }
   .service-grid, .expert-grid, .flow-grid { grid-template-columns: repeat(2, 1fr); }
@@ -843,6 +921,10 @@ section { padding: 96px 0; }
   body { font-size: 14.5px; }
 
   .btn-header { padding: 10px 16px; font-size: 12px; }
+  .btn-header--ghost { display: none; } /* 狭幅はメニュー内CTAと固定バーで担保 */
+  .pre-header { font-size: 10.5px; }
+  .pre-header-note { display: none; } /* 届出番号はフッターで参照可能 */
+  .pre-header-inner { justify-content: flex-end; height: 30px; }
 
   .hero { padding: 48px 0 64px; }
   .hero-grid { grid-template-columns: 1fr; gap: 48px; }

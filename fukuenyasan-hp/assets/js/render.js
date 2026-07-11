@@ -66,6 +66,16 @@
       return '<li><a href="' + href + '"' + cur + '>' + label + '</a></li>';
     }
     return '' +
+'<div class="pre-header" role="complementary" aria-label="運営情報">\n' +
+'  <div class="container pre-header-inner">\n' +
+'    <p class="pre-header-note">探偵業届出 第30210334号（株式会社Azucar）｜ご相談受付 24時間・秘密厳守・全国対応</p>\n' +
+'    <ul class="pre-header-links">\n' +
+'      <li><a href="' + L.voice + '">ご相談者の声</a></li>\n' +
+'      <li><a href="' + L.faq + '">よくあるご質問</a></li>\n' +
+'      <li><a href="' + L.admin + '" class="pre-header-admin" rel="nofollow">管理画面ログイン</a></li>\n' +
+'    </ul>\n' +
+'  </div>\n' +
+'</div>\n' +
 '<header class="site-header" id="site-header">\n' +
 '  <div class="container header-inner">\n' +
 '    <a href="' + L.home + '" class="brand" aria-label="復縁屋さん トップへ">\n' +
@@ -76,10 +86,14 @@
 '      <ul>\n' +
         item(L.home + '#service', 'サービス', 'service') +
         item(L.caseIndex, '事例', 'case') +
-        item(L.regionIndex, '地域別', 'region') +
         item(L.situationIndex, '場面別', 'situation') +
+        item(L.regionIndex, '地域別', 'region') +
+        item(L.price, '料金', 'price') +
         item(L.colIndex, 'コラム', 'column') +
-        item(L.diagnosis, '無料診断', 'diagnosis') +
+'        <li class="gnav-cta">\n' +
+'          <a href="' + L.diagnosis + '">12問の無料復縁診断を試す →</a>\n' +
+'          <a href="' + L.contact + '">無料相談フォームへ →</a>\n' +
+'        </li>\n' +
 '      </ul>\n' +
 '    </nav>\n' +
 '    <div class="header-cta">\n' +
@@ -87,6 +101,7 @@
 '        <a href="' + L.tel + '" class="header-tel-num">03-5356-8550</a>\n' +
 '        <span class="header-tel-note">受付 24時間 / 秘密厳守</span>\n' +
 '      </div>\n' +
+'      <a href="' + L.diagnosis + '" class="btn-header btn-header--ghost">無料診断</a>\n' +
 '      <a href="' + L.contact + '" class="btn-header">無料相談はこちら</a>\n' +
 '      <button class="menu-toggle" id="menu-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="gnav">\n' +
 '        <span></span><span></span><span></span>\n' +
@@ -143,7 +158,7 @@
 '    </div>\n' +
 '    <div class="footer-bottom">\n' +
 '      <p>当社は探偵業法に基づき適正に運営しております。法令・公序良俗に反するご依頼はお受けできません。</p>\n' +
-'      <p><a href="' + L.privacy + '">プライバシーポリシー</a>　<a href="' + L.tokushoho + '">特定商取引法に基づく表示</a>　<a href="' + L.admin + '">サイト管理</a></p>\n' +
+'      <p><a href="' + L.privacy + '">プライバシーポリシー</a>　<a href="' + L.tokushoho + '">特定商取引法に基づく表示</a>　<a href="' + L.admin + '" class="footer-admin" rel="nofollow"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> 管理画面ログイン</a></p>\n' +
 '      <p>© 2026 Azucar Inc. All Rights Reserved.</p>\n' +
 '    </div>\n' +
 '  </div>\n' +
